@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-service
+  template:
+    metadata:
+      labels:
+        app: blog-service
+
+    spec:
+      # 앱이 worker 노드에만 뜨도록 설정
+      nodeSelector:
+        workload: app
+      containers:
+        - name: blog-app
+          image: gcr.io/[프로젝트ID]/blog-service:latest
+          ports:
+            - containerPort: 1004
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+
+            - name: DB_USERNAME
+              valueFrom:
+                 secretKeyRef:
+                    name: db-secret
+                    key: username
+
+            - name: DB_PASSWORD
+              valueFrom:
+                 secretKeyRef:
+                    name: db-secret
+                    key: password
+
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:latest
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=project-7b807370-b91e-4dda-802:asia-northeast3:momen-tory"

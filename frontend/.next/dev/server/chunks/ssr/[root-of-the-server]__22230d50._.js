@@ -1,0 +1,1029 @@
+module.exports = [
+"[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("react/jsx-dev-runtime", () => require("react/jsx-dev-runtime"));
+
+module.exports = mod;
+}),
+"[project]/src/styles/layout/layout.module.css [ssr] (css module)", ((__turbopack_context__) => {
+
+__turbopack_context__.v({
+  "Link": "layout-module__oXCPXq__Link",
+  "leftSection": "layout-module__oXCPXq__leftSection",
+  "navLink": "layout-module__oXCPXq__navLink",
+  "rightItem": "layout-module__oXCPXq__rightItem",
+  "rightSection": "layout-module__oXCPXq__rightSection",
+  "topbar": "layout-module__oXCPXq__topbar",
+});
+}),
+"[externals]/fs [external] (fs, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("fs", () => require("fs"));
+
+module.exports = mod;
+}),
+"[externals]/stream [external] (stream, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("stream", () => require("stream"));
+
+module.exports = mod;
+}),
+"[externals]/zlib [external] (zlib, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("zlib", () => require("zlib"));
+
+module.exports = mod;
+}),
+"[externals]/react-dom [external] (react-dom, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("react-dom", () => require("react-dom"));
+
+module.exports = mod;
+}),
+"[project]/src/styles/userService/LoginModal.module.css [ssr] (css module)", ((__turbopack_context__) => {
+
+__turbopack_context__.v({
+  "closeButton": "LoginModal-module__9G312W__closeButton",
+  "footer": "LoginModal-module__9G312W__footer",
+  "form": "LoginModal-module__9G312W__form",
+  "iconButton": "LoginModal-module__9G312W__iconButton",
+  "input": "LoginModal-module__9G312W__input",
+  "leftSection": "LoginModal-module__9G312W__leftSection",
+  "loginButton": "LoginModal-module__9G312W__loginButton",
+  "modalBox": "LoginModal-module__9G312W__modalBox",
+  "overlay": "LoginModal-module__9G312W__overlay",
+  "rightSection": "LoginModal-module__9G312W__rightSection",
+  "signupLink": "LoginModal-module__9G312W__signupLink",
+  "socialIcons": "LoginModal-module__9G312W__socialIcons",
+  "socialLabel": "LoginModal-module__9G312W__socialLabel",
+  "socialSection": "LoginModal-module__9G312W__socialSection",
+  "subTitle": "LoginModal-module__9G312W__subTitle",
+  "title": "LoginModal-module__9G312W__title",
+  "welcomeText": "LoginModal-module__9G312W__welcomeText",
+});
+}),
+"[project]/src/config/env.ts [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "BLOGSERVICE_API",
+    ()=>BLOGSERVICE_API,
+    "CHATSERVICE_API",
+    ()=>CHATSERVICE_API,
+    "COMMUNITYSERVICE_API",
+    ()=>COMMUNITYSERVICE_API,
+    "FEEDSERVICE_API",
+    ()=>FEEDSERVICE_API,
+    "GATEWAY_API_URL",
+    ()=>GATEWAY_API_URL,
+    "NOTIFICATIONSERVEICE_API",
+    ()=>NOTIFICATIONSERVEICE_API,
+    "USERSERVICE_API",
+    ()=>USERSERVICE_API
+]);
+const FEEDSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/feed");
+const NOTIFICATIONSERVEICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/notifi");
+const USERSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/user");
+const BLOGSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/blog");
+const CHATSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/chat");
+const GATEWAY_API_URL = ("TURBOPACK compile-time value", "http://127.0.0.1:1000");
+const COMMUNITYSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1006/community");
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+}),
+"[project]/src/api/userService/user.ts [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// src/api/userService/user.ts (최종 완성본)
+__turbopack_context__.s([
+    "acceptFriend",
+    ()=>acceptFriend,
+    "checkEmail",
+    ()=>checkEmail,
+    "checkNickName",
+    ()=>checkNickName,
+    "checkUserSignId",
+    ()=>checkUserSignId,
+    "login",
+    ()=>login,
+    "requestFriend",
+    ()=>requestFriend,
+    "signup",
+    ()=>signup
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [ssr] (ecmascript)");
+;
+async function signup(userDto) {
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/signup`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userDto)
+    });
+    const text = await response.text();
+    if (response.status === 201) {
+        return {
+            success: true,
+            message: text || "회원가입 성공"
+        };
+    }
+    return {
+        success: false,
+        message: text || "회원가입 실패"
+    };
+}
+async function login(loginDto) {
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(loginDto)
+    });
+    if (!response.ok) {
+        throw new Error(`로그인 실패: ${response.status}`);
+    }
+    const authHeader = response.headers.get("Authorization");
+    const accessToken = authHeader?.startsWith("Bearer ") ? authHeader.substring(7) : "";
+    const body = await response.json();
+    return {
+        userSignId: body.userSignId,
+        role: body.role,
+        refreshToken: body.refreshToken,
+        accessToken
+    };
+}
+async function checkUserSignId(userSignId) {
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existId?userId=${encodeURIComponent(userSignId)}`);
+    const text = await response.text();
+    const available = text.trim() === "not exists";
+    return {
+        available
+    };
+}
+async function checkEmail(email) {
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existEmail?email=${encodeURIComponent(email)}`);
+    const text = await response.text();
+    const available = text.trim() === "not exists";
+    return {
+        available
+    };
+}
+async function checkNickName(nickname) {
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existNickname?nickname=${encodeURIComponent(nickname)}`);
+    const text = await response.text();
+    const available = text.trim() === "not exists";
+    return {
+        available
+    };
+}
+async function requestFriend(requesterSignId, reqDto) {
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/friends`, {
+        method: "POST",
+        headers: {
+            userSignId: requesterSignId,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reqDto)
+    });
+    if (response.status === 201) {
+        return await response.json();
+    }
+    const msg = await response.text();
+    throw new Error(msg || "친구 요청 실패");
+}
+async function acceptFriend(receiverSignId, requesterSignId) {
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/friends/${requesterSignId}/accept`, {
+        method: "PUT",
+        headers: {
+            userSignId: receiverSignId,
+            "Content-Length": "0"
+        }
+    });
+    if (response.ok) {
+        return await response.json();
+    }
+    const msg = await response.text();
+    throw new Error(msg || "친구 수락 실패");
+}
+}),
+"[project]/src/component/userService/LoginModal.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>LoginModal
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/src/styles/userService/LoginModal.module.css [ssr] (css module)"); // 위에서 만든 CSS 경로에 맞게 수정하세요
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$userService$2f$user$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/api/userService/user.ts [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/link.js [ssr] (ecmascript)");
+;
+;
+;
+;
+;
+;
+function LoginModal({ onClose, onLoginSuccess }) {
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [userSignId, setUserSignId] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])("");
+    const [password, setPassword] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])("");
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(null);
+    // 로그인 핸들러
+    async function handleSubmit(event) {
+        event.preventDefault();
+        setError(null);
+        try {
+            const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$userService$2f$user$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["login"])({
+                userSignId,
+                password
+            });
+            // 토큰 저장
+            localStorage.setItem("accessToken", response.accessToken);
+            localStorage.setItem("refreshToken", response.refreshToken);
+            localStorage.setItem("userSignId", response.userSignId);
+            alert("환영합니다!");
+            onLoginSuccess(); // Topbar의 상태를 로그인 됨으로 변경
+            onClose(); // 모달 닫기
+        } catch (err) {
+            console.error(err);
+            setError("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
+        }
+    } // LoginModal.tsx (최고의 로그인 모달)
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].overlay,
+        onClick: onClose,
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].modalBox,
+            onClick: (e)=>e.stopPropagation(),
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].leftSection,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].illustration,
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                role: "img",
+                                "aria-label": "sparkles",
+                                style: {
+                                    fontSize: "4rem"
+                                },
+                                children: "✨"
+                            }, void 0, false, {
+                                fileName: "[project]/src/component/userService/LoginModal.tsx",
+                                lineNumber: 47,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/userService/LoginModal.tsx",
+                            lineNumber: 46,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h2", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].welcomeText,
+                            children: " 다시 만나서 반가워요"
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/userService/LoginModal.tsx",
+                            lineNumber: 49,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].welcomeSub,
+                            children: "오늘도 소중한 순간을 기록해볼까요?"
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/userService/LoginModal.tsx",
+                            lineNumber: 50,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/component/userService/LoginModal.tsx",
+                    lineNumber: 45,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightSection,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].closeButton,
+                            onClick: onClose,
+                            children: "×"
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/userService/LoginModal.tsx",
+                            lineNumber: 55,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h2", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].title,
+                            children: "로그인"
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/userService/LoginModal.tsx",
+                            lineNumber: 57,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("form", {
+                            onSubmit: handleSubmit,
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].form,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("input", {
+                                    type: "text",
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].input,
+                                    placeholder: "아이디",
+                                    value: userSignId,
+                                    onChange: (e)=>setUserSignId(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/userService/LoginModal.tsx",
+                                    lineNumber: 59,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("input", {
+                                    type: "password",
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].input,
+                                    placeholder: "비밀번호",
+                                    value: password,
+                                    onChange: (e)=>setPassword(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/userService/LoginModal.tsx",
+                                    lineNumber: 60,
+                                    columnNumber: 15
+                                }, this),
+                                error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].errorMessage,
+                                    children: error
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/userService/LoginModal.tsx",
+                                    lineNumber: 62,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                                    type: "submit",
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].loginButton,
+                                    children: "로그인"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/userService/LoginModal.tsx",
+                                    lineNumber: 64,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/component/userService/LoginModal.tsx",
+                            lineNumber: 58,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].footer,
+                            children: [
+                                "아직 계정이 없나요? ",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                    href: "/signup",
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$LoginModal$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].signupLink,
+                                    onClick: onClose,
+                                    children: "회원가입"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/userService/LoginModal.tsx",
+                                    lineNumber: 70,
+                                    columnNumber: 27
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/component/userService/LoginModal.tsx",
+                            lineNumber: 69,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/component/userService/LoginModal.tsx",
+                    lineNumber: 54,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/component/userService/LoginModal.tsx",
+            lineNumber: 42,
+            columnNumber: 9
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/src/component/userService/LoginModal.tsx",
+        lineNumber: 41,
+        columnNumber: 7
+    }, this);
+// return (
+//     <div className={styles.overlay} onClick={onClose}>
+//       {/* 모달 내부 클릭 시 닫히지 않도록 stopPropagation */}
+//       <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
+//
+//         {/* --- 왼쪽: 환영 이미지 섹션 --- */}
+//         <div className={styles.leftSection}>
+//           {/* 여기에 이미지를 넣으세요. 예: <img src="/welcome.png" width={150} /> */}
+//           <div style={{ fontSize: "5rem" }}>👋</div> {/* 임시 이모지 */}
+//           <div className={styles.welcomeText}>환영합니다!</div>
+//         </div>
+//
+//         {/* --- 오른쪽: 로그인 폼 섹션 --- */}
+//         <div className={styles.rightSection}>
+//           <button className={styles.closeButton} onClick={onClose}>✕</button>
+//
+//           <h2 className={styles.title}>로그인</h2>
+//           <p className={styles.subTitle}>아이디/비밀번호로 로그인</p>
+//
+//           <form onSubmit={handleSubmit} className={styles.form}>
+//             <input
+//                 type="text"
+//                 className={styles.input}
+//                 placeholder="아이디를 입력하세요."
+//                 value={userSignId}
+//                 onChange={(e) => setUserSignId(e.target.value)}
+//             />
+//             <input
+//                 type="password"
+//                 className={styles.input}
+//                 placeholder="비밀번호를 입력하세요."
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}
+//             />
+//
+//             {error && <div style={{color: 'red', fontSize: '0.8rem'}}>{error}</div>}
+//
+//             <button type="submit" className={styles.loginButton}>로그인</button>
+//           </form>
+//
+//           {/* 소셜 로그인 (모양만 구현) */}
+//           <div className={styles.socialSection}>
+//             <span className={styles.socialLabel}>소셜 계정으로 로그인</span>
+//             <div className={styles.socialIcons}>
+//               <button className={styles.iconButton}>🐱</button> {/* GitHub */}
+//               <button className={styles.iconButton}>G</button> {/* Google */}
+//               <button className={styles.iconButton}>f</button> {/* Facebook */}
+//             </div>
+//           </div>
+//
+//           <div className={styles.footer}>
+//             아직 회원이 아니신가요?{" "}
+//             <Link href="/signup" className={styles.signupLink} onClick={onClose}>
+//               회원가입
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+// );
+}
+}),
+"[project]/src/component/layout/Bar/Topbar.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Topbar
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/src/styles/layout/layout.module.css [ssr] (css module)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/link.js [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$userService$2f$LoginModal$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/component/userService/LoginModal.tsx [ssr] (ecmascript)"); // (경로 확인 필요)
+;
+;
+;
+;
+;
+;
+function Topbar() {
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [isLoggedIn, setIsLoggedIn] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
+    const [showLoginModal, setShowLoginModal] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false); // 모달 표시 상태
+    // 초기 로그인 상태 확인
+    (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
+        checkLoginStatus();
+    }, []);
+    const checkLoginStatus = ()=>{
+        const token = localStorage.getItem("accessToken");
+        setIsLoggedIn(!!token);
+    };
+    // 로그인 성공 시 호출될 함수
+    const handleLoginSuccess = ()=>{
+        checkLoginStatus(); // 상태 갱신 (로그인 버튼 -> 마이페이지로 변경됨)
+    // 필요하면 router.reload() 혹은 router.push('/') 등을 추가
+    };
+    // 로그아웃 함수
+    const handleLogout = ()=>{
+        localStorage.clear();
+        setIsLoggedIn(false);
+        alert("로그아웃 되었습니다.");
+        router.push("/");
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("header", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].topbar,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                        href: "/",
+                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].leftSection,
+                        children: "MomenTory"
+                    }, void 0, false, {
+                        fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                        lineNumber: 40,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("nav", {
+                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightSection,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightItem,
+                                children: "검색"
+                            }, void 0, false, {
+                                fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                                lineNumber: 46,
+                                columnNumber: 13
+                            }, this),
+                            isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                        href: "/community",
+                                        className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightItem} ${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].navLink}`,
+                                        children: "커뮤니티"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                                        lineNumber: 50,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightItem,
+                                        children: "알림"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                                        lineNumber: 53,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightItem,
+                                        children: "채팅"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                                        lineNumber: 54,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                        href: "/write",
+                                        className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightItem} ${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].writeButton}`,
+                                        children: "Log 작성"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                                        lineNumber: 55,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightItem,
+                                        onClick: handleLogout,
+                                        style: {
+                                            cursor: 'pointer'
+                                        },
+                                        children: "로그아웃"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                                        lineNumber: 58,
+                                        columnNumber: 19
+                                    }, this)
+                                ]
+                            }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].rightItem,
+                                style: {
+                                    cursor: "pointer"
+                                },
+                                onClick: ()=>setShowLoginModal(true),
+                                children: "로그인"
+                            }, void 0, false, {
+                                fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                                lineNumber: 64,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                        lineNumber: 45,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                lineNumber: 38,
+                columnNumber: 9
+            }, this),
+            showLoginModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$userService$2f$LoginModal$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                onClose: ()=>setShowLoginModal(false),
+                onLoginSuccess: handleLoginSuccess
+            }, void 0, false, {
+                fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
+                lineNumber: 77,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true);
+}
+}),
+"[project]/src/component/layout/MainLayout.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Layout
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$layout$2f$Bar$2f$Topbar$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/component/layout/Bar/Topbar.tsx [ssr] (ecmascript)"); // Topbar 컴포넌트 경로에 맞게 수정
+;
+;
+function Layout({ children }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$layout$2f$Bar$2f$Topbar$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                fileName: "[project]/src/component/layout/MainLayout.tsx",
+                lineNumber: 9,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("main", {
+                children: children
+            }, void 0, false, {
+                fileName: "[project]/src/component/layout/MainLayout.tsx",
+                lineNumber: 10,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true);
+}
+}),
+"[project]/src/styles/community/CommunityMain.module.css [ssr] (css module)", ((__turbopack_context__) => {
+
+__turbopack_context__.v({
+  "activeTab": "CommunityMain-module__acAlRW__activeTab",
+  "author": "CommunityMain-module__acAlRW__author",
+  "authorInfo": "CommunityMain-module__acAlRW__authorInfo",
+  "badge": "CommunityMain-module__acAlRW__badge",
+  "badgeConcern": "CommunityMain-module__acAlRW__badgeConcern",
+  "badgeProject": "CommunityMain-module__acAlRW__badgeProject",
+  "badgeStudy": "CommunityMain-module__acAlRW__badgeStudy",
+  "card": "CommunityMain-module__acAlRW__card",
+  "cardExcerpt": "CommunityMain-module__acAlRW__cardExcerpt",
+  "cardFooter": "CommunityMain-module__acAlRW__cardFooter",
+  "cardLink": "CommunityMain-module__acAlRW__cardLink",
+  "cardTitle": "CommunityMain-module__acAlRW__cardTitle",
+  "container": "CommunityMain-module__acAlRW__container",
+  "fab": "CommunityMain-module__acAlRW__fab",
+  "grid": "CommunityMain-module__acAlRW__grid",
+  "header": "CommunityMain-module__acAlRW__header",
+  "stats": "CommunityMain-module__acAlRW__stats",
+  "subtitle": "CommunityMain-module__acAlRW__subtitle",
+  "tab": "CommunityMain-module__acAlRW__tab",
+  "tabContainer": "CommunityMain-module__acAlRW__tabContainer",
+  "tabEmoji": "CommunityMain-module__acAlRW__tabEmoji",
+  "title": "CommunityMain-module__acAlRW__title",
+});
+}),
+"[project]/src/pages/community.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// src/pages/community.tsx
+__turbopack_context__.s([
+    "default",
+    ()=>Community
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/link.js [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$layout$2f$MainLayout$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/component/layout/MainLayout.tsx [ssr] (ecmascript)"); // 경로 맞게 수정
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/src/styles/community/CommunityMain.module.css [ssr] (css module)");
+;
+;
+;
+;
+;
+function Community() {
+    const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])("all");
+    const tabs = [
+        {
+            id: "all",
+            label: "전체",
+            emoji: "All"
+        },
+        {
+            id: "concern",
+            label: "고민있어요",
+            emoji: "Thought"
+        },
+        {
+            id: "project",
+            label: "프로젝트",
+            emoji: "Rocket"
+        },
+        {
+            id: "study",
+            label: "스터디",
+            emoji: "Book"
+        }
+    ];
+    // 임시 더미 데이터
+    const posts = [
+        {
+            id: 1,
+            type: "concern",
+            title: "요즘 개발자 취업이 너무 힘들어요...",
+            excerpt: "이직 6개월째인데...",
+            likes: 42,
+            comments: 18,
+            time: "1시간 전",
+            author: "프론트엔드고민러"
+        },
+        {
+            id: 2,
+            type: "project",
+            title: "Next.js + Spring Boot로 SNS 만들어요! 팀원 구합니다",
+            excerpt: "디자인, 백엔드, 프론트 다 환영!",
+            likes: 89,
+            comments: 31,
+            time: "3시간 전",
+            author: "팀장모집"
+        },
+        {
+            id: 3,
+            type: "study",
+            title: "리액트 & 타입스크립트 심화 스터디 8기 모집",
+            excerpt: "매주 토요일 오프라인 진행",
+            likes: 156,
+            comments: 47,
+            time: "5시간 전",
+            author: "스터디마스터"
+        },
+        {
+            id: 4,
+            type: "concern",
+            title: "퇴사하고 프리랜서로 전향해도 될까요?",
+            excerpt: "월급쟁이 vs 프리랜서 현실 조언 부탁...",
+            likes: 67,
+            comments: 29,
+            time: "30분 전",
+            author: "퇴사고민"
+        },
+        {
+            id: 5,
+            type: "project",
+            title: "AI 기반 독서 기록 앱 같이 만들어요",
+            excerpt: "노션 같은 느낌으로!",
+            likes: 134,
+            comments: 52,
+            time: "2시간 전",
+            author: "독서덕후"
+        },
+        {
+            id: 6,
+            type: "study",
+            title: "알고리즘 스터디 같이 하실 분~",
+            excerpt: "LeetCode Medium 위주",
+            likes: 98,
+            comments: 33,
+            time: "4시간 전",
+            author: "알고리즘러"
+        }
+    ];
+    const filteredPosts = activeTab === "all" ? posts : posts.filter((p)=>p.type === activeTab);
+    const getBadgeClass = (type)=>{
+        switch(type){
+            case "concern":
+                return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].badgeConcern;
+            case "project":
+                return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].badgeProject;
+            case "study":
+                return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].badgeStudy;
+            default:
+                return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].badgeConcern;
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$layout$2f$MainLayout$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].container,
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("header", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].header,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].title,
+                            children: "커뮤니티"
+                        }, void 0, false, {
+                            fileName: "[project]/src/pages/community.tsx",
+                            lineNumber: 45,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].subtitle,
+                            children: "개발자들의 진짜 이야기, 여기서 시작됩니다"
+                        }, void 0, false, {
+                            fileName: "[project]/src/pages/community.tsx",
+                            lineNumber: 46,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/pages/community.tsx",
+                    lineNumber: 44,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].tabContainer,
+                    children: tabs.map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setActiveTab(tab.id),
+                            className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].tab} ${activeTab === tab.id ? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].activeTab : ""}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].tabEmoji,
+                                    children: tab.emoji
+                                }, void 0, false, {
+                                    fileName: "[project]/src/pages/community.tsx",
+                                    lineNumber: 57,
+                                    columnNumber: 19
+                                }, this),
+                                tab.label
+                            ]
+                        }, tab.id, true, {
+                            fileName: "[project]/src/pages/community.tsx",
+                            lineNumber: 52,
+                            columnNumber: 17
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/pages/community.tsx",
+                    lineNumber: 50,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].grid,
+                    children: filteredPosts.map((post)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                            href: `/community/post/${post.id}`,
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].cardLink,
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("article", {
+                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].card,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].badge} ${getBadgeClass(post.type)}`,
+                                        children: post.type === "concern" ? "고민있어요" : post.type === "project" ? "프로젝트" : "스터디"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/pages/community.tsx",
+                                        lineNumber: 68,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h3", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].cardTitle,
+                                        children: post.title
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/pages/community.tsx",
+                                        lineNumber: 71,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].cardExcerpt,
+                                        children: post.excerpt
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/pages/community.tsx",
+                                        lineNumber: 72,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].cardFooter,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].authorInfo,
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].author,
+                                                        children: post.author
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/pages/community.tsx",
+                                                        lineNumber: 75,
+                                                        columnNumber: 25
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].time,
+                                                        children: post.time
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/pages/community.tsx",
+                                                        lineNumber: 76,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/pages/community.tsx",
+                                                lineNumber: 74,
+                                                columnNumber: 23
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].stats,
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                                        children: [
+                                                            "Heart ",
+                                                            post.likes
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/pages/community.tsx",
+                                                        lineNumber: 79,
+                                                        columnNumber: 25
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                                        children: [
+                                                            "Speech Balloon ",
+                                                            post.comments
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/pages/community.tsx",
+                                                        lineNumber: 80,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/pages/community.tsx",
+                                                lineNumber: 78,
+                                                columnNumber: 23
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/pages/community.tsx",
+                                        lineNumber: 73,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/pages/community.tsx",
+                                lineNumber: 67,
+                                columnNumber: 19
+                            }, this)
+                        }, post.id, false, {
+                            fileName: "[project]/src/pages/community.tsx",
+                            lineNumber: 66,
+                            columnNumber: 17
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/pages/community.tsx",
+                    lineNumber: 64,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    href: "/community/write",
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$community$2f$CommunityMain$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].fab,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("svg", {
+                        width: "28",
+                        height: "28",
+                        viewBox: "0 0 24 24",
+                        fill: "none",
+                        stroke: "currentColor",
+                        strokeWidth: "3",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("path", {
+                            d: "M12 5v14m-7-7h14"
+                        }, void 0, false, {
+                            fileName: "[project]/src/pages/community.tsx",
+                            lineNumber: 91,
+                            columnNumber: 15
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/pages/community.tsx",
+                        lineNumber: 90,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/pages/community.tsx",
+                    lineNumber: 89,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/pages/community.tsx",
+            lineNumber: 42,
+            columnNumber: 9
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/src/pages/community.tsx",
+        lineNumber: 41,
+        columnNumber: 7
+    }, this);
+}
+}),
+"[externals]/next/dist/shared/lib/no-fallback-error.external.js [external] (next/dist/shared/lib/no-fallback-error.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/shared/lib/no-fallback-error.external.js", () => require("next/dist/shared/lib/no-fallback-error.external.js"));
+
+module.exports = mod;
+}),
+];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__22230d50._.js.map

@@ -1,0 +1,728 @@
+/* [project]/src/styles/layout/layout.module.css [client] (css) */
+.layout-module__oXCPXq__navLink a, .layout-module__oXCPXq__Link a {
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink {
+  transition: all .2s;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink:hover {
+  font-weight: 600;
+  color: #10b981 !important;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__topbar {
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+  text-decoration: none;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.layout-module__oXCPXq__leftSection {
+  color: #333;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.layout-module__oXCPXq__rightSection {
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  display: flex;
+}
+
+.layout-module__oXCPXq__rightItem {
+  color: #666;
+  cursor: pointer;
+  padding: 5px 8px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.layout-module__oXCPXq__rightItem:hover {
+  color: #000;
+}
+
+/* [project]/src/styles/userService/LoginModal.module.css [client] (css) */
+.LoginModal-module__9G312W__overlay {
+  z-index: 1000;
+  background-color: #0006;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.LoginModal-module__9G312W__modalBox {
+  background: #fff;
+  border-radius: 8px;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px #00000026;
+}
+
+.LoginModal-module__9G312W__leftSection {
+  background-color: #f8f9fa;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__welcomeText {
+  color: #495057;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__rightSection {
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  position: relative;
+}
+
+.LoginModal-module__9G312W__closeButton {
+  cursor: pointer;
+  color: #868e96;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.LoginModal-module__9G312W__title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__subTitle {
+  color: #868e96;
+  margin-bottom: 10px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__form {
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__input {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.LoginModal-module__9G312W__loginButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #12b886;
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background .2s;
+}
+
+.LoginModal-module__9G312W__loginButton:hover {
+  background-color: #0ca678;
+}
+
+.LoginModal-module__9G312W__socialSection {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: auto;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__socialLabel {
+  color: #868e96;
+  font-size: .85rem;
+}
+
+.LoginModal-module__9G312W__socialIcons {
+  gap: 15px;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__iconButton {
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__footer {
+  text-align: right;
+  margin-top: 20px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__signupLink {
+  color: #12b886;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* [project]/src/styles/community/SimpleTiptapEditor.module.css [client] (css) */
+.SimpleTiptapEditor-module__5Yzcmq__editorWrapper {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar button {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  min-width: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar button:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar button.SimpleTiptapEditor-module__5Yzcmq__isActive {
+  color: #fff;
+  background: #6366f1;
+  border-color: #6366f1;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent {
+  min-height: 400px;
+  max-height: 600px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror {
+  color: #374151;
+  outline: none;
+  min-height: 360px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror p {
+  margin: 12px 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror h1 {
+  color: #1f2937;
+  margin: 24px 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror h2 {
+  color: #1f2937;
+  margin: 20px 0 10px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror strong {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+:is(.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror ul, .SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror ol) {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror li {
+  margin: 8px 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror img {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror:focus {
+  outline: none;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modal {
+  z-index: 1000;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modalContent {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modalContent h3 {
+  color: #1f2937;
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__previewContainer {
+  background: #f9fafb;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  margin-bottom: 20px;
+  padding: 20px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__previewContainer img {
+  display: block;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control {
+  margin-bottom: 20px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control label {
+  color: #374151;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control input[type="range"] {
+  -webkit-appearance: none;
+  background: #e5e7eb;
+  border-radius: 3px;
+  outline: none;
+  width: 100%;
+  height: 6px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  cursor: pointer;
+  background: #6366f1;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control input[type="range"]::-moz-range-thumb {
+  cursor: pointer;
+  background: #6366f1;
+  border: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons {
+  gap: 8px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons button {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons button:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons button.SimpleTiptapEditor-module__5Yzcmq__alignActive {
+  color: #6366f1;
+  background: #eef2ff;
+  border-color: #6366f1;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modalButtons {
+  border-top: 1px solid #e5e7eb;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__cancelBtn {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__cancelBtn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__applyBtn {
+  color: #fff;
+  cursor: pointer;
+  background: #6366f1;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__applyBtn:hover {
+  background: #4f46e5;
+}
+
+@media (max-width: 640px) {
+  .SimpleTiptapEditor-module__5Yzcmq__modalContent {
+    padding: 20px;
+  }
+
+  .SimpleTiptapEditor-module__5Yzcmq__alignButtons button {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
+/* [project]/src/styles/community/CommunityWrite.module.css [client] (css) */
+.CommunityWrite-module__64dWea__container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.CommunityWrite-module__64dWea__header {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.CommunityWrite-module__64dWea__title {
+  color: #1f2937;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.CommunityWrite-module__64dWea__backButton {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.CommunityWrite-module__64dWea__backButton:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.CommunityWrite-module__64dWea__form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 1px 3px #0000001a;
+}
+
+.CommunityWrite-module__64dWea__typeSelector {
+  margin-bottom: 30px;
+}
+
+.CommunityWrite-module__64dWea__label {
+  color: #374151;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+}
+
+.CommunityWrite-module__64dWea__typeButtons {
+  gap: 12px;
+  display: flex;
+}
+
+.CommunityWrite-module__64dWea__typeButton {
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  flex: 1;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.CommunityWrite-module__64dWea__typeButton:hover {
+  background: #f9fafb;
+}
+
+.CommunityWrite-module__64dWea__typeButtonActive {
+  background: #f9fafb;
+  border-color: currentColor;
+}
+
+.CommunityWrite-module__64dWea__typeConcern {
+  color: #92400e;
+}
+
+.CommunityWrite-module__64dWea__typeConcern.CommunityWrite-module__64dWea__typeButtonActive {
+  background: #fef3c7;
+  border-color: #fcd34d;
+}
+
+.CommunityWrite-module__64dWea__typeProject {
+  color: #1e40af;
+}
+
+.CommunityWrite-module__64dWea__typeProject.CommunityWrite-module__64dWea__typeButtonActive {
+  background: #dbeafe;
+  border-color: #60a5fa;
+}
+
+.CommunityWrite-module__64dWea__typeStudy {
+  color: #065f46;
+}
+
+.CommunityWrite-module__64dWea__typeStudy.CommunityWrite-module__64dWea__typeButtonActive {
+  background: #d1fae5;
+  border-color: #34d399;
+}
+
+.CommunityWrite-module__64dWea__inputGroup {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.CommunityWrite-module__64dWea__input {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  width: 100%;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color .2s;
+}
+
+.CommunityWrite-module__64dWea__input:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+
+.CommunityWrite-module__64dWea__input:disabled {
+  cursor: not-allowed;
+  background: #f3f4f6;
+}
+
+.CommunityWrite-module__64dWea__charCount {
+  color: #9ca3af;
+  font-size: 12px;
+  position: absolute;
+  bottom: -24px;
+  right: 16px;
+}
+
+.CommunityWrite-module__64dWea__tagInputWrapper {
+  gap: 8px;
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.CommunityWrite-module__64dWea__tagAddButton {
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  background: #6366f1;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.CommunityWrite-module__64dWea__tagAddButton:hover:not(:disabled) {
+  background: #4f46e5;
+}
+
+.CommunityWrite-module__64dWea__tagAddButton:disabled {
+  cursor: not-allowed;
+  background: #d1d5db;
+}
+
+.CommunityWrite-module__64dWea__tagList {
+  flex-wrap: wrap;
+  gap: 8px;
+  display: flex;
+}
+
+.CommunityWrite-module__64dWea__tag {
+  color: #4f46e5;
+  background: #eef2ff;
+  border-radius: 12px;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+}
+
+.CommunityWrite-module__64dWea__tagRemoveButton {
+  color: #818cf8;
+  cursor: pointer;
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  font-size: 18px;
+  transition: color .2s;
+  display: flex;
+}
+
+.CommunityWrite-module__64dWea__tagRemoveButton:hover {
+  color: #4f46e5;
+}
+
+.CommunityWrite-module__64dWea__actions {
+  border-top: 1px solid #e5e7eb;
+  justify-content: flex-end;
+  margin-top: 30px;
+  padding-top: 30px;
+  display: flex;
+}
+
+.CommunityWrite-module__64dWea__submitButton {
+  color: #fff;
+  cursor: pointer;
+  background: #6366f1;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.CommunityWrite-module__64dWea__submitButton:hover:not(:disabled) {
+  background: #4f46e5;
+}
+
+.CommunityWrite-module__64dWea__submitButton:disabled {
+  cursor: not-allowed;
+  background: #d1d5db;
+}
+
+@media (max-width: 768px) {
+  .CommunityWrite-module__64dWea__container {
+    padding: 20px 16px;
+  }
+
+  .CommunityWrite-module__64dWea__form {
+    padding: 24px 20px;
+  }
+
+  .CommunityWrite-module__64dWea__title {
+    font-size: 24px;
+  }
+
+  .CommunityWrite-module__64dWea__typeButtons, .CommunityWrite-module__64dWea__tagInputWrapper {
+    flex-direction: column;
+  }
+
+  .CommunityWrite-module__64dWea__tagAddButton {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=src_styles_7e47b447._.css.map*/

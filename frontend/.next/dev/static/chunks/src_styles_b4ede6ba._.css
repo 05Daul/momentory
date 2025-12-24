@@ -1,0 +1,619 @@
+/* [project]/src/styles/layout/layout.module.css [client] (css) */
+.layout-module__oXCPXq__navLink a, .layout-module__oXCPXq__Link a {
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink {
+  transition: all .2s;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink:hover {
+  font-weight: 600;
+  color: #10b981 !important;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__topbar {
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+  text-decoration: none;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.layout-module__oXCPXq__leftSection {
+  color: #333;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.layout-module__oXCPXq__rightSection {
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  display: flex;
+}
+
+.layout-module__oXCPXq__rightItem {
+  color: #666;
+  cursor: pointer;
+  padding: 5px 8px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.layout-module__oXCPXq__rightItem:hover {
+  color: #000;
+}
+
+/* [project]/src/styles/userService/LoginModal.module.css [client] (css) */
+.LoginModal-module__9G312W__overlay {
+  z-index: 1000;
+  background-color: #0006;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.LoginModal-module__9G312W__modalBox {
+  background: #fff;
+  border-radius: 8px;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px #00000026;
+}
+
+.LoginModal-module__9G312W__leftSection {
+  background-color: #f8f9fa;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__welcomeText {
+  color: #495057;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__rightSection {
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  position: relative;
+}
+
+.LoginModal-module__9G312W__closeButton {
+  cursor: pointer;
+  color: #868e96;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.LoginModal-module__9G312W__title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__subTitle {
+  color: #868e96;
+  margin-bottom: 10px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__form {
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__input {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.LoginModal-module__9G312W__loginButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #12b886;
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background .2s;
+}
+
+.LoginModal-module__9G312W__loginButton:hover {
+  background-color: #0ca678;
+}
+
+.LoginModal-module__9G312W__socialSection {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: auto;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__socialLabel {
+  color: #868e96;
+  font-size: .85rem;
+}
+
+.LoginModal-module__9G312W__socialIcons {
+  gap: 15px;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__iconButton {
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__footer {
+  text-align: right;
+  margin-top: 20px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__signupLink {
+  color: #12b886;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* [project]/src/styles/community/PostDetail.module.css [client] (css) */
+.PostDetail-module__t-QUDa__container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.PostDetail-module__t-QUDa__loading, .PostDetail-module__t-QUDa__error {
+  text-align: center;
+  color: #666;
+  padding: 60px 20px;
+  font-size: 16px;
+}
+
+.PostDetail-module__t-QUDa__post {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  padding: 40px;
+  box-shadow: 0 1px 3px #0000001a;
+}
+
+.PostDetail-module__t-QUDa__postHeader {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__badge {
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.PostDetail-module__t-QUDa__badgeConcern {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.PostDetail-module__t-QUDa__badgeProject {
+  color: #1e40af;
+  background: #dbeafe;
+}
+
+.PostDetail-module__t-QUDa__badgeStudy {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.PostDetail-module__t-QUDa__actions {
+  gap: 8px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__deleteButton {
+  color: #fff;
+  cursor: pointer;
+  background: #ef4444;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 13px;
+  transition: background .2s;
+}
+
+.PostDetail-module__t-QUDa__deleteButton:hover {
+  background: #dc2626;
+}
+
+.PostDetail-module__t-QUDa__title {
+  color: #1f2937;
+  margin: 20px 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.PostDetail-module__t-QUDa__meta {
+  color: #6b7280;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__author {
+  color: #374151;
+  font-weight: 600;
+}
+
+.PostDetail-module__t-QUDa__divider {
+  color: #d1d5db;
+}
+
+.PostDetail-module__t-QUDa__date {
+  color: #9ca3af;
+}
+
+.PostDetail-module__t-QUDa__tags {
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__tag {
+  color: #4b5563;
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.PostDetail-module__t-QUDa__content {
+  color: #374151;
+  word-break: break-word;
+  white-space: pre-wrap;
+  margin-bottom: 30px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.PostDetail-module__t-QUDa__content h1 {
+  color: #1f2937;
+  margin: 30px 0 16px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.PostDetail-module__t-QUDa__content h2 {
+  color: #1f2937;
+  margin: 24px 0 12px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.PostDetail-module__t-QUDa__content p {
+  margin: 12px 0;
+}
+
+.PostDetail-module__t-QUDa__content ul, .PostDetail-module__t-QUDa__content ol {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.PostDetail-module__t-QUDa__content li {
+  margin: 8px 0;
+}
+
+.PostDetail-module__t-QUDa__content strong {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.PostDetail-module__t-QUDa__content img {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+.PostDetail-module__t-QUDa__stats {
+  border-top: 1px solid #e5e7eb;
+  gap: 20px;
+  padding-top: 20px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__likeButton {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.PostDetail-module__t-QUDa__likeButton:hover {
+  color: #ec4899;
+  border-color: #ec4899;
+}
+
+.PostDetail-module__t-QUDa__likeButton.PostDetail-module__t-QUDa__liked {
+  color: #dc2626;
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
+.PostDetail-module__t-QUDa__commentStat {
+  color: #6b7280;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.PostDetail-module__t-QUDa__commentsSection {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  padding: 30px;
+  box-shadow: 0 1px 3px #0000001a;
+}
+
+.PostDetail-module__t-QUDa__commentsTitle {
+  color: #1f2937;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.PostDetail-module__t-QUDa__commentInput {
+  margin-bottom: 30px;
+}
+
+.PostDetail-module__t-QUDa__textarea {
+  resize: vertical;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 12px;
+  padding: 16px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color .2s;
+}
+
+.PostDetail-module__t-QUDa__textarea:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+
+.PostDetail-module__t-QUDa__submitButton {
+  color: #fff;
+  cursor: pointer;
+  background: #6366f1;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.PostDetail-module__t-QUDa__submitButton:hover {
+  background: #4f46e5;
+}
+
+.PostDetail-module__t-QUDa__commentsList {
+  flex-direction: column;
+  gap: 20px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__comment {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.PostDetail-module__t-QUDa__reply {
+  background: #f3f4f6;
+  border-radius: 8px;
+  margin-top: 12px;
+  margin-left: 40px;
+  padding: 16px;
+}
+
+.PostDetail-module__t-QUDa__commentContent {
+  color: #4b5563;
+  white-space: pre-wrap;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.PostDetail-module__t-QUDa__replyButton {
+  color: #6b7280;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-top: 12px;
+  padding: 4px 12px;
+  font-size: 13px;
+  transition: all .2s;
+}
+
+.PostDetail-module__t-QUDa__replyButton:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.PostDetail-module__t-QUDa__replyInput {
+  background: #fff;
+  border-radius: 8px;
+  margin-top: 12px;
+  padding: 16px;
+}
+
+.PostDetail-module__t-QUDa__replyButtons {
+  gap: 8px;
+  margin-top: 8px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__cancelButton {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  transition: all .2s;
+}
+
+.PostDetail-module__t-QUDa__cancelButton:hover {
+  background: #f3f4f6;
+}
+
+.PostDetail-module__t-QUDa__backButton {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+  display: inline-block;
+}
+
+.PostDetail-module__t-QUDa__backButton:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+@media (max-width: 768px) {
+  .PostDetail-module__t-QUDa__container {
+    padding: 20px 16px;
+  }
+
+  .PostDetail-module__t-QUDa__post {
+    padding: 24px 20px;
+  }
+
+  .PostDetail-module__t-QUDa__title {
+    font-size: 24px;
+  }
+
+  .PostDetail-module__t-QUDa__content {
+    font-size: 15px;
+  }
+
+  .PostDetail-module__t-QUDa__reply {
+    margin-left: 20px;
+  }
+
+  .PostDetail-module__t-QUDa__commentsSection {
+    padding: 20px 16px;
+  }
+}
+
+.PostDetail-module__t-QUDa__commentHeader {
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__commentActions {
+  gap: 10px;
+  margin-left: auto;
+  display: flex;
+}
+
+.PostDetail-module__t-QUDa__actionButton {
+  color: #9ca3af;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  transition: color .2s;
+}
+
+.PostDetail-module__t-QUDa__actionButton:hover {
+  color: #374151;
+  text-decoration: underline;
+}
+
+.PostDetail-module__t-QUDa__commentAuthor {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.PostDetail-module__t-QUDa__commentTime {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/*# sourceMappingURL=src_styles_b4ede6ba._.css.map*/

@@ -1,0 +1,17 @@
+/* [project]/src/styles/layout/MainLayout.module.css [client] (css) */
+.MainLayout-module__rxU5Kq__layoutContainer {
+  background: #fff;
+  flex-direction: column;
+  height: 100vh;
+  display: flex;
+}
+
+.MainLayout-module__rxU5Kq__mainContent {
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: auto;
+}
+
+/*# sourceMappingURL=src_styles_layout_MainLayout_module_css_65f1660e._.single.css.map*/

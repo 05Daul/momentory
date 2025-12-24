@@ -1,0 +1,5 @@
+{
+  "/my-posts/[userSignId]": [
+    "static/chunks/pages/my-posts/[userSignId].js"
+  ]
+}

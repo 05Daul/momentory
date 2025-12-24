@@ -1,0 +1,784 @@
+/* [project]/src/styles/layout/layout.module.css [client] (css) */
+.layout-module__oXCPXq__navLink a, .layout-module__oXCPXq__Link a {
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink {
+  transition: all .2s;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink:hover {
+  font-weight: 600;
+  color: #10b981 !important;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__topbar {
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+  text-decoration: none;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.layout-module__oXCPXq__leftSection {
+  color: #333;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.layout-module__oXCPXq__rightSection {
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  display: flex;
+}
+
+.layout-module__oXCPXq__rightItem {
+  color: #666;
+  cursor: pointer;
+  padding: 5px 8px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.layout-module__oXCPXq__rightItem:hover {
+  color: #000;
+}
+
+.layout-module__oXCPXq__profileSection {
+  align-items: center;
+  margin: 0 8px;
+  display: flex;
+}
+
+.layout-module__oXCPXq__profileImage {
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  transition: all .3s;
+}
+
+.layout-module__oXCPXq__profileImage:hover {
+  border-color: #6366f1;
+  transform: scale(1.05);
+}
+
+.layout-module__oXCPXq__profileCircle {
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform .3s;
+  display: flex;
+}
+
+.layout-module__oXCPXq__profileCircle:hover {
+  transform: scale(1.05);
+}
+
+.layout-module__oXCPXq__profileContainer {
+  position: relative;
+}
+
+.layout-module__oXCPXq__profileDropdown {
+  z-index: 1000;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex-direction: column;
+  width: 200px;
+  margin-top: 8px;
+  display: flex;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+.layout-module__oXCPXq__dropdownHeader {
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding: 10px 15px;
+  font-size: .9rem;
+}
+
+.layout-module__oXCPXq__dropdownItem {
+  text-align: left;
+  cursor: pointer;
+  color: #555;
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 10px 15px;
+  font-size: .9rem;
+}
+
+.layout-module__oXCPXq__dropdownItem:hover {
+  color: #007bff;
+  background-color: #f5f5f5;
+}
+
+/* [project]/src/styles/userService/LoginModal.module.css [client] (css) */
+.LoginModal-module__9G312W__overlay {
+  z-index: 1000;
+  background-color: #0006;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.LoginModal-module__9G312W__modalBox {
+  background: #fff;
+  border-radius: 8px;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px #00000026;
+}
+
+.LoginModal-module__9G312W__leftSection {
+  background-color: #f8f9fa;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__welcomeText {
+  color: #495057;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__rightSection {
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  position: relative;
+}
+
+.LoginModal-module__9G312W__closeButton {
+  cursor: pointer;
+  color: #868e96;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.LoginModal-module__9G312W__title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__subTitle {
+  color: #868e96;
+  margin-bottom: 10px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__form {
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__input {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.LoginModal-module__9G312W__loginButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #12b886;
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background .2s;
+}
+
+.LoginModal-module__9G312W__loginButton:hover {
+  background-color: #0ca678;
+}
+
+.LoginModal-module__9G312W__socialSection {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: auto;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__socialLabel {
+  color: #868e96;
+  font-size: .85rem;
+}
+
+.LoginModal-module__9G312W__socialIcons {
+  gap: 15px;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__iconButton {
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__footer {
+  text-align: right;
+  margin-top: 20px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__signupLink {
+  color: #12b886;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.LoginModal-module__9G312W__profileSection {
+  align-items: center;
+  margin: 0 8px;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__profileImage {
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  transition: all .3s;
+}
+
+.LoginModal-module__9G312W__profileImage:hover {
+  border-color: #6366f1;
+  transform: scale(1.05);
+}
+
+.LoginModal-module__9G312W__profileCircle {
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform .3s;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__profileCircle:hover {
+  transform: scale(1.05);
+}
+
+/* [project]/src/styles/userService/ModalFriends.module.css [client] (css) */
+.ModalFriends-module__4kHBrW__modalBackdrop {
+  z-index: 999;
+  background-color: #00000080;
+  animation: .25s ease-out forwards ModalFriends-module__4kHBrW__fadeIn;
+  position: fixed;
+  inset: 0;
+}
+
+.ModalFriends-module__4kHBrW__modalContent {
+  z-index: 1000;
+  background-color: #fff;
+  border-radius: .5rem;
+  width: 220px;
+  max-width: 90vw;
+  min-height: 230px;
+  padding: 10px 15px 15px;
+  animation: .35s cubic-bezier(.16, 1, .3, 1) forwards ModalFriends-module__4kHBrW__slideInRight;
+  position: fixed;
+  top: 64px;
+  right: 5%;
+  overflow-y: auto;
+  box-shadow: -8px 0 32px #00000026;
+}
+
+.ModalFriends-module__4kHBrW__modalContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ModalFriends-module__4kHBrW__modalContent::-webkit-scrollbar-track {
+  background: none;
+}
+
+.ModalFriends-module__4kHBrW__modalContent::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.ModalFriends-module__4kHBrW__modalTitle {
+  color: #1f2937;
+  margin-bottom: .5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.ModalFriends-module__4kHBrW__modalMessage {
+  color: #4b5563;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ModalFriends-module__4kHBrW__modalActions {
+  justify-content: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.ModalFriends-module__4kHBrW__cancelButton, .ModalFriends-module__4kHBrW__deleteButton {
+  cursor: pointer;
+  border: none;
+  border-radius: .5rem;
+  flex: 1;
+  padding: .875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.ModalFriends-module__4kHBrW__cancelButton {
+  color: #374151;
+  background-color: #e5e7eb;
+}
+
+.ModalFriends-module__4kHBrW__cancelButton:hover {
+  background-color: #d1d5db;
+}
+
+.ModalFriends-module__4kHBrW__deleteButton {
+  color: #fff;
+  background-color: #dc2626;
+}
+
+.ModalFriends-module__4kHBrW__deleteButton:hover {
+  background-color: #b91c1c;
+}
+
+.ModalFriends-module__4kHBrW__deleteButton:disabled {
+  cursor: not-allowed;
+  background-color: #fca5a5;
+}
+
+@keyframes ModalFriends-module__4kHBrW__fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ModalFriends-module__4kHBrW__slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.ModalFriends-module__4kHBrW__closeButton {
+  cursor: pointer;
+  color: #dc2626;
+  background: none;
+  border: none;
+  margin-right: 0;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: color .2s;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ModalFriends-module__4kHBrW__closeButton:hover {
+  color: #b91c1c;
+}
+
+.ModalFriends-module__4kHBrW__listItemDeleteButton {
+  color: #fff;
+  background-color: #dc2626;
+  border-radius: .25rem;
+  margin-left: 4px;
+  padding: .1rem .24rem;
+  font-weight: 400;
+  transition: all .1s;
+}
+
+.ModalFriends-module__4kHBrW__listItemDeleteButton:hover {
+  background-color: #b91c1c;
+}
+
+/* [project]/src/styles/layout/MainLayout.module.css [client] (css) */
+.MainLayout-module__rxU5Kq__layoutContainer {
+  background: #fff;
+  flex-direction: column;
+  height: 100vh;
+  display: flex;
+}
+
+.MainLayout-module__rxU5Kq__mainContent {
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: auto;
+}
+
+/* [project]/src/styles/userService/settings.module.css [client] (css) */
+.settings-module__lj2jha__settingsPage {
+  width: 80%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.settings-module__lj2jha__pageTitle {
+  color: #2c3e50;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.settings-module__lj2jha__contentWrapper {
+  gap: 40px;
+  display: flex;
+}
+
+.settings-module__lj2jha__sidebar {
+  background: #f8f9fa;
+  border-radius: 8px;
+  flex: 0 0 250px;
+  height: fit-content;
+  padding: 15px;
+  box-shadow: 0 1px 3px #0000000d;
+}
+
+.settings-module__lj2jha__sidebar button {
+  text-align: left;
+  color: #34495e;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 12px 15px;
+  font-size: 1.05em;
+  transition: background-color .2s, color .2s;
+  display: block;
+}
+
+.settings-module__lj2jha__sidebar button:hover {
+  background-color: #ecf0f1;
+}
+
+.settings-module__lj2jha__sidebar button.settings-module__lj2jha__activeTab {
+  color: #fff;
+  background-color: #3498db;
+  font-weight: 600;
+}
+
+.settings-module__lj2jha__mainContent {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  flex-grow: 1;
+  padding: 30px;
+  box-shadow: 0 2px 5px #0000000d;
+}
+
+.settings-module__lj2jha__profileSection h2 {
+  color: #34495e;
+  border-left: 4px solid #3498db;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  font-size: 1.5em;
+}
+
+.settings-module__lj2jha__imageUploadArea {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.settings-module__lj2jha__avatarWrapper {
+  cursor: pointer;
+  border: 3px solid #bdc3c7;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  transition: border-color .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.settings-module__lj2jha__avatarWrapper:hover {
+  border-color: #3498db;
+}
+
+.settings-module__lj2jha__avatar {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.settings-module__lj2jha__avatarPlaceholder {
+  color: #fff;
+  background-color: #95a5a6;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 3em;
+  font-weight: 600;
+  display: flex;
+}
+
+.settings-module__lj2jha__avatarOverlay {
+  color: #fff;
+  opacity: 0;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 500;
+  transition: opacity .2s;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.settings-module__lj2jha__avatarWrapper:hover .settings-module__lj2jha__avatarOverlay {
+  opacity: 1;
+}
+
+.settings-module__lj2jha__userInfoDisplay {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.settings-module__lj2jha__userSignId {
+  text-align: center;
+  color: #7f8c8d;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.settings-module__lj2jha__profileForm label {
+  color: #34495e;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  display: block;
+}
+
+.settings-module__lj2jha__profileForm input {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+}
+
+.settings-module__lj2jha__profileForm input:disabled {
+  color: #95a5a6;
+  cursor: not-allowed;
+  background-color: #ecf0f1;
+}
+
+.settings-module__lj2jha__profileForm button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 1.1em;
+  transition: background-color .2s;
+}
+
+.settings-module__lj2jha__profileForm button:hover:not(:disabled) {
+  background-color: #27ae60;
+}
+
+.settings-module__lj2jha__note {
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 15px;
+  font-size: .9em;
+}
+
+.settings-module__lj2jha__passwordSection h2 {
+  color: #34495e;
+  border-left: 4px solid #e67e22;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  font-size: 1.5em;
+}
+
+.settings-module__lj2jha__passwordForm {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.settings-module__lj2jha__passwordForm label {
+  color: #34495e;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  display: block;
+}
+
+.settings-module__lj2jha__passwordForm input {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+}
+
+.settings-module__lj2jha__passwordForm button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 30px;
+  padding: 12px;
+  font-size: 1.1em;
+  transition: background-color .2s;
+}
+
+.settings-module__lj2jha__passwordForm button:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+.settings-module__lj2jha__passwordForm button:disabled {
+  cursor: not-allowed;
+  background-color: #bdc3c7;
+}
+
+.settings-module__lj2jha__errorMessage {
+  color: #e74c3c;
+  text-align: center;
+  background-color: #fceae9;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: .9em;
+}
+
+.settings-module__lj2jha__loading, .settings-module__lj2jha__container {
+  text-align: center;
+  color: #7f8c8d;
+  padding: 50px 0;
+  font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+  .settings-module__lj2jha__contentWrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .settings-module__lj2jha__sidebar {
+    flex: auto;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+  }
+
+  .settings-module__lj2jha__sidebar button {
+    text-align: center;
+    flex: 1;
+    margin: 0 5px;
+  }
+
+  .settings-module__lj2jha__mainContent {
+    padding: 20px;
+  }
+
+  .settings-module__lj2jha__passwordForm, .settings-module__lj2jha__userInfoDisplay {
+    max-width: none;
+  }
+}
+
+/*# sourceMappingURL=src_styles_423f2c54._.css.map*/

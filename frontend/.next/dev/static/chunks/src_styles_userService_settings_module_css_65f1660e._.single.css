@@ -1,0 +1,294 @@
+/* [project]/src/styles/userService/settings.module.css [client] (css) */
+.settings-module__lj2jha__settingsPage {
+  width: 80%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.settings-module__lj2jha__pageTitle {
+  color: #2c3e50;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.settings-module__lj2jha__contentWrapper {
+  gap: 40px;
+  display: flex;
+}
+
+.settings-module__lj2jha__sidebar {
+  background: #f8f9fa;
+  border-radius: 8px;
+  flex: 0 0 250px;
+  height: fit-content;
+  padding: 15px;
+  box-shadow: 0 1px 3px #0000000d;
+}
+
+.settings-module__lj2jha__sidebar button {
+  text-align: left;
+  color: #34495e;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 12px 15px;
+  font-size: 1.05em;
+  transition: background-color .2s, color .2s;
+  display: block;
+}
+
+.settings-module__lj2jha__sidebar button:hover {
+  background-color: #ecf0f1;
+}
+
+.settings-module__lj2jha__sidebar button.settings-module__lj2jha__activeTab {
+  color: #fff;
+  background-color: #3498db;
+  font-weight: 600;
+}
+
+.settings-module__lj2jha__mainContent {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  flex-grow: 1;
+  padding: 30px;
+  box-shadow: 0 2px 5px #0000000d;
+}
+
+.settings-module__lj2jha__profileSection h2 {
+  color: #34495e;
+  border-left: 4px solid #3498db;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  font-size: 1.5em;
+}
+
+.settings-module__lj2jha__imageUploadArea {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.settings-module__lj2jha__avatarWrapper {
+  cursor: pointer;
+  border: 3px solid #bdc3c7;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  transition: border-color .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.settings-module__lj2jha__avatarWrapper:hover {
+  border-color: #3498db;
+}
+
+.settings-module__lj2jha__avatar {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.settings-module__lj2jha__avatarPlaceholder {
+  color: #fff;
+  background-color: #95a5a6;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 3em;
+  font-weight: 600;
+  display: flex;
+}
+
+.settings-module__lj2jha__avatarOverlay {
+  color: #fff;
+  opacity: 0;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 500;
+  transition: opacity .2s;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.settings-module__lj2jha__avatarWrapper:hover .settings-module__lj2jha__avatarOverlay {
+  opacity: 1;
+}
+
+.settings-module__lj2jha__userInfoDisplay {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.settings-module__lj2jha__userSignId {
+  text-align: center;
+  color: #7f8c8d;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.settings-module__lj2jha__profileForm label {
+  color: #34495e;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  display: block;
+}
+
+.settings-module__lj2jha__profileForm input {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+}
+
+.settings-module__lj2jha__profileForm input:disabled {
+  color: #95a5a6;
+  cursor: not-allowed;
+  background-color: #ecf0f1;
+}
+
+.settings-module__lj2jha__profileForm button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #2ecc71;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 1.1em;
+  transition: background-color .2s;
+}
+
+.settings-module__lj2jha__profileForm button:hover:not(:disabled) {
+  background-color: #27ae60;
+}
+
+.settings-module__lj2jha__note {
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 15px;
+  font-size: .9em;
+}
+
+.settings-module__lj2jha__passwordSection h2 {
+  color: #34495e;
+  border-left: 4px solid #e67e22;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  font-size: 1.5em;
+}
+
+.settings-module__lj2jha__passwordForm {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.settings-module__lj2jha__passwordForm label {
+  color: #34495e;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  display: block;
+}
+
+.settings-module__lj2jha__passwordForm input {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+}
+
+.settings-module__lj2jha__passwordForm button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 30px;
+  padding: 12px;
+  font-size: 1.1em;
+  transition: background-color .2s;
+}
+
+.settings-module__lj2jha__passwordForm button:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+.settings-module__lj2jha__passwordForm button:disabled {
+  cursor: not-allowed;
+  background-color: #bdc3c7;
+}
+
+.settings-module__lj2jha__errorMessage {
+  color: #e74c3c;
+  text-align: center;
+  background-color: #fceae9;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: .9em;
+}
+
+.settings-module__lj2jha__loading, .settings-module__lj2jha__container {
+  text-align: center;
+  color: #7f8c8d;
+  padding: 50px 0;
+  font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+  .settings-module__lj2jha__contentWrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .settings-module__lj2jha__sidebar {
+    flex: auto;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+  }
+
+  .settings-module__lj2jha__sidebar button {
+    text-align: center;
+    flex: 1;
+    margin: 0 5px;
+  }
+
+  .settings-module__lj2jha__mainContent {
+    padding: 20px;
+  }
+
+  .settings-module__lj2jha__passwordForm, .settings-module__lj2jha__userInfoDisplay {
+    max-width: none;
+  }
+}
+
+/*# sourceMappingURL=src_styles_userService_settings_module_css_65f1660e._.single.css.map*/

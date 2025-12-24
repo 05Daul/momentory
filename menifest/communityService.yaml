@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: community-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: community-service
+  template:
+    metadata:
+      labels:
+        app: community-service
+
+    spec:
+      # 앱이 worker 노드에만 뜨도록 설정
+      nodeSelector:
+        workload: app
+      containers:
+        - name: community-app
+          image: gcr.io/[프로젝트ID]/community-service:latest
+          ports:
+            - containerPort: 1006
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+
+            - name: DB_USERNAME
+              valueFrom:
+                 secretKeyRef:
+                    name: db-secret
+                    key: username
+
+            - name: DB_PASSWORD
+              valueFrom:
+                 secretKeyRef:
+                    name: db-secret
+                    key: password
+
+        # 2. Cloud SQL Proxy 컨테이너 (사이드카)
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:latest
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=project-7b807370-b91e-4dda-802:asia-northeast3:momen-tory"

@@ -1,0 +1,69 @@
+/* [project]/src/styles/chatService/ChatPage.module.css [client] (css) */
+.ChatPage-module__yzMSqa__container {
+  background: #f3f4f6;
+  height: 100vh;
+  display: flex;
+}
+
+.ChatPage-module__yzMSqa__sidebar {
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  width: 380px;
+}
+
+.ChatPage-module__yzMSqa__hiddenOnMobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .ChatPage-module__yzMSqa__hiddenOnMobile {
+    display: block;
+  }
+}
+
+.ChatPage-module__yzMSqa__main {
+  background: #fff;
+  flex: 1;
+}
+
+.ChatPage-module__yzMSqa__emptyState {
+  color: #6b7280;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  display: flex;
+}
+
+.ChatPage-module__yzMSqa__emptyIcon {
+  background: #e5e7eb;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 24px;
+  font-size: 36px;
+  display: flex;
+}
+
+.ChatPage-module__yzMSqa__newChatBtn {
+  color: #fff;
+  cursor: pointer;
+  background: #3b82f6;
+  border: none;
+  border-radius: 12px;
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-weight: 600;
+}
+
+.ChatPage-module__yzMSqa__container {
+  background: #f3f4f6;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=src_styles_chatService_ChatPage_module_css_65f1660e._.single.css.map*/

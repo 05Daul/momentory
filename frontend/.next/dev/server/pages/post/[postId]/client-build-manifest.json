@@ -1,0 +1,5 @@
+{
+  "/post/[postId]": [
+    "static/chunks/pages/post/[postId].js"
+  ]
+}

@@ -1,0 +1,406 @@
+/* [project]/src/styles/TiptapEditor.module.css [client] (css) */
+.TiptapEditor-module__MElrIG__editorWrapper {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  gap: 2rem;
+  height: 600px;
+  display: flex;
+  overflow: hidden;
+}
+
+.TiptapEditor-module__MElrIG__editorPane {
+  background: #fff;
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+}
+
+.TiptapEditor-module__MElrIG__menuBar {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: .75rem;
+  display: flex;
+}
+
+.TiptapEditor-module__MElrIG__menuBar button {
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: .5rem .75rem;
+  font-size: .875rem;
+  transition: all .2s;
+}
+
+.TiptapEditor-module__MElrIG__menuBar button:hover {
+  background-color: #f3f4f6;
+}
+
+.TiptapEditor-module__MElrIG__menuBar button.TiptapEditor-module__MElrIG__isActive {
+  color: #fff;
+  background-color: #6366f1;
+  border-color: #6366f1;
+}
+
+.TiptapEditor-module__MElrIG__editorContent {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  outline: none;
+  min-height: 100%;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror p {
+  white-space: pre-wrap;
+  min-height: 1.5em;
+  margin: .5rem 0;
+  line-height: 1.5;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror p:empty:before {
+  content: "";
+  min-height: 1.5em;
+  display: block;
+}
+
+:is(.TiptapEditor-module__MElrIG__editorContent .ProseMirror h1, .TiptapEditor-module__MElrIG__editorContent .ProseMirror h2, .TiptapEditor-module__MElrIG__editorContent .ProseMirror h3) {
+  margin-top: 1.5rem;
+  margin-bottom: .5rem;
+  font-weight: bold;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror h1 {
+  font-size: 2rem;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror h2 {
+  font-size: 1.5rem;
+}
+
+:is(.TiptapEditor-module__MElrIG__editorContent .ProseMirror ul, .TiptapEditor-module__MElrIG__editorContent .ProseMirror ol) {
+  margin: .5rem 0;
+  padding-left: 1.5rem;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror code {
+  background-color: #f3f4f6;
+  border-radius: 4px;
+  padding: .2rem .4rem;
+  font-family: Courier New, monospace;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror pre {
+  color: #f9fafb;
+  white-space: pre;
+  background-color: #1f2937;
+  border-radius: 8px;
+  margin: 1rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.TiptapEditor-module__MElrIG__editorContent .ProseMirror pre code {
+  color: inherit;
+  background-color: #0000;
+  padding: 0;
+}
+
+.TiptapEditor-module__MElrIG__previewPane {
+  background-color: #f9fafb;
+  border-left: 1px solid #e5e7eb;
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+  overflow-y: auto;
+}
+
+.TiptapEditor-module__MElrIG__previewTitle {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  margin: 0;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.TiptapEditor-module__MElrIG__previewContent {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.TiptapEditor-module__MElrIG__previewContent p {
+  white-space: pre-wrap;
+  min-height: 1.5em;
+  margin: .5rem 0;
+  line-height: 1.5;
+}
+
+.TiptapEditor-module__MElrIG__previewContent p:empty, .TiptapEditor-module__MElrIG__previewContent p:empty:before {
+  content: "";
+  min-height: 1.5em;
+  display: block;
+}
+
+.TiptapEditor-module__MElrIG__previewContent h1, .TiptapEditor-module__MElrIG__previewContent h2, .TiptapEditor-module__MElrIG__previewContent h3 {
+  margin-top: 1.5rem;
+  margin-bottom: .5rem;
+  font-weight: bold;
+}
+
+.TiptapEditor-module__MElrIG__previewContent h1 {
+  font-size: 2rem;
+}
+
+.TiptapEditor-module__MElrIG__previewContent h2 {
+  font-size: 1.5rem;
+}
+
+.TiptapEditor-module__MElrIG__previewContent ul, .TiptapEditor-module__MElrIG__previewContent ol {
+  margin: .5rem 0;
+  padding-left: 1.5rem;
+}
+
+.TiptapEditor-module__MElrIG__previewContent code {
+  background-color: #f3f4f6;
+  border-radius: 4px;
+  padding: .2rem .4rem;
+  font-family: Courier New, monospace;
+}
+
+.TiptapEditor-module__MElrIG__previewContent pre {
+  color: #f9fafb;
+  background-color: #1f2937;
+  border-radius: 8px;
+  margin: 1rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.TiptapEditor-module__MElrIG__previewContent pre code {
+  color: inherit;
+  background-color: #0000;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .TiptapEditor-module__MElrIG__previewPane {
+    display: none;
+  }
+
+  .TiptapEditor-module__MElrIG__editorPane {
+    flex-basis: 100%;
+    min-width: 100%;
+  }
+
+  .TiptapEditor-module__MElrIG__editorWrapper {
+    gap: 0;
+  }
+}
+
+/* [project]/src/styles/layout/layout.module.css [client] (css) */
+.layout-module__oXCPXq__topbar {
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+  text-decoration: none;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.layout-module__oXCPXq__leftSection {
+  color: #333;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.layout-module__oXCPXq__rightSection {
+  align-items: center;
+  gap: 15px;
+  display: flex;
+}
+
+.layout-module__oXCPXq__rightItem {
+  color: #666;
+  cursor: pointer;
+  padding: 5px 8px;
+  font-size: 16px;
+  transition: color .2s;
+}
+
+.layout-module__oXCPXq__rightItem:hover {
+  color: #000;
+}
+
+.layout-module__oXCPXq__writeButton {
+  color: #fff;
+  background-color: #3f51b5;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-weight: 500;
+}
+
+/* [project]/src/styles/userService/LoginModal.module.css [client] (css) */
+.LoginModal-module__9G312W__overlay {
+  z-index: 1000;
+  background-color: #0006;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.LoginModal-module__9G312W__modalBox {
+  background: #fff;
+  border-radius: 8px;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px #00000026;
+}
+
+.LoginModal-module__9G312W__leftSection {
+  background-color: #f8f9fa;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__welcomeText {
+  color: #495057;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__rightSection {
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  position: relative;
+}
+
+.LoginModal-module__9G312W__closeButton {
+  cursor: pointer;
+  color: #868e96;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.LoginModal-module__9G312W__title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__subTitle {
+  color: #868e96;
+  margin-bottom: 10px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__form {
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__input {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.LoginModal-module__9G312W__loginButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #12b886;
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background .2s;
+}
+
+.LoginModal-module__9G312W__loginButton:hover {
+  background-color: #0ca678;
+}
+
+.LoginModal-module__9G312W__socialSection {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: auto;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__socialLabel {
+  color: #868e96;
+  font-size: .85rem;
+}
+
+.LoginModal-module__9G312W__socialIcons {
+  gap: 15px;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__iconButton {
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__footer {
+  text-align: right;
+  margin-top: 20px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__signupLink {
+  color: #12b886;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=src_styles_2b75d183._.css.map*/

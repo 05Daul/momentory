@@ -1,0 +1,167 @@
+/* [project]/src/styles/userService/Signup.module.css [client] (css) */
+.Signup-module__QY_wbW__imagePreview {
+  align-items: center;
+  max-width: 300px;
+  max-height: 400px;
+}
+
+.Signup-module__QY_wbW__container {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  padding: 12px;
+  display: flex;
+}
+
+.Signup-module__QY_wbW__card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 440px;
+  padding: 32px 28px;
+  box-shadow: 0 20px 40px #00000012;
+}
+
+.Signup-module__QY_wbW__title {
+  text-align: center;
+  color: #1e293b;
+  letter-spacing: -.5px;
+  margin: 0 0 8px;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.Signup-module__QY_wbW__subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+
+.Signup-module__QY_wbW__form {
+  flex-direction: column;
+  gap: 20px;
+  display: flex;
+}
+
+.Signup-module__QY_wbW__field {
+  flex-direction: column;
+  gap: 8px;
+  display: flex;
+}
+
+.Signup-module__QY_wbW__fieldLabel {
+  color: #334155;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.Signup-module__QY_wbW__optional {
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.Signup-module__QY_wbW__row {
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  display: grid;
+}
+
+.Signup-module__QY_wbW__inputWithStatus {
+  position: relative;
+}
+
+.Signup-module__QY_wbW__input {
+  box-sizing: border-box;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  transition: all .25s;
+}
+
+.Signup-module__QY_wbW__input:focus {
+  border-color: #64748b;
+  outline: none;
+  box-shadow: 0 0 0 4px #64748b1f;
+}
+
+.Signup-module__QY_wbW__errorInput {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 4px #ef44441f !important;
+}
+
+.Signup-module__QY_wbW__status {
+  pointer-events: none;
+  border-radius: 10px;
+  padding: 5px 11px;
+  font-size: 14px;
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+}
+
+.Signup-module__QY_wbW__status.Signup-module__QY_wbW__checking {
+  color: #64748b;
+  background: #64748b1a;
+}
+
+.Signup-module__QY_wbW__status.Signup-module__QY_wbW__available {
+  color: #059669;
+  background: #0596691a;
+}
+
+.Signup-module__QY_wbW__status.Signup-module__QY_wbW__taken {
+  color: #dc2626;
+  background: #dc26261a;
+}
+
+.Signup-module__QY_wbW__errorText {
+  color: #dc2626;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.Signup-module__QY_wbW__serverError {
+  color: #dc2626;
+  text-align: center;
+  background: #ef444414;
+  border: 1px solid #ef444433;
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: 500;
+}
+
+.Signup-module__QY_wbW__submitBtn {
+  color: #fff;
+  cursor: pointer;
+  background: #334155;
+  border: none;
+  border-radius: 16px;
+  margin-top: 16px;
+  padding: 17px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: all .3s;
+}
+
+.Signup-module__QY_wbW__submitBtn:hover:not(:disabled) {
+  background: #1e293b;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px #1e293b40;
+}
+
+.Signup-module__QY_wbW__submitBtn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/*# sourceMappingURL=src_styles_userService_Signup_module_css_65f1660e._.single.css.map*/

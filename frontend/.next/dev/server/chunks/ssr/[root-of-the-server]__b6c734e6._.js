@@ -1,0 +1,1189 @@
+module.exports = [
+"[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("react/jsx-dev-runtime", () => require("react/jsx-dev-runtime"));
+
+module.exports = mod;
+}),
+"[externals]/@stomp/stompjs [external] (@stomp/stompjs, esm_import)", ((__turbopack_context__) => {
+"use strict";
+
+return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
+
+const mod = await __turbopack_context__.y("@stomp/stompjs");
+
+__turbopack_context__.n(mod);
+__turbopack_async_result__();
+} catch(e) { __turbopack_async_result__(e); } }, true);}),
+"[externals]/sockjs-client [external] (sockjs-client, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("sockjs-client", () => require("sockjs-client"));
+
+module.exports = mod;
+}),
+"[project]/src/hooks/useWebSocket.ts [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
+
+__turbopack_context__.s([
+    "useWebSocket",
+    ()=>useWebSocket
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f40$stomp$2f$stompjs__$5b$external$5d$__$2840$stomp$2f$stompjs$2c$__esm_import$29$__ = __turbopack_context__.i("[externals]/@stomp/stompjs [external] (@stomp/stompjs, esm_import)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$sockjs$2d$client__$5b$external$5d$__$28$sockjs$2d$client$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/sockjs-client [external] (sockjs-client, cjs)");
+var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
+    __TURBOPACK__imported__module__$5b$externals$5d2f40$stomp$2f$stompjs__$5b$external$5d$__$2840$stomp$2f$stompjs$2c$__esm_import$29$__
+]);
+[__TURBOPACK__imported__module__$5b$externals$5d2f40$stomp$2f$stompjs__$5b$external$5d$__$2840$stomp$2f$stompjs$2c$__esm_import$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
+;
+;
+;
+function useWebSocket({ url, onMessage, roomId }) {
+    const clientRef = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useRef"])(null);
+    const [isConnected, setIsConnected] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
+    (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
+        // WebSocket 연결
+        const client = new __TURBOPACK__imported__module__$5b$externals$5d2f40$stomp$2f$stompjs__$5b$external$5d$__$2840$stomp$2f$stompjs$2c$__esm_import$29$__["Client"]({
+            webSocketFactory: ()=>new __TURBOPACK__imported__module__$5b$externals$5d2f$sockjs$2d$client__$5b$external$5d$__$28$sockjs$2d$client$2c$__cjs$29$__["default"](url),
+            reconnectDelay: 5000,
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
+            debug: (str)=>console.log('STOMP Debug:', str),
+            onConnect: ()=>{
+                console.log('✅ WebSocket 연결 성공');
+                setIsConnected(true);
+                // 채팅방 구독
+                if (roomId) {
+                    client.subscribe(`/topic/chat/${roomId}`, (message)=>{
+                        const data = JSON.parse(message.body);
+                        onMessage(data);
+                    });
+                }
+            },
+            onStompError: (frame)=>{
+                console.error('❌ STOMP Error:', frame);
+                setIsConnected(false);
+            },
+            onWebSocketClose: ()=>{
+                console.log('🔌 WebSocket 연결 종료');
+                setIsConnected(false);
+            }
+        });
+        client.activate();
+        clientRef.current = client;
+        return ()=>{
+            if (clientRef.current) {
+                clientRef.current.deactivate();
+            }
+        };
+    }, [
+        url,
+        roomId,
+        onMessage
+    ]);
+    // 메시지 전송
+    const sendMessage = (message)=>{
+        if (clientRef.current && isConnected) {
+            clientRef.current.publish({
+                destination: '/app/chat.send',
+                body: JSON.stringify(message)
+            });
+        } else {
+            console.error('WebSocket이 연결되지 않았습니다.');
+        }
+    };
+    return {
+        isConnected,
+        sendMessage
+    };
+}
+__turbopack_async_result__();
+} catch(e) { __turbopack_async_result__(e); } }, false);}),
+"[project]/src/config/env.ts [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "BLOGSERVICE_API",
+    ()=>BLOGSERVICE_API,
+    "CHATSERVICE_API",
+    ()=>CHATSERVICE_API,
+    "COMMUNITYSERVICE_API",
+    ()=>COMMUNITYSERVICE_API,
+    "FEEDSERVICE_API",
+    ()=>FEEDSERVICE_API,
+    "FRIENDSSERVICE_API",
+    ()=>FRIENDSSERVICE_API,
+    "GATEWAY_API_URL",
+    ()=>GATEWAY_API_URL,
+    "NOTIFICATIONSERVEICE_API",
+    ()=>NOTIFICATIONSERVEICE_API,
+    "USERSERVICE_API",
+    ()=>USERSERVICE_API
+]);
+const FEEDSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/feed");
+const NOTIFICATIONSERVEICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/notifi");
+const USERSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/user");
+const BLOGSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/blog");
+const CHATSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/chat");
+const GATEWAY_API_URL = ("TURBOPACK compile-time value", "http://127.0.0.1:1000");
+const COMMUNITYSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/community");
+const FRIENDSSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/friends");
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+;
+}),
+"[project]/src/api/chatService/chat.ts [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// chat.ts
+__turbopack_context__.s([
+    "createChatRoom",
+    ()=>createChatRoom,
+    "getChatHistory",
+    ()=>getChatHistory,
+    "getChatRooms",
+    ()=>getChatRooms,
+    "markMessagesAsRead",
+    ()=>markMessagesAsRead
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [ssr] (ecmascript)");
+;
+const getAuthHeaders = ()=>{
+    const token = localStorage.getItem('accessToken');
+    if (!token) throw new Error("인증 토큰이 필요합니다.");
+    return {
+        'Authorization': `Bearer ${token}`
+    };
+};
+async function createChatRoom(participantIds, roomName) {
+    const headers = getAuthHeaders();
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["CHATSERVICE_API"]}/rooms`, {
+        method: "POST",
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        // 💡 수정: roomName을 body에 추가합니다.
+        body: JSON.stringify({
+            participantIds,
+            roomName
+        })
+    });
+    if (response.ok) return await response.json();
+    throw new Error("채팅방 생성 실패");
+}
+async function getChatRooms(userSignId) {
+    const authHeaders = getAuthHeaders(); // getAuthHeaders()로 토큰을 가져옵니다.
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["CHATSERVICE_API"]}/rooms`, {
+        method: "GET",
+        headers: {
+            ...authHeaders,
+            'Content-Type': 'application/json',
+            // 💡 수정: 백엔드의 @RequestHeader("userSignId")에 맞게 헤더에 ID를 포함시킵니다.
+            'userSignId': userSignId
+        }
+    });
+    if (response.status === 204) return [];
+    if (response.ok) return await response.json();
+    throw new Error("채팅방 목록 조회 실패");
+}
+async function getChatHistory(roomId, page = 0, size = 50) {
+    const authHeaders = getAuthHeaders();
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["CHATSERVICE_API"]}/rooms/${roomId}/messages?page=${page}&size=${size}`, {
+        method: "GET",
+        headers: {
+            ...authHeaders,
+            'Content-Type': 'application/json'
+        }
+    });
+    if (response.status === 204) return [];
+    if (response.ok) return await response.json();
+    throw new Error("채팅 히스토리 조회 실패");
+}
+async function markMessagesAsRead(roomId, userSignId) {
+    const authHeaders = getAuthHeaders();
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["CHATSERVICE_API"]}/rooms/${roomId}/read`, {
+        method: "PUT",
+        headers: {
+            ...authHeaders,
+            "Content-Length": "0",
+            "userSignId": userSignId
+        }
+    });
+    if (!response.ok) throw new Error("메시지 읽음 처리 실패");
+}
+}),
+"[project]/src/component/chatService/ChatRoom.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
+
+// ChatRoom.tsx
+__turbopack_context__.s([
+    "default",
+    ()=>ChatRoom
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useWebSocket$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useWebSocket.ts [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/api/chatService/chat.ts [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/send.js [ssr] (ecmascript) <export default as Send>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-left.js [ssr] (ecmascript) <export default as ArrowLeft>");
+var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
+    __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useWebSocket$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__
+]);
+[__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useWebSocket$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
+;
+;
+;
+;
+;
+function ChatRoom({ roomId, currentUserId, currentUserName, roomName, onBack }) {
+    const [messages, setMessages] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])([]);
+    const [inputMessage, setInputMessage] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])('');
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
+    const messagesEndRef = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useRef"])(null);
+    // 자동 스크롤 기능
+    const scrollToBottom = ()=>{
+        messagesEndRef.current?.scrollIntoView({
+            behavior: 'smooth'
+        });
+    };
+    // WebSocket 연결
+    const { isConnected, sendMessage } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useWebSocket$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["useWebSocket"])({
+        url: 'http://localhost:8084/ws-chat',
+        roomId,
+        onMessage: (newMessage)=>{
+            console.log('📩 새 메시지 수신:', newMessage);
+            setMessages((prev)=>[
+                    ...prev,
+                    newMessage
+                ]);
+            // 자동 스크롤
+            scrollToBottom();
+            // 상대방 메시지면 읽음 처리
+            // 💡 수정: newMessage.userSingId -> newMessage.userSignId (오타 수정)
+            if (newMessage.userSignId !== currentUserId) {
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["markMessagesAsRead"])(roomId, currentUserId).catch(console.error); // 💡 userId를 API로 전달해야 합니다.
+            }
+        }
+    });
+    // 채팅 히스토리 로드
+    (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
+        loadChatHistory();
+    }, [
+        roomId
+    ]);
+    const loadChatHistory = async ()=>{
+        setLoading(true);
+        try {
+            // 💡 수정: getChatHistory는 페이지네이션을 지원하지만, 여기서는 첫 페이지를 로드합니다.
+            const history = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["getChatHistory"])(roomId);
+            setMessages(history.reverse()); // 최신 메시지가 아래로 오도록 순서 반전
+        } catch (err) {
+            console.error('채팅 히스토리 로드 실패:', err);
+            setMessages([]);
+        } finally{
+            setLoading(false);
+            scrollToBottom();
+        }
+    };
+    const handleSendMessage = ()=>{
+        if (!inputMessage.trim() || !isConnected) return;
+        const messageDto = {
+            roomId,
+            userSignId: currentUserId,
+            name: currentUserName,
+            content: inputMessage,
+            type: 'TALK'
+        };
+        sendMessage(messageDto);
+        setInputMessage('');
+    };
+    const handleKeyPress = (e)=>{
+        if (e.key === 'Enter') {
+            handleSendMessage();
+        }
+    };
+    const formatTime = (dateString)=>{
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        return date.toLocaleTimeString('ko-KR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+        className: "flex flex-col h-full bg-white",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                className: "flex items-center p-4 border-b border-gray-200 bg-white sticky top-0 z-10",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                        onClick: onBack,
+                        className: "md:hidden p-2 mr-2 text-gray-600 hover:text-blue-600 transition",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__["ArrowLeft"], {
+                            className: "w-5 h-5"
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                            lineNumber: 100,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                        lineNumber: 99,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h2", {
+                        className: "text-lg font-semibold text-gray-800 truncate",
+                        children: roomName
+                    }, void 0, false, {
+                        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                        lineNumber: 102,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                lineNumber: 98,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                className: "flex-1 overflow-y-auto p-4 space-y-4",
+                children: [
+                    loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                        className: "text-center text-gray-500",
+                        children: "대화 내용을 불러오는 중..."
+                    }, void 0, false, {
+                        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                        lineNumber: 108,
+                        columnNumber: 15
+                    }, this) : messages.map((message)=>{
+                        const isMyMessage = message.userSignId === currentUserId;
+                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                            className: `flex ${isMyMessage ? 'justify-end' : 'justify-start'}`,
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                className: `flex flex-col max-w-xs lg:max-w-md ${isMyMessage ? 'items-end' : 'items-start'}`,
+                                children: [
+                                    !isMyMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                        className: "text-xs font-semibold text-gray-600 mb-1",
+                                        children: message.name || message.userSignId
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                                        lineNumber: 121,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: `p-3 rounded-xl shadow-md ${isMyMessage ? 'bg-blue-500 text-white rounded-br-none' // 내 메시지 스타일
+                                         : 'bg-gray-200 text-gray-800 rounded-tl-none' // 상대방 메시지 스타일
+                                        }`,
+                                        children: message.content
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                                        lineNumber: 127,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: "text-xs text-gray-400 mt-1",
+                                        children: formatTime(message.createdAt)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                                        lineNumber: 136,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                                lineNumber: 118,
+                                columnNumber: 23
+                            }, this)
+                        }, message.chatId, false, {
+                            fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                            lineNumber: 114,
+                            columnNumber: 21
+                        }, this);
+                    }),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                        ref: messagesEndRef
+                    }, void 0, false, {
+                        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                        lineNumber: 144,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                lineNumber: 106,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                className: "border-t p-4 bg-white",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: "flex space-x-2",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("input", {
+                            type: "text",
+                            value: inputMessage,
+                            onChange: (e)=>setInputMessage(e.target.value),
+                            onKeyPress: handleKeyPress,
+                            placeholder: "메시지를 입력하세요...",
+                            disabled: !isConnected,
+                            className: "flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                            lineNumber: 150,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                            onClick: handleSendMessage,
+                            disabled: !isConnected || !inputMessage.trim(),
+                            className: "px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$send$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Send$3e$__["Send"], {
+                                className: "w-5 h-5"
+                            }, void 0, false, {
+                                fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                                lineNumber: 164,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                            lineNumber: 159,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                    lineNumber: 149,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+                lineNumber: 148,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/src/component/chatService/ChatRoom.tsx",
+        lineNumber: 96,
+        columnNumber: 7
+    }, this);
+}
+__turbopack_async_result__();
+} catch(e) { __turbopack_async_result__(e); } }, false);}),
+"[project]/src/component/chatService/ChatRoomList.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// ChatRoomList.tsx
+__turbopack_context__.s([
+    "default",
+    ()=>ChatRoomList
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/api/chatService/chat.ts [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [ssr] (ecmascript) <export default as Search>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [ssr] (ecmascript) <export default as Plus>");
+;
+;
+;
+;
+function ChatRoomList({ currentUserId, onSelectRoom, onCreateRoom }) {
+    const [rooms, setRooms] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])([]);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
+    const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])('');
+    (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
+        if (currentUserId) {
+            loadRooms();
+        }
+    }, [
+        currentUserId
+    ]);
+    const loadRooms = async ()=>{
+        setLoading(true);
+        try {
+            const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["getChatRooms"])(currentUserId);
+            setRooms(data);
+        } catch (err) {
+            console.error('채팅방 목록 로드 실패:', err);
+        } finally{
+            setLoading(false);
+        }
+    };
+    // 수정된 formatTime 함수 (문자열을 반환하도록 보장)
+    const formatTime = (dateString)=>{
+        if (!dateString) return '알 수 없음';
+        const now = new Date();
+        const messageTime = new Date(dateString);
+        const diffInMs = now.getTime() - messageTime.getTime();
+        const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+        const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+        const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+        if (diffInMinutes < 1) return '방금 전';
+        if (diffInMinutes < 60) return `${diffInMinutes}분 전`;
+        if (diffInHours < 24) return `${diffInHours}시간 전`;
+        if (diffInDays < 7) return `${diffInDays}일 전`;
+        // 7일 이상이면 날짜 포맷 (예: 12.25 또는 2025.01.01)
+        const isThisYear = now.getFullYear() === messageTime.getFullYear();
+        if (isThisYear) {
+            return `${messageTime.getMonth() + 1}.${messageTime.getDate()}`;
+        }
+        return `${messageTime.getFullYear().toString().slice(2)}.${(messageTime.getMonth() + 1).toString().padStart(2, '0')}.${messageTime.getDate().toString().padStart(2, '0')}`;
+    };
+    const filteredRooms = rooms.filter((room)=>room.roomName?.toLowerCase().includes(searchQuery.toLowerCase()) || room.lastMessageContent?.toLowerCase().includes(searchQuery.toLowerCase()));
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+        className: "flex flex-col h-full bg-white",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                className: "p-4 border-b border-gray-200",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h2", {
+                        className: "text-2xl font-bold text-gray-800 mb-4",
+                        children: "채팅"
+                    }, void 0, false, {
+                        fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                        lineNumber: 70,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                        className: "flex space-x-2",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                className: "relative flex-1",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
+                                        className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                        lineNumber: 73,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("input", {
+                                        type: "text",
+                                        placeholder: "채팅 검색",
+                                        value: searchQuery,
+                                        onChange: (e)=>setSearchQuery(e.target.value),
+                                        className: "w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                        lineNumber: 74,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                lineNumber: 72,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                                onClick: onCreateRoom,
+                                className: "p-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition",
+                                title: "새 채팅 시작",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                    lineNumber: 87,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                lineNumber: 82,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                        lineNumber: 71,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                lineNumber: 69,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                className: "flex-1 overflow-y-auto",
+                children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: "p-4 text-center text-gray-500",
+                    children: "채팅방 목록을 불러오는 중..."
+                }, void 0, false, {
+                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                    lineNumber: 95,
+                    columnNumber: 15
+                }, this) : filteredRooms.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: "p-4 text-center text-gray-500",
+                    children: "채팅방이 없습니다."
+                }, void 0, false, {
+                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                    lineNumber: 97,
+                    columnNumber: 15
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: "divide-y divide-gray-100",
+                    children: filteredRooms.map((room)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                            onClick: ()=>onSelectRoom(room.roomId, room.roomName || room.participantIds.filter((id)=>id !== currentUserId).join(', ')),
+                            className: "flex items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors group",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                    className: "relative mr-4 flex-shrink-0",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                        className: "w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                            className: "text-white font-bold text-lg",
+                                            children: room.roomName ? room.roomName.charAt(0) : '?'
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                            lineNumber: 109,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                        lineNumber: 108,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                    lineNumber: 107,
+                                    columnNumber: 23
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                    className: "flex-1 min-w-0",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center justify-between mb-1",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h3", {
+                                                    className: "font-semibold text-gray-900 truncate group-hover:text-blue-600 transition-colors",
+                                                    children: room.roomName || '이름 없는 방'
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                                    lineNumber: 118,
+                                                    columnNumber: 27
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                                    className: "text-xs text-gray-400 ml-2 flex-shrink-0",
+                                                    children: formatTime(room.lastMessageTime)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                                    lineNumber: 121,
+                                                    columnNumber: 27
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                            lineNumber: 117,
+                                            columnNumber: 25
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center justify-between",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                                                className: "text-sm text-gray-500 truncate group-hover:text-gray-700",
+                                                children: room.lastMessageContent || '새로운 대화가 시작되었습니다.'
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                                lineNumber: 126,
+                                                columnNumber: 27
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                            lineNumber: 125,
+                                            columnNumber: 25
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                                    lineNumber: 116,
+                                    columnNumber: 23
+                                }, this)
+                            ]
+                        }, room.roomId, true, {
+                            fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                            lineNumber: 101,
+                            columnNumber: 21
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                    lineNumber: 99,
+                    columnNumber: 15
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+                lineNumber: 93,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/src/component/chatService/ChatRoomList.tsx",
+        lineNumber: 67,
+        columnNumber: 7
+    }, this);
+}
+}),
+"[project]/src/component/chatService/StartNewChatModal.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>StartNewChatModal
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/api/chatService/chat.ts [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [ssr] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/user-plus.js [ssr] (ecmascript) <export default as UserPlus>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [ssr] (ecmascript) <export default as Check>");
+;
+;
+;
+;
+function StartNewChatModal({ currentUserId, onClose, onRoomCreated }) {
+    // 💡 실제로는 API로 친구 목록을 불러와야 합니다. 여기서는 더미 데이터를 사용합니다.
+    const [friends] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])([
+        {
+            id: 'user2',
+            name: '김철수',
+            status: '온라인'
+        },
+        {
+            id: 'user3',
+            name: '이영희',
+            status: '오프라인'
+        },
+        {
+            id: 'elre519',
+            name: '테스트유저',
+            status: '온라인'
+        }
+    ]);
+    const [selectedFriends, setSelectedFriends] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])([]);
+    const [roomName, setRoomName] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])('');
+    const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
+    const toggleFriend = (friendId)=>{
+        setSelectedFriends((prev)=>prev.includes(friendId) ? prev.filter((id)=>id !== friendId) : [
+                ...prev,
+                friendId
+            ]);
+    };
+    const handleSubmit = async ()=>{
+        if (selectedFriends.length === 0) return;
+        setIsSubmitting(true);
+        try {
+            const participantIds = [
+                ...selectedFriends,
+                currentUserId
+            ];
+            // 방 이름이 비어있으면 자동 생성 (예: 김철수, 이영희 외 1명)
+            const defaultName = selectedFriends.map((id)=>friends.find((f)=>f.id === id)?.name).join(', ');
+            const finalRoomName = roomName.trim() || defaultName;
+            const newRoom = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["createChatRoom"])(participantIds, finalRoomName);
+            onRoomCreated({
+                roomId: newRoom.roomId,
+                roomName: newRoom.roomName
+            });
+        } catch (error) {
+            console.error(error);
+            alert('채팅방 생성에 실패했습니다.');
+        } finally{
+            setIsSubmitting(false);
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+        className: "fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+            className: "bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden transform transition-all",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: "flex justify-between items-center p-5 border-b border-gray-100",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h3", {
+                            className: "text-xl font-bold text-gray-800",
+                            children: "새로운 메시지"
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                            lineNumber: 54,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                            onClick: onClose,
+                            className: "text-gray-400 hover:text-gray-600 transition",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                className: "w-6 h-6"
+                            }, void 0, false, {
+                                fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                lineNumber: 56,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                            lineNumber: 55,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                    lineNumber: 53,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: "p-5 space-y-6",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("label", {
+                                    className: "block text-sm font-semibold text-gray-700 mb-2",
+                                    children: "채팅방 이름 (선택사항)"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                    lineNumber: 64,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("input", {
+                                    type: "text",
+                                    value: roomName,
+                                    onChange: (e)=>setRoomName(e.target.value),
+                                    placeholder: "예: 프로젝트 회의방",
+                                    className: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                    lineNumber: 65,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                            lineNumber: 63,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("label", {
+                                    className: "block text-sm font-semibold text-gray-700 mb-2",
+                                    children: [
+                                        "대화 상대 선택 ",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("span", {
+                                            className: "text-blue-500 ml-1",
+                                            children: [
+                                                selectedFriends.length,
+                                                "명"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                            lineNumber: 77,
+                                            columnNumber: 26
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                    lineNumber: 76,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                    className: "h-60 overflow-y-auto border border-gray-200 rounded-xl divide-y divide-gray-100 custom-scrollbar",
+                                    children: friends.map((friend)=>{
+                                        const isSelected = selectedFriends.includes(friend.id);
+                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                            onClick: ()=>toggleFriend(friend.id),
+                                            className: `flex items-center justify-between p-3 cursor-pointer transition hover:bg-gray-50 ${isSelected ? 'bg-blue-50/50' : ''}`,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                                    className: "flex items-center gap-3",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                                            className: "w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-gray-600 font-bold",
+                                                            children: friend.name[0]
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                                            lineNumber: 89,
+                                                            columnNumber: 27
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                                                                    className: `text-sm font-medium ${isSelected ? 'text-blue-700' : 'text-gray-800'}`,
+                                                                    children: friend.name
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                                                    lineNumber: 93,
+                                                                    columnNumber: 29
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                                                                    className: "text-xs text-gray-400",
+                                                                    children: [
+                                                                        "@",
+                                                                        friend.id
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                                                    lineNumber: 94,
+                                                                    columnNumber: 29
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                                            lineNumber: 92,
+                                                            columnNumber: 27
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                                    lineNumber: 88,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                                    className: `w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-blue-500 border-blue-500' : 'border-gray-300'}`,
+                                                    children: isSelected && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                        className: "w-3.5 h-3.5 text-white"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                                        lineNumber: 98,
+                                                        columnNumber: 42
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                                    lineNumber: 97,
+                                                    columnNumber: 25
+                                                }, this)
+                                            ]
+                                        }, friend.id, true, {
+                                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                            lineNumber: 83,
+                                            columnNumber: 23
+                                        }, this);
+                                    })
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                    lineNumber: 79,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                            lineNumber: 75,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                    lineNumber: 61,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                    className: "p-5 border-t border-gray-100 bg-gray-50 flex justify-end",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                        onClick: handleSubmit,
+                        disabled: selectedFriends.length === 0 || isSubmitting,
+                        className: "flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition font-medium shadow-lg shadow-blue-200",
+                        children: isSubmitting ? '생성 중...' : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__["UserPlus"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                                    lineNumber: 116,
+                                    columnNumber: 21
+                                }, this),
+                                "채팅 시작하기"
+                            ]
+                        }, void 0, true)
+                    }, void 0, false, {
+                        fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                        lineNumber: 109,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+                    lineNumber: 108,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+            lineNumber: 51,
+            columnNumber: 9
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/src/component/chatService/StartNewChatModal.tsx",
+        lineNumber: 50,
+        columnNumber: 7
+    }, this);
+}
+}),
+"[project]/src/pages/ChatPage.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
+
+// ChatPage.tsx
+__turbopack_context__.s([
+    "default",
+    ()=>ChatPage
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$ChatRoom$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/component/chatService/ChatRoom.tsx [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$ChatRoomList$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/component/chatService/ChatRoomList.tsx [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$StartNewChatModal$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/component/chatService/StartNewChatModal.tsx [ssr] (ecmascript)"); // 💡 위에서 만든 모달 임포트
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$circle$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/message-circle.js [ssr] (ecmascript) <export default as MessageCircle>");
+var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
+    __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$ChatRoom$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__
+]);
+[__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$ChatRoom$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
+;
+;
+;
+;
+;
+;
+function ChatPage() {
+    // selectedRoom 상태는 그대로 유지
+    const [selectedRoom, setSelectedRoom] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(null);
+    // 💡 추가: 새 채팅 시작 모달 표시를 위한 상태
+    const [showNewChatModal, setShowNewChatModal] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
+    // 💡 TODO: 실제로는 useAuth() 훅이나 Context에서 가져와야 합니다.
+    const currentUserId = "user1";
+    const currentUserName = "나";
+    // 방 생성 성공 시 호출될 핸들러
+    const handleRoomCreated = (newRoom)=>{
+        setShowNewChatModal(false); // 모달 닫기
+        setSelectedRoom({
+            id: newRoom.roomId,
+            name: newRoom.roomName
+        }); // 새 방으로 바로 이동
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                className: "flex h-screen overflow-hidden bg-gray-50",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                        className: `w-full md:w-[380px] bg-white border-r border-gray-200 flex flex-col ${selectedRoom ? 'hidden md:flex' : 'flex'}`,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$ChatRoomList$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                            currentUserId: currentUserId,
+                            onSelectRoom: (roomId, roomName)=>setSelectedRoom({
+                                    id: roomId,
+                                    name: roomName
+                                }),
+                            onCreateRoom: ()=>{
+                                // 💡 수정: 새 채팅 시작 버튼 클릭 시 모달 열기
+                                setShowNewChatModal(true);
+                            }
+                        }, void 0, false, {
+                            fileName: "[project]/src/pages/ChatPage.tsx",
+                            lineNumber: 31,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/pages/ChatPage.tsx",
+                        lineNumber: 30,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                        className: `flex-1 ${selectedRoom ? 'block' : 'hidden md:block'}`,
+                        children: selectedRoom ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$ChatRoom$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                            roomId: selectedRoom.id,
+                            roomName: selectedRoom.name,
+                            currentUserId: currentUserId,
+                            currentUserName: currentUserName,
+                            onBack: ()=>setSelectedRoom(null)
+                        }, void 0, false, {
+                            fileName: "[project]/src/pages/ChatPage.tsx",
+                            lineNumber: 44,
+                            columnNumber: 17
+                        }, this) : // 💡 개선: 채팅방 선택 안되었을 때 보여줄 빈 화면
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                            className: "flex flex-col items-center justify-center h-full text-gray-400 select-none",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+                                    className: "w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$circle$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageCircle$3e$__["MessageCircle"], {
+                                        className: "w-10 h-10 text-gray-300"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/pages/ChatPage.tsx",
+                                        lineNumber: 55,
+                                        columnNumber: 21
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/pages/ChatPage.tsx",
+                                    lineNumber: 54,
+                                    columnNumber: 19
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h3", {
+                                    className: "text-xl font-bold text-gray-700 mb-2",
+                                    children: "메시지를 선택하세요"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/pages/ChatPage.tsx",
+                                    lineNumber: 57,
+                                    columnNumber: 19
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                                    className: "text-sm",
+                                    children: "친구들과의 대화를 시작해보세요."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/pages/ChatPage.tsx",
+                                    lineNumber: 58,
+                                    columnNumber: 19
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setShowNewChatModal(true),
+                                    className: "mt-6 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200",
+                                    children: "새 메시지 보내기"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/pages/ChatPage.tsx",
+                                    lineNumber: 59,
+                                    columnNumber: 19
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/pages/ChatPage.tsx",
+                            lineNumber: 53,
+                            columnNumber: 17
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/pages/ChatPage.tsx",
+                        lineNumber: 42,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/pages/ChatPage.tsx",
+                lineNumber: 27,
+                columnNumber: 9
+            }, this),
+            showNewChatModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$chatService$2f$StartNewChatModal$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                currentUserId: currentUserId,
+                onClose: ()=>setShowNewChatModal(false),
+                onRoomCreated: handleRoomCreated
+            }, void 0, false, {
+                fileName: "[project]/src/pages/ChatPage.tsx",
+                lineNumber: 72,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true);
+}
+__turbopack_async_result__();
+} catch(e) { __turbopack_async_result__(e); } }, false);}),
+"[externals]/next/dist/shared/lib/no-fallback-error.external.js [external] (next/dist/shared/lib/no-fallback-error.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/shared/lib/no-fallback-error.external.js", () => require("next/dist/shared/lib/no-fallback-error.external.js"));
+
+module.exports = mod;
+}),
+];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__b6c734e6._.js.map

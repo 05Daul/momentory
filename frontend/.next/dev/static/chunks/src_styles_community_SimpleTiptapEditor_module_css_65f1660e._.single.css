@@ -1,0 +1,264 @@
+/* [project]/src/styles/community/SimpleTiptapEditor.module.css [client] (css) */
+.SimpleTiptapEditor-module__5Yzcmq__editorWrapper {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar button {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  min-width: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar button:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__menuBar button.SimpleTiptapEditor-module__5Yzcmq__isActive {
+  color: #fff;
+  background: #6366f1;
+  border-color: #6366f1;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent {
+  min-height: 400px;
+  max-height: 600px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror {
+  color: #374151;
+  outline: none;
+  min-height: 360px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror p {
+  margin: 12px 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror h1 {
+  color: #1f2937;
+  margin: 24px 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror h2 {
+  color: #1f2937;
+  margin: 20px 0 10px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror strong {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+:is(.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror ul, .SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror ol) {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror li {
+  margin: 8px 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror img {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__editorContent .ProseMirror:focus {
+  outline: none;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modal {
+  z-index: 1000;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modalContent {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modalContent h3 {
+  color: #1f2937;
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__previewContainer {
+  background: #f9fafb;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  margin-bottom: 20px;
+  padding: 20px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__previewContainer img {
+  display: block;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control {
+  margin-bottom: 20px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control label {
+  color: #374151;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control input[type="range"] {
+  -webkit-appearance: none;
+  background: #e5e7eb;
+  border-radius: 3px;
+  outline: none;
+  width: 100%;
+  height: 6px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  cursor: pointer;
+  background: #6366f1;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__control input[type="range"]::-moz-range-thumb {
+  cursor: pointer;
+  background: #6366f1;
+  border: none;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons {
+  gap: 8px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons button {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons button:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__alignButtons button.SimpleTiptapEditor-module__5Yzcmq__alignActive {
+  color: #6366f1;
+  background: #eef2ff;
+  border-color: #6366f1;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__modalButtons {
+  border-top: 1px solid #e5e7eb;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  display: flex;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__cancelBtn {
+  color: #6b7280;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__cancelBtn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__applyBtn {
+  color: #fff;
+  cursor: pointer;
+  background: #6366f1;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.SimpleTiptapEditor-module__5Yzcmq__applyBtn:hover {
+  background: #4f46e5;
+}
+
+@media (max-width: 640px) {
+  .SimpleTiptapEditor-module__5Yzcmq__modalContent {
+    padding: 20px;
+  }
+
+  .SimpleTiptapEditor-module__5Yzcmq__alignButtons button {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
+/*# sourceMappingURL=src_styles_community_SimpleTiptapEditor_module_css_65f1660e._.single.css.map*/

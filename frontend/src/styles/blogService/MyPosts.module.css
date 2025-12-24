@@ -1,0 +1,103 @@
+/* src/styles/pages/MyPosts.module.css */
+
+.container {
+  width:  80%;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.pageTitle {
+  font-size: 2rem;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.postList {
+  display: grid;
+  gap: 20px;
+}
+
+.postPreview {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 15px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.postPreview:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 4px;
+}
+
+.postContent {
+  flex-grow: 1;
+}
+
+.postTitle {
+  font-size: 1.25rem;
+  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.postSnippet {
+  color: #666;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.postMeta {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.postMeta span {
+  margin-right: 15px;
+}
+
+.noContent, .error {
+  text-align: center;
+  padding: 40px;
+  color: #777;
+  font-size: 1.1rem;
+}
+
+.loadMoreButton {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.loadMoreButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

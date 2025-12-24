@@ -1,0 +1,12 @@
+rootProject.name = 'miniblog'
+include'notificationService'
+include'chatService'
+include'userService'
+include'feedService'
+include'blogService'
+include 'gateway'
+include 'common'
+include 'frontend'
+include'communityService'
+
+

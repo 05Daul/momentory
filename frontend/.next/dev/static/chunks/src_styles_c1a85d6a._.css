@@ -1,0 +1,534 @@
+/* [project]/src/styles/layout/layout.module.css [client] (css) */
+.layout-module__oXCPXq__navLink a, .layout-module__oXCPXq__Link a {
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink {
+  transition: all .2s;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__navLink:hover {
+  font-weight: 600;
+  color: #10b981 !important;
+  text-decoration: none !important;
+}
+
+.layout-module__oXCPXq__topbar {
+  z-index: 100;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+  text-decoration: none;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.layout-module__oXCPXq__leftSection {
+  color: #333;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.layout-module__oXCPXq__rightSection {
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  display: flex;
+}
+
+.layout-module__oXCPXq__rightItem {
+  color: #666;
+  cursor: pointer;
+  padding: 5px 8px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.layout-module__oXCPXq__rightItem:hover {
+  color: #000;
+}
+
+/* [project]/src/styles/userService/LoginModal.module.css [client] (css) */
+.LoginModal-module__9G312W__overlay {
+  z-index: 1000;
+  background-color: #0006;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.LoginModal-module__9G312W__modalBox {
+  background: #fff;
+  border-radius: 8px;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px #00000026;
+}
+
+.LoginModal-module__9G312W__leftSection {
+  background-color: #f8f9fa;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__welcomeText {
+  color: #495057;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__rightSection {
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  position: relative;
+}
+
+.LoginModal-module__9G312W__closeButton {
+  cursor: pointer;
+  color: #868e96;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.LoginModal-module__9G312W__title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.LoginModal-module__9G312W__subTitle {
+  color: #868e96;
+  margin-bottom: 10px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__form {
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__input {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.LoginModal-module__9G312W__loginButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #12b886;
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background .2s;
+}
+
+.LoginModal-module__9G312W__loginButton:hover {
+  background-color: #0ca678;
+}
+
+.LoginModal-module__9G312W__socialSection {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: auto;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__socialLabel {
+  color: #868e96;
+  font-size: .85rem;
+}
+
+.LoginModal-module__9G312W__socialIcons {
+  gap: 15px;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__iconButton {
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.LoginModal-module__9G312W__footer {
+  text-align: right;
+  margin-top: 20px;
+  font-size: .9rem;
+}
+
+.LoginModal-module__9G312W__signupLink {
+  color: #12b886;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* [project]/src/styles/userService/ModalFriends.module.css [client] (css) */
+.ModalFriends-module__4kHBrW__modalBackdrop {
+  z-index: 999;
+  background-color: #00000080;
+  animation: .25s ease-out forwards ModalFriends-module__4kHBrW__fadeIn;
+  position: fixed;
+  inset: 0;
+}
+
+.ModalFriends-module__4kHBrW__modalContent {
+  z-index: 1000;
+  background-color: #fff;
+  border-radius: .5rem;
+  width: 220px;
+  max-width: 90vw;
+  min-height: 230px;
+  padding: 10px 15px 15px;
+  animation: .35s cubic-bezier(.16, 1, .3, 1) forwards ModalFriends-module__4kHBrW__slideInRight;
+  position: fixed;
+  top: 64px;
+  right: 5%;
+  overflow-y: auto;
+  box-shadow: -8px 0 32px #00000026;
+}
+
+.ModalFriends-module__4kHBrW__modalContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ModalFriends-module__4kHBrW__modalContent::-webkit-scrollbar-track {
+  background: none;
+}
+
+.ModalFriends-module__4kHBrW__modalContent::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.ModalFriends-module__4kHBrW__modalTitle {
+  color: #1f2937;
+  margin-bottom: .5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.ModalFriends-module__4kHBrW__modalMessage {
+  color: #4b5563;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ModalFriends-module__4kHBrW__modalActions {
+  justify-content: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.ModalFriends-module__4kHBrW__cancelButton, .ModalFriends-module__4kHBrW__deleteButton {
+  cursor: pointer;
+  border: none;
+  border-radius: .5rem;
+  flex: 1;
+  padding: .875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.ModalFriends-module__4kHBrW__cancelButton {
+  color: #374151;
+  background-color: #e5e7eb;
+}
+
+.ModalFriends-module__4kHBrW__cancelButton:hover {
+  background-color: #d1d5db;
+}
+
+.ModalFriends-module__4kHBrW__deleteButton {
+  color: #fff;
+  background-color: #dc2626;
+}
+
+.ModalFriends-module__4kHBrW__deleteButton:hover {
+  background-color: #b91c1c;
+}
+
+.ModalFriends-module__4kHBrW__deleteButton:disabled {
+  cursor: not-allowed;
+  background-color: #fca5a5;
+}
+
+@keyframes ModalFriends-module__4kHBrW__fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ModalFriends-module__4kHBrW__slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.ModalFriends-module__4kHBrW__closeButton {
+  cursor: pointer;
+  color: #dc2626;
+  background: none;
+  border: none;
+  margin-right: 0;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: color .2s;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ModalFriends-module__4kHBrW__closeButton:hover {
+  color: #b91c1c;
+}
+
+.ModalFriends-module__4kHBrW__listItemDeleteButton {
+  color: #fff;
+  background-color: #dc2626;
+  border-radius: .25rem;
+  margin-left: 4px;
+  padding: .1rem .24rem;
+  font-weight: 400;
+  transition: all .1s;
+}
+
+.ModalFriends-module__4kHBrW__listItemDeleteButton:hover {
+  background-color: #b91c1c;
+}
+
+/* [project]/src/styles/blogService/post.module.css [client] (css) */
+.post-module__Z92h9q__postListContainer {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+}
+
+.post-module__Z92h9q__loader {
+  text-align: center;
+  width: 100%;
+  height: 10px;
+  margin-top: 20px;
+}
+
+.post-module__Z92h9q__noPosts {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}
+
+.post-module__Z92h9q__card {
+  background: #fafafa;
+  flex-direction: column;
+  transition: all .3s;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 8px 32px #00000014;
+}
+
+.post-module__Z92h9q__noThumbnailPlaceholder {
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #f1f1f1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+}
+
+.post-module__Z92h9q__noThumbnailTitle {
+  color: #64748b;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90%;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.post-module__Z92h9q__card:hover {
+  transform: scale(1.02)translateY(-4px);
+  box-shadow: 0 16px 48px #6366f126;
+}
+
+.post-module__Z92h9q__thumbnailWrapper {
+  background-color: #f5f5f5;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-module__Z92h9q__thumbnail {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.post-module__Z92h9q__overlayText {
+  color: #fff;
+  background: linear-gradient(#0000, #000000b3);
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.post-module__Z92h9q__overlayTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.post-module__Z92h9q__content {
+  padding: 20px;
+}
+
+.post-module__Z92h9q__title {
+  color: #1e293b;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.post-module__Z92h9q__preview {
+  color: #64748b;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: 16px;
+  font-size: .95rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.post-module__Z92h9q__meta {
+  color: #94a3b8;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: .85rem;
+  display: flex;
+}
+
+.post-module__Z92h9q__tags {
+  flex-wrap: wrap;
+  gap: 8px;
+  display: flex;
+}
+
+.post-module__Z92h9q__tag {
+  color: #6366f1;
+  background: #6366f11a;
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: .8rem;
+}
+
+@media (max-width: 768px) {
+  .post-module__Z92h9q__postListContainer {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .post-module__Z92h9q__card:hover {
+    transform: none;
+  }
+
+  .post-module__Z92h9q__thumbnailWrapper {
+    height: 180px;
+  }
+}
+
+.post-module__Z92h9q__thumbnailWrapper {
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-module__Z92h9q__thumbnailWrapper:hover .post-module__Z92h9q__overlay {
+  opacity: 1;
+}
+
+.post-module__Z92h9q__overlay {
+  opacity: 0;
+  background: linear-gradient(to top, #000c, #0000 50%);
+  align-items: flex-end;
+  padding: 2rem 1.5rem;
+  transition: opacity .3s;
+  display: flex;
+  position: absolute;
+  inset: 0;
+}
+
+.post-module__Z92h9q__overlayTitle {
+  color: #fff;
+  text-shadow: 0 2px 4px #0009;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=src_styles_c1a85d6a._.css.map*/

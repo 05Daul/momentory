@@ -1,0 +1,321 @@
+/* TiptapEditor.module.css */
+
+.editorWrapper {
+
+  display: flex;
+  gap: 0rem;
+  height: 600px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.editorPane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.menuBar {
+
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background-color: #f9fafb; /* 상단 메뉴바 배경색 */
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+}
+
+.menuBar button {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.menuBar button:hover {
+  background-color: #f3f4f6;
+}
+
+.menuBar button.isActive {
+  background-color: #6366f1;
+  color: #ffffff;
+  border-color: #6366f1;
+}
+
+.editorContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* ✅ ProseMirror 에디터 영역에 white-space 설정 추가 */
+.editorContent :global(.ProseMirror) {
+  min-height: 100%;
+  outline: none;
+  white-space: pre-wrap; /* 공백과 줄바꿈 보존 */
+  word-wrap: break-word;
+}
+
+.editorContent :global(.ProseMirror) p {
+  margin: 0.5rem 0;
+  white-space: pre-wrap; /* 문단 내 공백 보존 */
+  min-height: 1.5em; /* ✅ 빈 문단도 높이 확보 */
+  line-height: 1.8; /* ✅ 줄 높이 명시 - 미리보기와 동일 */
+}
+
+/* ✅ 빈 문단에 최소 높이 부여 */
+.editorContent :global(.ProseMirror) p:empty::before {
+  content: '';
+  display: block;
+  min-height: 1.5em;
+}
+
+.editorContent :global(.ProseMirror) h1,
+.editorContent :global(.ProseMirror) h2,
+.editorContent :global(.ProseMirror) h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.editorContent :global(.ProseMirror) h1 {
+  font-size: 2rem;
+}
+
+.editorContent :global(.ProseMirror) h2 {
+  font-size: 1.5rem;
+}
+
+.editorContent :global(.ProseMirror) ul,
+.editorContent :global(.ProseMirror) ol {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.editorContent :global(.ProseMirror) code {
+  background-color: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+.editorContent :global(.ProseMirror) pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  white-space: pre; /* 코드 블록은 pre 유지 */
+}
+
+.editorContent :global(.ProseMirror) pre code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.previewPane {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff; /* ✅ 흰색으로 통일 */
+  border-left: 1px solid #e5e7eb; /* ✅ 에디터 영역과 구분선 추가 */
+  overflow-y: auto;
+}
+
+.previewTitle {
+  padding: 1.20rem;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #ffffff; /* 흰색으로 통일 */
+  border-bottom: 1px solid #e5e7eb; /* 제목 아래 구분선 */
+}
+
+.previewContent {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  white-space: pre-wrap; /* 미리보기도 공백 보존 */
+  word-wrap: break-word;
+}
+
+.previewContent p {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  min-height: 1em; /* ✅ 빈 문단도 높이 확보 */
+  line-height: 1; /* ✅ 줄 높이 명시 */
+}
+
+/* ✅ 빈 문단 또는 &nbsp;만 있는 문단 처리 */
+.previewContent p:empty,
+.previewContent p:empty::before {
+  content: '';
+  display: block;
+  min-height: 1.5em;
+}
+
+.previewContent h1,
+.previewContent h2,
+.previewContent h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.previewContent h1 {
+  font-size: 2rem;
+}
+
+.previewContent h2 {
+  font-size: 1.5rem;
+}
+
+.previewContent ul,
+.previewContent ol {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.previewContent code {
+  background-color: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+.previewContent pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.previewContent pre code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .previewPane {
+    display: none;
+  }
+
+  /* 2. 작성 영역을 전체 너비로 확장 */
+  .editorPane {
+    flex-basis: 100%;
+    min-width: 100%;
+  }
+
+  /* 3. 에디터 래퍼의 gap을 0으로 설정 */
+  .editorWrapper {
+    gap: 0;
+  }
+}
+/* 이미지 모달 */
+.imageResizeModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.resizeControl {
+  margin: 1.5rem 0;
+}
+
+.resizeControl input[type="range"] {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #ddd;
+  outline: none;
+}
+
+.resizeControl input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.modalButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.applyBtn, .cancelBtn {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.applyBtn { background: #4CAF50; color: white; }
+.cancelBtn { background: #f44336; color: white;color: white; }
+
+.previewContent img {
+  display: block;
+  height: auto;
+}
+
+/* TiptapEditor.module.css 파일 하단에 추가 */
+
+.alignControl {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alignButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.alignButtons button {
+  flex: 1;
+  padding: 0.6rem;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.alignButtons button:hover {
+  background-color: #f3f4f6;
+}
+
+.alignActive {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
