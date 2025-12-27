@@ -29,12 +29,7 @@ export default function Login() {
       localStorage.setItem("refreshToken", response.refreshToken);
       localStorage.setItem("userSignId", response.userSignId);
       localStorage.setItem("role", response.role);
-      if (response.profileImg) {
-        localStorage.setItem("profileImg", response.profileImg);
-      }
-
-      localStorage.setItem("profileImg", response.profileImg ||"");
-
+      localStorage.setItem("profileImg", response.profileImg || "/default-profile.png");
       // 4. 로그인 성공 후 페이지 이동 (예: 메인 페이지)
       router.push("/");
 
