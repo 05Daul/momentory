@@ -2,10 +2,10 @@
     script: typeof document === "object" ? document.currentScript : undefined,
     chunks: [
   "static/chunks/[root-of-the-server]__b8f54f94._.js",
-  "static/chunks/node_modules_next_dist_compiled_9c6fb6f2._.js",
-  "static/chunks/node_modules_next_dist_shared_lib_57404a76._.js",
+  "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",
+  "static/chunks/node_modules_next_dist_shared_lib_4025f6b7._.js",
   "static/chunks/node_modules_next_dist_client_3ede7da4._.js",
-  "static/chunks/node_modules_next_dist_a1eb637b._.js",
+  "static/chunks/node_modules_next_dist_6024eba3._.js",
   "static/chunks/node_modules_next_5cb05f67._.js",
   "static/chunks/node_modules_react-dom_4411d9bd._.js",
   "static/chunks/node_modules_prosemirror-view_dist_index_bb4e2544.js",

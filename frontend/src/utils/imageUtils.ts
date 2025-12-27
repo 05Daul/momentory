@@ -15,3 +15,8 @@ export const getImageUrl = (path: string | null | undefined): string => {
   const USERSERVICE_URL = 'http://127.0.0.1:1003';
   return `${USERSERVICE_URL}${path}`;
 };
+
+export const getInitial = (userId: string | null | undefined): string => {
+  if (!userId || userId.length === 0) return '?';
+  return userId[0].toUpperCase();
+};

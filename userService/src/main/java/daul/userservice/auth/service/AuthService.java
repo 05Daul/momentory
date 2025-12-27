@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Jwts.SIG;
 import io.jsonwebtoken.security.Keys;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,12 +25,17 @@ public class AuthService {
   }
 
   public String generateToken(String userSignId,String role,String profileImg) {
-    Map<String, Object> claims = Map.of("role", role,"profileImg",profileImg);
+    Map<String, Object> claims = new HashMap<>();
+
+    // 2. 값이 null일 경우를 대비해 기본값 처리를 해줍니다.
+    claims.put("role", role != null ? role : "ROLE_USER");
+    claims.put("profileImg", profileImg != null ? profileImg : ""); // 이미지가 없으면 빈 문자열
+
     return Jwts.builder()
         .setClaims(claims)
         .setSubject(userSignId)
         .setIssuedAt(new Date())
-        .setExpiration(new Date(System.currentTimeMillis()+expired))
+        .setExpiration(new Date(System.currentTimeMillis() + expired))
         .signWith(getKey(), SIG.HS256)
         .compact();
   }

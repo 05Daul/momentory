@@ -4,7 +4,7 @@
 import React from "react";
 import styles from "@/styles/blogService/post.module.css";
 import { PostEntity } from "@/types/blogService/blogType";
-import { GATEWAY_API_URL } from '@/config/env';
+import { getImageUrl, getInitial } from '@/utils/imageUtils';
 import { useRouter } from "next/navigation";
 
 interface PostCardProps {
@@ -14,10 +14,9 @@ interface PostCardProps {
 export default function PostCard({ post }: PostCardProps) {
   const router = useRouter();
 
-  // 프로필 이미지 로그
-  console.log("🔥 [PostCard] post.authorId:", post.authorId);
-  console.log("🔥 [PostCard] post.profileImg:", post.profileImg);
-  const fullProfileImgUrl = post.profileImg;
+  // ✅ [수정] 유틸리티 함수를 사용하여 URL 보정
+  const fullProfileImgUrl = getImageUrl(post.profileImg);
+
   const stripHtml = (html: string): string => {
     if (!html) return "";
 
@@ -81,15 +80,22 @@ export default function PostCard({ post }: PostCardProps) {
           <div className={styles.meta}>
             {/* 프로필 이미지 + 작성자 정보 */}
             <div className={styles.authorInfo}>
-              {fullProfileImgUrl ? (
+              {/* ✅ [수정] 보정된 URL 사용 및 onError 핸들링 */}
+              {post.profileImg ? (
                   <img
-                      src={fullProfileImgUrl}
+                      src={fullProfileImgUrl || ''}
                       alt={post.authorId}
                       className={styles.authorAvatar}
+                      onError={(e) => {
+                        // 이미지 로드 실패 시 placeholder로 전환하기 위해 스타일 조정
+                        e.currentTarget.style.display = 'none';
+                        // 부모 요소에 placeholder를 띄우기 위해 클래스를 추가하거나 처리 가능
+                      }}
                   />
               ) : (
                   <div className={styles.authorAvatarPlaceholder}>
-                    {post.authorId[0]?.toUpperCase()}
+                    {/* 🟢 [수정] 댓글과 일관성을 위해 getInitial 유틸 사용 */}
+                    {getInitial(post.authorId)}
                   </div>
               )}
               <span className={styles.author}>by {post.authorId}</span>

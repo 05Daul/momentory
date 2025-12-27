@@ -2,11 +2,11 @@ package daul.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 
-@SpringBootApplication
-@ComponentScan(basePackages = {
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})@ComponentScan(basePackages = {
     "daul.gateway",
     "daul.common"
 })

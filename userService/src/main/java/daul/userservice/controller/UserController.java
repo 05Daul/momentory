@@ -91,6 +91,7 @@ public class UserController {
           .body("회원가입 중 문제가 발생했습니다.");
     }
   }
+
   @PostMapping("/login")
   public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginDTO loginDTO) {
 
@@ -99,14 +100,18 @@ public class UserController {
     HttpHeaders headers = new HttpHeaders();
     headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + result.get("accessToken"));
 
-    return ok()
+    // ✅ Map.of 대신 안전한 방식으로 Map 생성
+    Map<String, String> responseBody = new HashMap<>();
+    responseBody.put("userSignId", result.get("userSignId"));
+    responseBody.put("role", result.get("role"));
+    responseBody.put("refreshToken", result.get("refreshToken"));
+
+    // profileImg가 null이면 빈 문자열로 처리하여 NPE 방지
+    responseBody.put("profileImg", result.get("profileImg") != null ? result.get("profileImg") : "");
+
+    return ResponseEntity.ok()
         .headers(headers)
-        .body(Map.of(
-            "userSignId", result.get("userSignId"),
-            "role", result.get("role"),
-            "refreshToken", result.get("refreshToken"),
-            "profileImg",result.get("profileImg")
-        ));
+        .body(responseBody);
   }
 
   private ResponseEntity<FriendsResDto> handleFriendshipException(Exception e) {

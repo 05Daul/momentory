@@ -600,10 +600,18 @@ async function uploadProfileImage(userSignId, imageFile) {
         body: formData
     });
     if (!response.ok) {
-        const errorMsg = await response.text();
+        // ✅ 서버에서 413(Payload Too Large) 등을 보냈을 때 메시지 처리
+        let errorMsg = "";
+        try {
+            errorMsg = await response.text();
+        } catch (e) {
+            errorMsg = "서버 응답 파싱 실패";
+        }
+        if (response.status === 413) {
+            throw new Error("서버에서 허용하는 파일 크기를 초과했습니다 (최대 5MB).");
+        }
         throw new Error(errorMsg || "프로필 이미지 업로드 실패");
     }
-    // 백엔드에서 새로운 프로필 이미지 경로({ profileImg: "/path/to/image.jpg" })를 반환한다고 가정
     return await response.json();
 }
 async function changePassword(userSignId, currentPassword, newPassword) {
@@ -1795,11 +1803,15 @@ __turbopack_context__.s([
 ]);
 const getImageUrl = (path)=>{
     if (!path) return '';
-    // 이미 완전한 URL인 경우 그대로 반환
     if (path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
-    // userService 포트로 직접 연결 (Gateway 우회)
+    if (path.startsWith('/')) {
+        const GCS_BASE_URL = 'https://storage.googleapis.com/miniblog-storage';
+        return `${GCS_BASE_URL}${path}`;
+    }
+    // 3. 예전 방식(로컬 서버) 대응이 필요 없다면 위 단계에서 마무리됩니다.
+    // 필요한 경우에만 아래 주소를 유지하세요.
     const USERSERVICE_URL = 'http://127.0.0.1:1003';
     return `${USERSERVICE_URL}${path}`;
 };
@@ -1828,6 +1840,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$userServ
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/imageUtils.ts [client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+'use client';
 ;
 ;
 ;
@@ -1835,7 +1848,6 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-// 🟢 [추가] ProfileDropdown 컴포넌트
 const ProfileDropdown = ({ onClose, onNavigate, userSignId })=>{
     const handleLinkClick = (path)=>{
         onNavigate(path);
@@ -1873,7 +1885,7 @@ const ProfileDropdown = ({ onClose, onNavigate, userSignId })=>{
                 children: "설정 (이미지/비밀번호)"
             }, void 0, false, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 34,
+                lineNumber: 33,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
@@ -1893,22 +1905,53 @@ function Topbar() {
     const [profileImg, setProfileImg] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [userSignId, setUserSignId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [imageLoadError, setImageLoadError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // 🟢 [추가] 드롭다운 메뉴 상태
     const [showProfileDropdown, setShowProfileDropdown] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // 초기 로그인 상태 확인
+    // ✅ [수정] 로그인 상태 및 프로필 정보를 다시 불러오는 함수 추출
+    const checkLoginStatus = ()=>{
+        const token = localStorage.getItem("accessToken");
+        const expiresAt = localStorage.getItem("accessTokenExpiresAt");
+        const userId = localStorage.getItem("userSignId");
+        const profile = localStorage.getItem("profile_img"); // 설정 페이지와 키 값 확인 필요
+        if (!token || !expiresAt) {
+            setIsLoggedIn(false);
+            return;
+        }
+        if (Date.now() > Number(expiresAt)) {
+            forceLogout();
+            return;
+        }
+        setIsLoggedIn(true);
+        setUserSignId(userId || '');
+        setProfileImg(profile || '');
+        // 새로운 이미지를 불러올 때 에러 상태 초기화
+        setImageLoadError(false);
+    };
+    // ✅ [추가] 실시간 프로필 업데이트를 위한 이벤트 리스너 등록
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Topbar.useEffect": ()=>{
             checkLoginStatus();
-            setImageLoadError(false);
+            // 'profileUpdate' 커스텀 이벤트 리스너 등록
+            const handleProfileUpdate = {
+                "Topbar.useEffect.handleProfileUpdate": ()=>{
+                    console.log("🔄 프로필 변경 감지: Topbar 업데이트");
+                    checkLoginStatus();
+                }
+            }["Topbar.useEffect.handleProfileUpdate"];
+            window.addEventListener('profileUpdate', handleProfileUpdate);
+            return ({
+                "Topbar.useEffect": ()=>{
+                    window.removeEventListener('profileUpdate', handleProfileUpdate);
+                }
+            })["Topbar.useEffect"];
         }
     }["Topbar.useEffect"], []);
+    // 자동 로그아웃 로직
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Topbar.useEffect": ()=>{
             const token = localStorage.getItem("accessToken");
             const expiresAt = localStorage.getItem("accessTokenExpiresAt");
             if (!token || !expiresAt) return;
             const remainingTime = Number(expiresAt) - Date.now();
-            console.log("⏰ 자동 로그아웃까지(ms):", remainingTime);
             if (remainingTime <= 0) {
                 forceLogout();
                 return;
@@ -1923,23 +1966,6 @@ function Topbar() {
             })["Topbar.useEffect"];
         }
     }["Topbar.useEffect"], []);
-    const checkLoginStatus = ()=>{
-        const token = localStorage.getItem("accessToken");
-        const expiresAt = localStorage.getItem("accessTokenExpiresAt");
-        const userId = localStorage.getItem("userSignId");
-        const profile = localStorage.getItem("profile_img");
-        if (!token || !expiresAt) {
-            setIsLoggedIn(false);
-            return;
-        }
-        if (Date.now() > Number(expiresAt)) {
-            forceLogout();
-            return;
-        }
-        setIsLoggedIn(true);
-        setUserSignId(userId || '');
-        setProfileImg(profile || '');
-    };
     const handleLoginSuccess = ()=>{
         checkLoginStatus();
         setShowLoginModal(false);
@@ -1967,9 +1993,8 @@ function Topbar() {
     };
     const handleNavigate = (path)=>{
         router.push(path);
-        setShowProfileDropdown(false); // 네비게이션 후 닫기
+        setShowProfileDropdown(false);
     };
-    // 로그인한 사용자 signId 가져오기
     const currentUserSignId = ("TURBOPACK compile-time truthy", 1) ? localStorage.getItem("userSignId") || "" : "TURBOPACK unreachable";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
@@ -1982,7 +2007,7 @@ function Topbar() {
                         children: "MomenTory"
                     }, void 0, false, {
                         fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                        lineNumber: 148,
+                        lineNumber: 151,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -1995,7 +2020,7 @@ function Topbar() {
                                     children: "커뮤니티"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 155,
+                                    lineNumber: 158,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2012,13 +2037,13 @@ function Topbar() {
                                             onClose: ()=>setShowFriendModal(false)
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 167,
+                                            lineNumber: 169,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 160,
+                                    lineNumber: 162,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2027,7 +2052,7 @@ function Topbar() {
                                     children: "채팅"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 177,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2036,13 +2061,12 @@ function Topbar() {
                                     children: "Log 작성"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 179,
+                                    lineNumber: 181,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileContainer,
                                     children: [
-                                        " ",
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileSection,
                                             onClick: handleProfileClick,
@@ -2054,29 +2078,24 @@ function Topbar() {
                                                 alt: "프로필",
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileImage,
                                                 onError: (e)=>{
-                                                    console.error('❌ 이미지 로드 실패:', (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getImageUrl"])(profileImg));
                                                     setImageLoadError(true);
                                                     e.currentTarget.style.display = 'none';
-                                                },
-                                                onLoad: ()=>{
-                                                    console.log('✅ 이미지 로드 성공:', (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getImageUrl"])(profileImg));
-                                                    setImageLoadError(false);
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                                lineNumber: 191,
+                                                lineNumber: 192,
                                                 columnNumber: 27
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileCircle,
                                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getInitial"])(userSignId)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                                lineNumber: 206,
+                                                lineNumber: 202,
                                                 columnNumber: 27
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 184,
+                                            lineNumber: 186,
                                             columnNumber: 21
                                         }, this),
                                         showProfileDropdown && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ProfileDropdown, {
@@ -2085,13 +2104,13 @@ function Topbar() {
                                             userSignId: userSignId
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 214,
+                                            lineNumber: 209,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 185,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2103,7 +2122,7 @@ function Topbar() {
                                     children: "로그아웃"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 217,
                                     columnNumber: 19
                                 }, this)
                             ]
@@ -2116,18 +2135,18 @@ function Topbar() {
                             children: "로그인"
                         }, void 0, false, {
                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                            lineNumber: 229,
+                            lineNumber: 222,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                        lineNumber: 152,
+                        lineNumber: 155,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 147,
+                lineNumber: 150,
                 columnNumber: 9
             }, this),
             showLoginModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$userService$2f$LoginModal$2e$tsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2135,7 +2154,7 @@ function Topbar() {
                 onLoginSuccess: handleLoginSuccess
             }, void 0, false, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 241,
+                lineNumber: 234,
                 columnNumber: 13
             }, this)
         ]
@@ -2245,7 +2264,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$blogService$2f$post$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/src/styles/blogService/post.module.css [client] (css module)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/imageUtils.ts [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
@@ -2256,11 +2275,8 @@ var _s = __turbopack_context__.k.signature();
 function PostCard({ post }) {
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    // 프로필 이미지 로그
-    console.log("🔥 [PostCard] post.authorId:", post.authorId);
-    console.log("🔥 [PostCard] post.profileImg:", post.profileImg);
-    const fullProfileImgUrl = post.profileImg ? `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["GATEWAY_API_URL"]}${post.profileImg}` // ⭐️ USERSERVICE_API 추가
-     : null;
+    // ✅ [수정] 유틸리티 함수를 사용하여 URL 보정
+    const fullProfileImgUrl = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getImageUrl"])(post.profileImg);
     const stripHtml = (html)=>{
         if (!html) return "";
         if ("TURBOPACK compile-time truthy", 1) {
@@ -2298,14 +2314,14 @@ function PostCard({ post }) {
                             onError: (e)=>e.currentTarget.style.display = "none"
                         }, void 0, false, {
                             fileName: "[project]/src/component/blogService/PostCard.tsx",
-                            lineNumber: 64,
+                            lineNumber: 60,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$blogService$2f$post$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].overlay
                         }, void 0, false, {
                             fileName: "[project]/src/component/blogService/PostCard.tsx",
-                            lineNumber: 71,
+                            lineNumber: 67,
                             columnNumber: 17
                         }, this)
                     ]
@@ -2313,12 +2329,12 @@ function PostCard({ post }) {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$blogService$2f$post$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].noThumbnailPlaceholder
                 }, void 0, false, {
                     fileName: "[project]/src/component/blogService/PostCard.tsx",
-                    lineNumber: 75,
+                    lineNumber: 71,
                     columnNumber: 15
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/component/blogService/PostCard.tsx",
-                lineNumber: 61,
+                lineNumber: 57,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2329,7 +2345,7 @@ function PostCard({ post }) {
                         children: post.title
                     }, void 0, false, {
                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                        lineNumber: 81,
+                        lineNumber: 77,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2337,7 +2353,7 @@ function PostCard({ post }) {
                         children: previewText
                     }, void 0, false, {
                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                        lineNumber: 82,
+                        lineNumber: 78,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2346,20 +2362,25 @@ function PostCard({ post }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$blogService$2f$post$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].authorInfo,
                                 children: [
-                                    fullProfileImgUrl ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                        src: fullProfileImgUrl,
+                                    post.profileImg ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                        src: fullProfileImgUrl || '',
                                         alt: post.authorId,
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$blogService$2f$post$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].authorAvatar
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$blogService$2f$post$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].authorAvatar,
+                                        onError: (e)=>{
+                                            // 이미지 로드 실패 시 placeholder로 전환하기 위해 스타일 조정
+                                            e.currentTarget.style.display = 'none';
+                                        // 부모 요소에 placeholder를 띄우기 위해 클래스를 추가하거나 처리 가능
+                                        }
                                     }, void 0, false, {
                                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                        lineNumber: 88,
+                                        lineNumber: 85,
                                         columnNumber: 19
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$blogService$2f$post$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].authorAvatarPlaceholder,
-                                        children: post.authorId[0]?.toUpperCase()
+                                        children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getInitial"])(post.authorId)
                                     }, void 0, false, {
                                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                        lineNumber: 94,
+                                        lineNumber: 96,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2370,13 +2391,13 @@ function PostCard({ post }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                        lineNumber: 98,
+                                        lineNumber: 101,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                lineNumber: 86,
+                                lineNumber: 82,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2387,7 +2408,7 @@ function PostCard({ post }) {
                                         children: dateStr
                                     }, void 0, false, {
                                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 105,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2398,19 +2419,19 @@ function PostCard({ post }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 106,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                lineNumber: 101,
+                                lineNumber: 104,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                        lineNumber: 84,
+                        lineNumber: 80,
                         columnNumber: 11
                     }, this),
                     (post.tags ?? []).length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2427,24 +2448,24 @@ function PostCard({ post }) {
                                 ]
                             }, i, true, {
                                 fileName: "[project]/src/component/blogService/PostCard.tsx",
-                                lineNumber: 110,
+                                lineNumber: 113,
                                 columnNumber: 21
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/component/blogService/PostCard.tsx",
-                        lineNumber: 108,
+                        lineNumber: 111,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/component/blogService/PostCard.tsx",
-                lineNumber: 80,
+                lineNumber: 76,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/component/blogService/PostCard.tsx",
-        lineNumber: 56,
+        lineNumber: 52,
         columnNumber: 7
     }, this);
 }
@@ -2852,20 +2873,16 @@ function PostList({ postType, searchKeyword = '' }) {
     const enrichPostsWithProfiles = async (posts)=>{
         if (posts.length === 0) return [];
         try {
-            // 모든 작성자 ID 추출
             const authorIds = posts.map((post)=>post.authorId);
-            console.log('🔍 프로필 조회 시작:', authorIds);
-            // 프로필 정보 일괄 조회
             const profileMap = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$userService$2f$user$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getUserProfiles"])(authorIds);
-            console.log('✅ 프로필 조회 완료:', profileMap.size, '명');
-            // Post에 프로필 이미지 추가
             return posts.map((post)=>({
                     ...post,
-                    profileImg: profileMap.get(post.authorId)?.profileImg || undefined
+                    // null 대신 undefined를 사용하거나, 값이 없을 때 아예 생략되도록 합니다.
+                    profileImg: profileMap.get(post.authorId)?.profileImg ?? undefined
                 }));
         } catch (error) {
             console.error('❌ 프로필 이미지 로드 실패:', error);
-            // 실패해도 게시물은 표시
+            // 에러 발생 시에도 null이 아닌 undefined를 가진 객체를 반환해야 합니다.
             return posts.map((post)=>({
                     ...post,
                     profileImg: undefined
@@ -2996,12 +3013,12 @@ function PostList({ postType, searchKeyword = '' }) {
                         post: post
                     }, post.postId, false, {
                         fileName: "[project]/src/component/blogService/PostList.tsx",
-                        lineNumber: 182,
+                        lineNumber: 175,
                         columnNumber: 15
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/component/blogService/PostList.tsx",
-                lineNumber: 180,
+                lineNumber: 173,
                 columnNumber: 9
             }, this),
             hasMore && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3011,12 +3028,12 @@ function PostList({ postType, searchKeyword = '' }) {
                     children: "로딩 중..."
                 }, void 0, false, {
                     fileName: "[project]/src/component/blogService/PostList.tsx",
-                    lineNumber: 188,
+                    lineNumber: 181,
                     columnNumber: 27
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/component/blogService/PostList.tsx",
-                lineNumber: 187,
+                lineNumber: 180,
                 columnNumber: 13
             }, this),
             !hasMore && posts.length === 0 && !loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3024,13 +3041,13 @@ function PostList({ postType, searchKeyword = '' }) {
                 children: postType === 'search' ? '검색 결과가 없습니다.' : postType === 'friends' ? '친구의 게시물이 없습니다.' : '표시할 게시물이 없습니다.'
             }, void 0, false, {
                 fileName: "[project]/src/component/blogService/PostList.tsx",
-                lineNumber: 193,
+                lineNumber: 186,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/component/blogService/PostList.tsx",
-        lineNumber: 179,
+        lineNumber: 172,
         columnNumber: 7
     }, this);
 }

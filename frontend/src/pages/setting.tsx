@@ -28,26 +28,27 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ initialProfile, onPro
   const [isUpdating, setIsUpdating] = useState(false); // 이미지/닉네임 업데이트 공용 로딩 상태
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // 닉네임 및 이메일 상태
   const [nickName, setNickName] = useState(initialProfile.nickName || '');
   const [email, setEmail] = useState(initialProfile.email || '');
 
-  // 🔴 [제거] 닉네임 변경을 위한 현재 비밀번호 상태 제거
-  // const [currentPassword, setCurrentPassword] = useState('');
   const [nicknameError, setNicknameError] = useState('');
 
-  // 파일 선택 처리 (이미지 업로드)
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) { // 5MB 제한
-      alert("파일 크기는 5MB를 초과할 수 없습니다.");
+    // ✅ [수정] 제한 크기를 5MB로 변경 (5 * 1024 * 1024)
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert("파일 크기는 최대 5MB까지만 허용됩니다.");
+      // 파일 선택 초기화 (같은 파일을 다시 선택할 수 있게 함)
+      e.target.value = '';
       return;
     }
 
     setIsUpdating(true);
     setNicknameError('');
+
     try {
       const { profileImg: newImgPath } = await uploadProfileImage(profile.userSignId, file);
 
@@ -55,11 +56,24 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ initialProfile, onPro
 
       setProfile(updatedProfile);
       onProfileUpdate(updatedProfile);
+
+      // ✅ [추가] Topbar와 동기화를 위해 localStorage도 함께 업데이트
+      localStorage.setItem('profile_img', newImgPath);
+
+      // 앱 전체에 프로필이 변경되었음을 알리는 이벤트 발신
+      window.dispatchEvent(new Event('profileUpdate'));
       alert("프로필 이미지가 성공적으로 변경되었습니다.");
 
-    } catch (error) {
+    } catch (error: any) {
+      // ✅ [수정] 런타임 에러 페이지 방지를 위해 catch 로직 강화
       console.error("프로필 이미지 업데이트 실패:", error);
-      alert("프로필 이미지 업데이트에 실패했습니다.");
+
+      // 서버에서 전달한 구체적인 에러 메시지가 있다면 alert로 표시
+      const errorMessage = error.message || "프로필 이미지 업데이트에 실패했습니다.";
+      alert(errorMessage);
+
+      // 에러 발생 시 파일 선택 초기화
+      e.target.value = '';
     } finally {
       setIsUpdating(false);
     }

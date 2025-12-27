@@ -48,25 +48,18 @@ export default function PostList({ postType, searchKeyword = '' }: PostListProps
     if (posts.length === 0) return [];
 
     try {
-      // 모든 작성자 ID 추출
       const authorIds = posts.map(post => post.authorId);
-
-      console.log('🔍 프로필 조회 시작:', authorIds);
-
-      // 프로필 정보 일괄 조회
       const profileMap = await getUserProfiles(authorIds);
 
-      console.log('✅ 프로필 조회 완료:', profileMap.size, '명');
-
-      // Post에 프로필 이미지 추가
       return posts.map(post => ({
         ...post,
-        profileImg: profileMap.get(post.authorId)?.profileImg || undefined
+        // null 대신 undefined를 사용하거나, 값이 없을 때 아예 생략되도록 합니다.
+        profileImg: profileMap.get(post.authorId)?.profileImg ?? undefined
       }));
     } catch (error) {
       console.error('❌ 프로필 이미지 로드 실패:', error);
-      // 실패해도 게시물은 표시
-      return posts.map(post => ({...post, profileImg: undefined}));
+      // 에러 발생 시에도 null이 아닌 undefined를 가진 객체를 반환해야 합니다.
+      return posts.map(post => ({ ...post, profileImg: undefined }));
     }
   };
 

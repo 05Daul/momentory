@@ -600,10 +600,18 @@ async function uploadProfileImage(userSignId, imageFile) {
         body: formData
     });
     if (!response.ok) {
-        const errorMsg = await response.text();
+        // ✅ 서버에서 413(Payload Too Large) 등을 보냈을 때 메시지 처리
+        let errorMsg = "";
+        try {
+            errorMsg = await response.text();
+        } catch (e) {
+            errorMsg = "서버 응답 파싱 실패";
+        }
+        if (response.status === 413) {
+            throw new Error("서버에서 허용하는 파일 크기를 초과했습니다 (최대 5MB).");
+        }
         throw new Error(errorMsg || "프로필 이미지 업로드 실패");
     }
-    // 백엔드에서 새로운 프로필 이미지 경로({ profileImg: "/path/to/image.jpg" })를 반환한다고 가정
     return await response.json();
 }
 async function changePassword(userSignId, currentPassword, newPassword) {
@@ -814,6 +822,8 @@ function LoginModal({ onClose, onLoginSuccess }) {
             console.log("🔥 [LoginModal] response.profileImg:", response.profileImg);
             console.log("🔥 [LoginModal] response.profile_img:", response.profile_img);
             // 토큰 및 사용자 정보 저장
+            const expiresAt = Date.now() + 12 * 60 * 60 * 1000; // 12시간
+            localStorage.setItem("accessTokenExpiresAt", expiresAt.toString());
             localStorage.setItem("accessToken", response.accessToken);
             localStorage.setItem("refreshToken", response.refreshToken);
             localStorage.setItem("userSignId", response.userSignId);
@@ -855,12 +865,12 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                 children: "✨"
                             }, void 0, false, {
                                 fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                lineNumber: 62,
+                                lineNumber: 64,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 61,
+                            lineNumber: 63,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -868,7 +878,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "다시 만나서 반가워요"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 64,
+                            lineNumber: 66,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -876,13 +886,13 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "오늘도 소중한 순간을 기록해볼까요?"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 65,
+                            lineNumber: 67,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                    lineNumber: 60,
+                    lineNumber: 62,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -894,7 +904,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "×"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 70,
+                            lineNumber: 72,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -902,7 +912,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "로그인"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 72,
+                            lineNumber: 74,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -917,7 +927,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     onChange: (e)=>setUserSignId(e.target.value)
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 76,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -928,7 +938,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     onChange: (e)=>setPassword(e.target.value)
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 81,
+                                    lineNumber: 83,
                                     columnNumber: 15
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -936,7 +946,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 89,
+                                    lineNumber: 91,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -945,13 +955,13 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     children: "로그인"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 91,
+                                    lineNumber: 93,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 73,
+                            lineNumber: 75,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -965,30 +975,30 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     children: "회원가입"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 99,
                                     columnNumber: 27
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 96,
+                            lineNumber: 98,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                    lineNumber: 69,
+                    lineNumber: 71,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/component/userService/LoginModal.tsx",
-            lineNumber: 57,
+            lineNumber: 59,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/component/userService/LoginModal.tsx",
-        lineNumber: 56,
+        lineNumber: 58,
         columnNumber: 7
     }, this);
 }
@@ -1793,11 +1803,15 @@ __turbopack_context__.s([
 ]);
 const getImageUrl = (path)=>{
     if (!path) return '';
-    // 이미 완전한 URL인 경우 그대로 반환
     if (path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
-    // userService 포트로 직접 연결 (Gateway 우회)
+    if (path.startsWith('/')) {
+        const GCS_BASE_URL = 'https://storage.googleapis.com/miniblog-storage';
+        return `${GCS_BASE_URL}${path}`;
+    }
+    // 3. 예전 방식(로컬 서버) 대응이 필요 없다면 위 단계에서 마무리됩니다.
+    // 필요한 경우에만 아래 주소를 유지하세요.
     const USERSERVICE_URL = 'http://127.0.0.1:1003';
     return `${USERSERVICE_URL}${path}`;
 };
@@ -1826,6 +1840,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$userServ
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/imageUtils.ts [client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+'use client';
 ;
 ;
 ;
@@ -1833,7 +1848,6 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-// 🟢 [추가] ProfileDropdown 컴포넌트
 const ProfileDropdown = ({ onClose, onNavigate, userSignId })=>{
     const handleLinkClick = (path)=>{
         onNavigate(path);
@@ -1891,28 +1905,67 @@ function Topbar() {
     const [profileImg, setProfileImg] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [userSignId, setUserSignId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [imageLoadError, setImageLoadError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // 🟢 [추가] 드롭다운 메뉴 상태
     const [showProfileDropdown, setShowProfileDropdown] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // 초기 로그인 상태 확인
+    // ✅ [수정] 로그인 상태 및 프로필 정보를 다시 불러오는 함수 추출
+    const checkLoginStatus = ()=>{
+        const token = localStorage.getItem("accessToken");
+        const expiresAt = localStorage.getItem("accessTokenExpiresAt");
+        const userId = localStorage.getItem("userSignId");
+        const profile = localStorage.getItem("profile_img"); // 설정 페이지와 키 값 확인 필요
+        if (!token || !expiresAt) {
+            setIsLoggedIn(false);
+            return;
+        }
+        if (Date.now() > Number(expiresAt)) {
+            forceLogout();
+            return;
+        }
+        setIsLoggedIn(true);
+        setUserSignId(userId || '');
+        setProfileImg(profile || '');
+        // 새로운 이미지를 불러올 때 에러 상태 초기화
+        setImageLoadError(false);
+    };
+    // ✅ [추가] 실시간 프로필 업데이트를 위한 이벤트 리스너 등록
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Topbar.useEffect": ()=>{
             checkLoginStatus();
-            setImageLoadError(false);
+            // 'profileUpdate' 커스텀 이벤트 리스너 등록
+            const handleProfileUpdate = {
+                "Topbar.useEffect.handleProfileUpdate": ()=>{
+                    console.log("🔄 프로필 변경 감지: Topbar 업데이트");
+                    checkLoginStatus();
+                }
+            }["Topbar.useEffect.handleProfileUpdate"];
+            window.addEventListener('profileUpdate', handleProfileUpdate);
+            return ({
+                "Topbar.useEffect": ()=>{
+                    window.removeEventListener('profileUpdate', handleProfileUpdate);
+                }
+            })["Topbar.useEffect"];
         }
     }["Topbar.useEffect"], []);
-    const checkLoginStatus = ()=>{
-        const token = localStorage.getItem("accessToken");
-        const userId = localStorage.getItem("userSignId");
-        const profile = localStorage.getItem("profile_img");
-        console.log("🔥 [Topbar] checkLoginStatus 호출");
-        console.log("🔥 [Topbar] token:", token ? "존재" : "없음");
-        console.log("🔥 [Topbar] userId:", userId);
-        console.log("🔥 [Topbar] profile_img from localStorage:", profile);
-        setIsLoggedIn(!!token);
-        setUserSignId(userId || '');
-        setProfileImg(profile || '');
-        console.log("🔥 [Topbar] State 업데이트 - profileImg:", profile || '없음');
-    };
+    // 자동 로그아웃 로직
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Topbar.useEffect": ()=>{
+            const token = localStorage.getItem("accessToken");
+            const expiresAt = localStorage.getItem("accessTokenExpiresAt");
+            if (!token || !expiresAt) return;
+            const remainingTime = Number(expiresAt) - Date.now();
+            if (remainingTime <= 0) {
+                forceLogout();
+                return;
+            }
+            const timer = setTimeout({
+                "Topbar.useEffect.timer": ()=>{
+                    forceLogout();
+                }
+            }["Topbar.useEffect.timer"], remainingTime);
+            return ({
+                "Topbar.useEffect": ()=>clearTimeout(timer)
+            })["Topbar.useEffect"];
+        }
+    }["Topbar.useEffect"], []);
     const handleLoginSuccess = ()=>{
         checkLoginStatus();
         setShowLoginModal(false);
@@ -1925,14 +1978,23 @@ function Topbar() {
         alert("로그아웃 되었습니다.");
         router.push("/");
     };
+    const forceLogout = ()=>{
+        console.warn("⏳ 토큰 만료 → 자동 로그아웃");
+        localStorage.clear();
+        setIsLoggedIn(false);
+        setProfileImg('');
+        setUserSignId('');
+        setShowProfileDropdown(false);
+        alert("로그인 시간이 만료되었습니다.");
+        router.replace("/");
+    };
     const handleProfileClick = ()=>{
         setShowProfileDropdown((prev)=>!prev);
     };
     const handleNavigate = (path)=>{
         router.push(path);
-        setShowProfileDropdown(false); // 네비게이션 후 닫기
+        setShowProfileDropdown(false);
     };
-    // 로그인한 사용자 signId 가져오기
     const currentUserSignId = ("TURBOPACK compile-time truthy", 1) ? localStorage.getItem("userSignId") || "" : "TURBOPACK unreachable";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
@@ -1945,7 +2007,7 @@ function Topbar() {
                         children: "MomenTory"
                     }, void 0, false, {
                         fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                        lineNumber: 108,
+                        lineNumber: 151,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -1958,7 +2020,7 @@ function Topbar() {
                                     children: "커뮤니티"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 158,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1975,13 +2037,13 @@ function Topbar() {
                                             onClose: ()=>setShowFriendModal(false)
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 169,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 120,
+                                    lineNumber: 162,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1990,7 +2052,7 @@ function Topbar() {
                                     children: "채팅"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 135,
+                                    lineNumber: 177,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1999,13 +2061,12 @@ function Topbar() {
                                     children: "Log 작성"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 181,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileContainer,
                                     children: [
-                                        " ",
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileSection,
                                             onClick: handleProfileClick,
@@ -2017,29 +2078,24 @@ function Topbar() {
                                                 alt: "프로필",
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileImage,
                                                 onError: (e)=>{
-                                                    console.error('❌ 이미지 로드 실패:', (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getImageUrl"])(profileImg));
                                                     setImageLoadError(true);
                                                     e.currentTarget.style.display = 'none';
-                                                },
-                                                onLoad: ()=>{
-                                                    console.log('✅ 이미지 로드 성공:', (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getImageUrl"])(profileImg));
-                                                    setImageLoadError(false);
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 192,
                                                 columnNumber: 27
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].profileCircle,
                                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getInitial"])(userSignId)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                                lineNumber: 166,
+                                                lineNumber: 202,
                                                 columnNumber: 27
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 144,
+                                            lineNumber: 186,
                                             columnNumber: 21
                                         }, this),
                                         showProfileDropdown && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ProfileDropdown, {
@@ -2048,13 +2104,13 @@ function Topbar() {
                                             userSignId: userSignId
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 174,
+                                            lineNumber: 209,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 143,
+                                    lineNumber: 185,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2066,7 +2122,7 @@ function Topbar() {
                                     children: "로그아웃"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 217,
                                     columnNumber: 19
                                 }, this)
                             ]
@@ -2079,18 +2135,18 @@ function Topbar() {
                             children: "로그인"
                         }, void 0, false, {
                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                            lineNumber: 189,
+                            lineNumber: 222,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                        lineNumber: 112,
+                        lineNumber: 155,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 107,
+                lineNumber: 150,
                 columnNumber: 9
             }, this),
             showLoginModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$userService$2f$LoginModal$2e$tsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2098,13 +2154,13 @@ function Topbar() {
                 onLoginSuccess: handleLoginSuccess
             }, void 0, false, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 201,
+                lineNumber: 234,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true);
 }
-_s(Topbar, "S5Q7LmN9Lhyk4bkOSogLuu3ZvZk=", false, function() {
+_s(Topbar, "K8fMfkLElgp0F5GVdoRhiLz7rAE=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
@@ -2227,18 +2283,18 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
     const [profile, setProfile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(initialProfile);
     const [isUpdating, setIsUpdating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false); // 이미지/닉네임 업데이트 공용 로딩 상태
     const fileInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    // 닉네임 및 이메일 상태
     const [nickName, setNickName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(initialProfile.nickName || '');
     const [email, setEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(initialProfile.email || '');
-    // 🔴 [제거] 닉네임 변경을 위한 현재 비밀번호 상태 제거
-    // const [currentPassword, setCurrentPassword] = useState('');
     const [nicknameError, setNicknameError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])('');
-    // 파일 선택 처리 (이미지 업로드)
     const handleFileChange = async (e)=>{
         const file = e.target.files?.[0];
         if (!file) return;
-        if (file.size > 5 * 1024 * 1024) {
-            alert("파일 크기는 5MB를 초과할 수 없습니다.");
+        // ✅ [수정] 제한 크기를 5MB로 변경 (5 * 1024 * 1024)
+        const MAX_SIZE = 5 * 1024 * 1024;
+        if (file.size > MAX_SIZE) {
+            alert("파일 크기는 최대 5MB까지만 허용됩니다.");
+            // 파일 선택 초기화 (같은 파일을 다시 선택할 수 있게 함)
+            e.target.value = '';
             return;
         }
         setIsUpdating(true);
@@ -2251,10 +2307,19 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
             };
             setProfile(updatedProfile);
             onProfileUpdate(updatedProfile);
+            // ✅ [추가] Topbar와 동기화를 위해 localStorage도 함께 업데이트
+            localStorage.setItem('profile_img', newImgPath);
+            // 앱 전체에 프로필이 변경되었음을 알리는 이벤트 발신
+            window.dispatchEvent(new Event('profileUpdate'));
             alert("프로필 이미지가 성공적으로 변경되었습니다.");
         } catch (error) {
+            // ✅ [수정] 런타임 에러 페이지 방지를 위해 catch 로직 강화
             console.error("프로필 이미지 업데이트 실패:", error);
-            alert("프로필 이미지 업데이트에 실패했습니다.");
+            // 서버에서 전달한 구체적인 에러 메시지가 있다면 alert로 표시
+            const errorMessage = error.message || "프로필 이미지 업데이트에 실패했습니다.";
+            alert(errorMessage);
+            // 에러 발생 시 파일 선택 초기화
+            e.target.value = '';
         } finally{
             setIsUpdating(false);
         }
@@ -2297,7 +2362,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                 children: "프로필 정보"
             }, void 0, false, {
                 fileName: "[project]/src/pages/setting.tsx",
-                lineNumber: 109,
+                lineNumber: 123,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2313,14 +2378,14 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$settings$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].avatar
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 115,
+                                lineNumber: 129,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$settings$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__["default"].avatarPlaceholder,
                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["getInitial"])(profile.userSignId)
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 121,
+                                lineNumber: 135,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2328,13 +2393,13 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 children: isUpdating ? '업로드 중...' : '이미지 변경'
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 125,
+                                lineNumber: 139,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 113,
+                        lineNumber: 127,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2348,13 +2413,13 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                         disabled: isUpdating
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 129,
+                        lineNumber: 143,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/pages/setting.tsx",
-                lineNumber: 112,
+                lineNumber: 126,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2368,7 +2433,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 141,
+                        lineNumber: 155,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2380,7 +2445,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 children: nicknameError
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 144,
+                                lineNumber: 158,
                                 columnNumber: 31
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -2388,7 +2453,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 children: "닉네임"
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 147,
+                                lineNumber: 161,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2404,7 +2469,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 disabled: isUpdating
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 148,
+                                lineNumber: 162,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -2412,7 +2477,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 children: "이메일"
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 162,
+                                lineNumber: 176,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2424,7 +2489,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 disabled: true
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 163,
+                                lineNumber: 177,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2432,7 +2497,7 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 children: "닉네임 변경 시 보안 절차가 . 이메일은 변경할 수 없습니다."
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 186,
+                                lineNumber: 200,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2441,25 +2506,25 @@ const ProfileSettings = ({ initialProfile, onProfileUpdate })=>{
                                 children: isUpdating ? '수정 중...' : '닉네임 수정'
                             }, void 0, false, {
                                 fileName: "[project]/src/pages/setting.tsx",
-                                lineNumber: 191,
+                                lineNumber: 205,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 142,
+                        lineNumber: 156,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/pages/setting.tsx",
-                lineNumber: 140,
+                lineNumber: 154,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/pages/setting.tsx",
-        lineNumber: 108,
+        lineNumber: 122,
         columnNumber: 7
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2516,7 +2581,7 @@ const PasswordSettings = ({ userSignId })=>{
                 children: "비밀번호 변경"
             }, void 0, false, {
                 fileName: "[project]/src/pages/setting.tsx",
-                lineNumber: 251,
+                lineNumber: 265,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2528,14 +2593,14 @@ const PasswordSettings = ({ userSignId })=>{
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 253,
+                        lineNumber: 267,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                         children: "현재 비밀번호"
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 255,
+                        lineNumber: 269,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2545,14 +2610,14 @@ const PasswordSettings = ({ userSignId })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 256,
+                        lineNumber: 270,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                         children: "새 비밀번호 (8자 이상, 특수문자 포함돼야합니다.)"
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 263,
+                        lineNumber: 277,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2562,14 +2627,14 @@ const PasswordSettings = ({ userSignId })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 264,
+                        lineNumber: 278,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                         children: "새 비밀번호 확인"
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 271,
+                        lineNumber: 285,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2579,7 +2644,7 @@ const PasswordSettings = ({ userSignId })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 272,
+                        lineNumber: 286,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2588,19 +2653,19 @@ const PasswordSettings = ({ userSignId })=>{
                         children: isChanging ? '변경 중...' : '비밀번호 변경'
                     }, void 0, false, {
                         fileName: "[project]/src/pages/setting.tsx",
-                        lineNumber: 279,
+                        lineNumber: 293,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/pages/setting.tsx",
-                lineNumber: 252,
+                lineNumber: 266,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/pages/setting.tsx",
-        lineNumber: 250,
+        lineNumber: 264,
         columnNumber: 7
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2646,12 +2711,12 @@ function SettingsPage() {
                 children: "프로필 정보 로딩 중..."
             }, void 0, false, {
                 fileName: "[project]/src/pages/setting.tsx",
-                lineNumber: 324,
+                lineNumber: 338,
                 columnNumber: 11
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/pages/setting.tsx",
-            lineNumber: 323,
+            lineNumber: 337,
             columnNumber: 9
         }, this);
     }
@@ -2662,12 +2727,12 @@ function SettingsPage() {
                 children: "로그인이 필요합니다."
             }, void 0, false, {
                 fileName: "[project]/src/pages/setting.tsx",
-                lineNumber: 332,
+                lineNumber: 346,
                 columnNumber: 11
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/pages/setting.tsx",
-            lineNumber: 331,
+            lineNumber: 345,
             columnNumber: 9
         }, this);
     }
@@ -2680,7 +2745,7 @@ function SettingsPage() {
                     children: "계정 설정"
                 }, void 0, false, {
                     fileName: "[project]/src/pages/setting.tsx",
-                    lineNumber: 340,
+                    lineNumber: 354,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2695,7 +2760,7 @@ function SettingsPage() {
                                     children: "프로필 관리"
                                 }, void 0, false, {
                                     fileName: "[project]/src/pages/setting.tsx",
-                                    lineNumber: 345,
+                                    lineNumber: 359,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2704,13 +2769,13 @@ function SettingsPage() {
                                     children: "비밀번호 변경"
                                 }, void 0, false, {
                                     fileName: "[project]/src/pages/setting.tsx",
-                                    lineNumber: 351,
+                                    lineNumber: 365,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/pages/setting.tsx",
-                            lineNumber: 344,
+                            lineNumber: 358,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -2721,37 +2786,37 @@ function SettingsPage() {
                                     onProfileUpdate: setProfile
                                 }, void 0, false, {
                                     fileName: "[project]/src/pages/setting.tsx",
-                                    lineNumber: 362,
+                                    lineNumber: 376,
                                     columnNumber: 19
                                 }, this),
                                 activeTab === SETTINGS_TABS.PASSWORD && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PasswordSettings, {
                                     userSignId: userId
                                 }, void 0, false, {
                                     fileName: "[project]/src/pages/setting.tsx",
-                                    lineNumber: 369,
+                                    lineNumber: 383,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/pages/setting.tsx",
-                            lineNumber: 360,
+                            lineNumber: 374,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/pages/setting.tsx",
-                    lineNumber: 342,
+                    lineNumber: 356,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/pages/setting.tsx",
-            lineNumber: 339,
+            lineNumber: 353,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/pages/setting.tsx",
-        lineNumber: 338,
+        lineNumber: 352,
         columnNumber: 7
     }, this);
 }

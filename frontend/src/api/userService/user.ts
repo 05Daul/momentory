@@ -41,13 +41,22 @@ export async function uploadProfileImage(userSignId: string, imageFile: File): P
     },
     body: formData,
   });
-
   if (!response.ok) {
-    const errorMsg = await response.text();
+    // ✅ 서버에서 413(Payload Too Large) 등을 보냈을 때 메시지 처리
+    let errorMsg = "";
+    try {
+      errorMsg = await response.text();
+    } catch (e) {
+      errorMsg = "서버 응답 파싱 실패";
+    }
+
+    if (response.status === 413) {
+      throw new Error("서버에서 허용하는 파일 크기를 초과했습니다 (최대 5MB).");
+    }
+
     throw new Error(errorMsg || "프로필 이미지 업로드 실패");
   }
 
-  // 백엔드에서 새로운 프로필 이미지 경로({ profileImg: "/path/to/image.jpg" })를 반환한다고 가정
   return await response.json();
 }
 

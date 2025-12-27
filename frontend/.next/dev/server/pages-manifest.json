@@ -1,1 +1,12 @@
-{}
+{
+  "/": "pages/index.js",
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
+  "/my-posts/[userSignId]": "pages/my-posts/[userSignId].js",
+  "/page": "pages/page.js",
+  "/post/[postId]": "pages/post/[postId].js",
+  "/setting": "pages/setting.js",
+  "/signup": "pages/signup.js",
+  "/write": "pages/write.js"
+}
