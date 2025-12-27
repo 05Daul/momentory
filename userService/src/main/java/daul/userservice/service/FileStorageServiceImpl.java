@@ -22,10 +22,21 @@ public class FileStorageServiceImpl implements FileStorageService {
   @Value("${file.bucket-name}")
   private String bucketName;
 
+  private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
+
   @Override
   public String storeFile(MultipartFile file) throws IOException {
+    if (file.getSize() > MAX_FILE_SIZE) {
+      log.error("파일 크기 초과: {} bytes", file.getSize());
+      throw new RuntimeException("파일 크기는 10MB를 초과할 수 없습니다.");
+    }
+
     try {
       String originalFilename = file.getOriginalFilename();
+
+      if (originalFilename == null) {
+        originalFilename = "default.jpg";
+      }
       String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
       String storedFilename = UUID.randomUUID().toString() + extension;
 

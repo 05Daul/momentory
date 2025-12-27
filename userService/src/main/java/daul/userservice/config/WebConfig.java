@@ -1,3 +1,4 @@
+/*
 // src/main/java/daul/userservice/config/WebConfig.java (예시)
 
 package daul.userservice.config;
@@ -26,4 +27,4 @@ public class WebConfig implements WebMvcConfigurer {
                 // 끝에 슬래시(/)를 추가하여 정확한 매핑을 보장합니다.
                 .addResourceLocations("file:" + uploadDir + "/");
     }
-}
+}*/

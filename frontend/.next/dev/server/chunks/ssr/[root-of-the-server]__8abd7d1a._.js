@@ -329,20 +329,113 @@ async function getFriendsPosts(userSignId, page = 0, size = 10) {
     console.log(`User Sign ID: ${userSignId}`);
     console.log(`Token Key Check: 'accessToken'`);
     console.log("------------------------------------");
-    const response = await fetch(url, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "userSignId": userSignId,
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "userSignId": userSignId,
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if (response.ok) {
+            return await response.json();
+        } else if (response.status === 403 || response.status === 404) {
+            // 친구가 없거나 권한이 없는 경우 빈 결과 반환
+            console.log("No friends or no permission - returning empty result");
+            return {
+                content: [],
+                pageable: {
+                    pageNumber: page,
+                    pageSize: size,
+                    sort: {
+                        empty: true,
+                        sorted: false,
+                        unsorted: true
+                    },
+                    offset: 0,
+                    paged: true,
+                    unpaged: false
+                },
+                last: true,
+                totalPages: 0,
+                totalElements: 0,
+                size: size,
+                number: page,
+                sort: {
+                    empty: true,
+                    sorted: false,
+                    unsorted: true
+                },
+                first: true,
+                numberOfElements: 0,
+                empty: true
+            };
+        } else {
+            // 다른 에러의 경우에도 빈 결과 반환 (에러를 throw하지 않음)
+            const errorText = await response.text().catch(()=>'');
+            console.error(`Error ${response.status}:`, errorText);
+            return {
+                content: [],
+                pageable: {
+                    pageNumber: page,
+                    pageSize: size,
+                    sort: {
+                        empty: true,
+                        sorted: false,
+                        unsorted: true
+                    },
+                    offset: 0,
+                    paged: true,
+                    unpaged: false
+                },
+                last: true,
+                totalPages: 0,
+                totalElements: 0,
+                size: size,
+                number: page,
+                sort: {
+                    empty: true,
+                    sorted: false,
+                    unsorted: true
+                },
+                first: true,
+                numberOfElements: 0,
+                empty: true
+            };
         }
-    });
-    if (response.ok) {
-        return await response.json();
-    } else {
-        const errorText = await response.text();
-        throw new Error(errorText || `게시물 조회 실패: HTTP ${response.status}`);
+    } catch (error) {
+        console.error("Error fetching friends posts:", error);
+        // 네트워크 에러 등의 경우에도 빈 결과 반환
+        return {
+            content: [],
+            pageable: {
+                pageNumber: page,
+                pageSize: size,
+                sort: {
+                    empty: true,
+                    sorted: false,
+                    unsorted: true
+                },
+                offset: 0,
+                paged: true,
+                unpaged: false
+            },
+            last: true,
+            totalPages: 0,
+            totalElements: 0,
+            size: size,
+            number: page,
+            sort: {
+                empty: true,
+                sorted: false,
+                unsorted: true
+            },
+            first: true,
+            numberOfElements: 0,
+            empty: true
+        };
     }
 }
 }),
@@ -1000,11 +1093,15 @@ __turbopack_context__.s([
 ]);
 const getImageUrl = (path)=>{
     if (!path) return '';
-    // 이미 완전한 URL인 경우 그대로 반환
     if (path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
-    // userService 포트로 직접 연결 (Gateway 우회)
+    if (path.startsWith('/')) {
+        const GCS_BASE_URL = 'https://storage.googleapis.com/miniblog-storage';
+        return `${GCS_BASE_URL}${path}`;
+    }
+    // 3. 예전 방식(로컬 서버) 대응이 필요 없다면 위 단계에서 마무리됩니다.
+    // 필요한 경우에만 아래 주소를 유지하세요.
     const USERSERVICE_URL = 'http://127.0.0.1:1003';
     return `${USERSERVICE_URL}${path}`;
 };
@@ -2020,6 +2117,8 @@ function LoginModal({ onClose, onLoginSuccess }) {
             console.log("🔥 [LoginModal] response.profileImg:", response.profileImg);
             console.log("🔥 [LoginModal] response.profile_img:", response.profile_img);
             // 토큰 및 사용자 정보 저장
+            const expiresAt = Date.now() + 12 * 60 * 60 * 1000; // 12시간
+            localStorage.setItem("accessTokenExpiresAt", expiresAt.toString());
             localStorage.setItem("accessToken", response.accessToken);
             localStorage.setItem("refreshToken", response.refreshToken);
             localStorage.setItem("userSignId", response.userSignId);
@@ -2061,12 +2160,12 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                 children: "✨"
                             }, void 0, false, {
                                 fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                lineNumber: 62,
+                                lineNumber: 64,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 61,
+                            lineNumber: 63,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h2", {
@@ -2074,7 +2173,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "다시 만나서 반가워요"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 64,
+                            lineNumber: 66,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
@@ -2082,13 +2181,13 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "오늘도 소중한 순간을 기록해볼까요?"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 65,
+                            lineNumber: 67,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                    lineNumber: 60,
+                    lineNumber: 62,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -2100,7 +2199,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "×"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 70,
+                            lineNumber: 72,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h2", {
@@ -2108,7 +2207,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                             children: "로그인"
                         }, void 0, false, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 72,
+                            lineNumber: 74,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("form", {
@@ -2123,7 +2222,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     onChange: (e)=>setUserSignId(e.target.value)
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 76,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("input", {
@@ -2134,7 +2233,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     onChange: (e)=>setPassword(e.target.value)
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 81,
+                                    lineNumber: 83,
                                     columnNumber: 15
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -2142,7 +2241,7 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 89,
+                                    lineNumber: 91,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
@@ -2151,13 +2250,13 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     children: "로그인"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 91,
+                                    lineNumber: 93,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 73,
+                            lineNumber: 75,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -2171,30 +2270,30 @@ function LoginModal({ onClose, onLoginSuccess }) {
                                     children: "회원가입"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 99,
                                     columnNumber: 27
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/component/userService/LoginModal.tsx",
-                            lineNumber: 96,
+                            lineNumber: 98,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/component/userService/LoginModal.tsx",
-                    lineNumber: 69,
+                    lineNumber: 71,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/component/userService/LoginModal.tsx",
-            lineNumber: 57,
+            lineNumber: 59,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/component/userService/LoginModal.tsx",
-        lineNumber: 56,
+        lineNumber: 58,
         columnNumber: 7
     }, this);
 }
@@ -3014,7 +3113,7 @@ const ProfileDropdown = ({ onClose, onNavigate, userSignId })=>{
                 children: "설정 (이미지/비밀번호)"
             }, void 0, false, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 33,
+                lineNumber: 34,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
@@ -3039,18 +3138,37 @@ function Topbar() {
         checkLoginStatus();
         setImageLoadError(false);
     }, []);
+    (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
+        const token = localStorage.getItem("accessToken");
+        const expiresAt = localStorage.getItem("accessTokenExpiresAt");
+        if (!token || !expiresAt) return;
+        const remainingTime = Number(expiresAt) - Date.now();
+        console.log("⏰ 자동 로그아웃까지(ms):", remainingTime);
+        if (remainingTime <= 0) {
+            forceLogout();
+            return;
+        }
+        const timer = setTimeout(()=>{
+            forceLogout();
+        }, remainingTime);
+        return ()=>clearTimeout(timer);
+    }, []);
     const checkLoginStatus = ()=>{
         const token = localStorage.getItem("accessToken");
+        const expiresAt = localStorage.getItem("accessTokenExpiresAt");
         const userId = localStorage.getItem("userSignId");
         const profile = localStorage.getItem("profile_img");
-        console.log("🔥 [Topbar] checkLoginStatus 호출");
-        console.log("🔥 [Topbar] token:", token ? "존재" : "없음");
-        console.log("🔥 [Topbar] userId:", userId);
-        console.log("🔥 [Topbar] profile_img from localStorage:", profile);
-        setIsLoggedIn(!!token);
+        if (!token || !expiresAt) {
+            setIsLoggedIn(false);
+            return;
+        }
+        if (Date.now() > Number(expiresAt)) {
+            forceLogout();
+            return;
+        }
+        setIsLoggedIn(true);
         setUserSignId(userId || '');
         setProfileImg(profile || '');
-        console.log("🔥 [Topbar] State 업데이트 - profileImg:", profile || '없음');
     };
     const handleLoginSuccess = ()=>{
         checkLoginStatus();
@@ -3063,6 +3181,16 @@ function Topbar() {
         setUserSignId('');
         alert("로그아웃 되었습니다.");
         router.push("/");
+    };
+    const forceLogout = ()=>{
+        console.warn("⏳ 토큰 만료 → 자동 로그아웃");
+        localStorage.clear();
+        setIsLoggedIn(false);
+        setProfileImg('');
+        setUserSignId('');
+        setShowProfileDropdown(false);
+        alert("로그인 시간이 만료되었습니다.");
+        router.replace("/");
     };
     const handleProfileClick = ()=>{
         setShowProfileDropdown((prev)=>!prev);
@@ -3084,7 +3212,7 @@ function Topbar() {
                         children: "MomenTory"
                     }, void 0, false, {
                         fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                        lineNumber: 108,
+                        lineNumber: 148,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("nav", {
@@ -3097,7 +3225,7 @@ function Topbar() {
                                     children: "커뮤니티"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 155,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -3114,13 +3242,13 @@ function Topbar() {
                                             onClose: ()=>setShowFriendModal(false)
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 167,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 120,
+                                    lineNumber: 160,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3129,7 +3257,7 @@ function Topbar() {
                                     children: "채팅"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 135,
+                                    lineNumber: 175,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3138,7 +3266,7 @@ function Topbar() {
                                     children: "Log 작성"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 179,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -3166,19 +3294,19 @@ function Topbar() {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 191,
                                                 columnNumber: 27
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$layout$2f$layout$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].profileCircle,
                                                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$imageUtils$2e$ts__$5b$ssr$5d$__$28$ecmascript$29$__["getInitial"])(userSignId)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                                lineNumber: 166,
+                                                lineNumber: 206,
                                                 columnNumber: 27
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 144,
+                                            lineNumber: 184,
                                             columnNumber: 21
                                         }, this),
                                         showProfileDropdown && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(ProfileDropdown, {
@@ -3187,13 +3315,13 @@ function Topbar() {
                                             userSignId: userSignId
                                         }, void 0, false, {
                                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                            lineNumber: 174,
+                                            lineNumber: 214,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 143,
+                                    lineNumber: 183,
                                     columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -3205,7 +3333,7 @@ function Topbar() {
                                     children: "로그아웃"
                                 }, void 0, false, {
                                     fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 223,
                                     columnNumber: 19
                                 }, this)
                             ]
@@ -3218,18 +3346,18 @@ function Topbar() {
                             children: "로그인"
                         }, void 0, false, {
                             fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                            lineNumber: 189,
+                            lineNumber: 229,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                        lineNumber: 112,
+                        lineNumber: 152,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 107,
+                lineNumber: 147,
                 columnNumber: 9
             }, this),
             showLoginModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$userService$2f$LoginModal$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3237,7 +3365,7 @@ function Topbar() {
                 onLoginSuccess: handleLoginSuccess
             }, void 0, false, {
                 fileName: "[project]/src/component/layout/Bar/Topbar.tsx",
-                lineNumber: 201,
+                lineNumber: 241,
                 columnNumber: 13
             }, this)
         ]
