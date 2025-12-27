@@ -20,10 +20,8 @@ export default function Login() {
 
     try {
       // 2. API 호출
-      console.log("로그인 요청 데이터:", loginData);
       const response = await login(loginData);
 
-      console.log("로그인 성공:", response);
 
       localStorage.setItem("accessToken", response.accessToken);
       localStorage.setItem("refreshToken", response.refreshToken);
