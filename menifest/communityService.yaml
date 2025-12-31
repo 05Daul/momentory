@@ -18,7 +18,7 @@ spec:
         workload: app
       containers:
         - name: community-app
-          image: gcr.io/[프로젝트ID]/community-service:latest
+          image: daul0519/daul0519/community-service:v1.1
           ports:
             - containerPort: 1006
           env:
@@ -37,9 +37,14 @@ spec:
                     name: db-secret
                     key: password
 
-        # 2. Cloud SQL Proxy 컨테이너 (사이드카)
         - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:latest
           command:
             - "/cloud_sql_proxy"
-            - "-instances=project-7b807370-b91e-4dda-802:asia-northeast3:momen-tory"
+            - "-instances=$(INSTANCE_CONNECTION_NAME)=tcp:5432"
+          env:
+            - name: INSTANCE_CONNECTION_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: bucket-secret
+                  key: instanceName

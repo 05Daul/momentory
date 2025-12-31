@@ -10,8 +10,7 @@ COPY . /myapp
 # 실행 권한 부여
 RUN chmod +x gradlew
 
-# 특정 모듈(AttendanceSalary)만 빌드하도록 수정
-RUN ./gradlew :blogService:clean :blogService:bootJar --no-daemon -x test
+RUN ./gradlew :chatService:clean :chatService:bootJar --no-daemon -x test
 
 FROM eclipse-temurin:17-jre-alpine
 
@@ -19,11 +18,11 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /myapp
 
 # 빌드 결과 JAR 파일 복사
-COPY --from=build /myapp/blogService/build/libs/*.jar /myapp/blogService.jar
+COPY --from=build /myapp/chatService/build/libs/*.jar /myapp/chatService.jar
 ENV SPRING_PROFILES_ACTIVE=prod
 ENV TZ=Asia/Seoul
 # 포트
-EXPOSE 1004
+EXPOSE 1005
 
 # 실행 명령
-ENTRYPOINT ["java", "-jar", "/myapp/blogService.jar"]
+ENTRYPOINT ["java", "-jar", "/myapp/chatService.jar"]

@@ -18,7 +18,7 @@ spec:
         workload: app
       containers:
         - name: gateway-app
-          image: gcr.io/[프로젝트ID]/gateway-service:latest
+          image: daul0519/daul0519/gateway-service:v1.1
           ports:
             - containerPort: 1000
           env:

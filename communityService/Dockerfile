@@ -10,7 +10,6 @@ COPY . /myapp
 # 실행 권한 부여
 RUN chmod +x gradlew
 
-# 특정 모듈(AttendanceSalary)만 빌드하도록 수정
 RUN ./gradlew :communityService:clean :communityService:bootJar --no-daemon -x test
 
 FROM eclipse-temurin:17-jre-alpine
@@ -23,7 +22,7 @@ COPY --from=build /myapp/communityService/build/libs/*.jar /myapp/communityServi
 ENV SPRING_PROFILES_ACTIVE=prod
 ENV TZ=Asia/Seoul
 # 포트
-EXPOSE 1004
+EXPOSE 1006
 
 # 실행 명령
 ENTRYPOINT ["java", "-jar", "/myapp/communityService.jar"]
