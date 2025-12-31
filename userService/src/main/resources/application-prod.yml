@@ -1,0 +1,45 @@
+spring:
+  application:
+    name:
+      'userService'
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 20MB
+
+  datasource:
+    url: jdbc:postgresql:///miniblog
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  cloud:
+    gcp:
+      sql:
+        enabled: true
+        database-name: miniblog
+        instance-connection-name: ${bucket-name}
+server:
+  port: 1003
+
+# JWT 설정
+jwt:
+  secret: ${jwt_secret}
+  expired: 43200000
+  refresh: 43200000
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+file:
+  bucket-name: miniblog-storage
+  base-url: ${bucket-url}

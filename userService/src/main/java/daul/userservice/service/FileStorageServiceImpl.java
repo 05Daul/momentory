@@ -18,7 +18,6 @@ public class FileStorageServiceImpl implements FileStorageService {
 
   private final Storage storage;
 
-
   @Value("${file.bucket-name}")
   private String bucketName;
 

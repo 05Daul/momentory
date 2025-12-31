@@ -1,0 +1,39 @@
+user:
+  service:
+    url: http://user-service:1003
+
+spring:
+  application:
+    name: 'blogService'
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 50MB
+  datasource:
+    url: jdbc:postgresql:///miniblog
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    database: postgresql
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  cloud:
+    gcp:
+      sql:
+        enabled: true
+        database-name: miniblog
+        instance-connection-name: ${bucket-name}
+      storage:
+        bucket: miniblog-storage
+
+server:
+  port: 1004
+
+file:
+  bucket-name: miniblog-storage
+  base-url: ${bucket-url}
