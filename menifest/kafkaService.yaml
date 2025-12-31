@@ -1,0 +1,30 @@
+# kafka-deploy.yaml 추가
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-infra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-infra
+  template:
+    metadata:
+      labels:
+        app: kafka-infra
+    spec:
+      nodeSelector:
+        workload: kafka
+      containers:
+        - name: zookeeper
+          image: confluentinc/cp-zookeeper:7.5.0
+          env:
+            - name: ZOOKEEPER_CLIENT_PORT
+              value: "2181"
+        - name: kafka
+          image: confluentinc/cp-kafka:7.5.0
+          env:
+            - name: KAFKA_ZOOKEEPER_CONNECT
+              value: "localhost:2181"
+            - name: KAFKA_ADVERTISED_LISTENERS
+              value: "PLAINTEXT://kafka-service:9092"
