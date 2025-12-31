@@ -8,9 +8,8 @@ build/
 /chatService/src/main/resources/application.yml
 /communityService/src/main/resources/application.yml
 /userService/src/main/resources/application.yml
-
 **/application.yml
-**/application-prod.yml
+
 ### STS ###
 .apt_generated
 .classpath

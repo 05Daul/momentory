@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: 'gateway'
+
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'https://momentory-omega.vercel.app'
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+            exposed-headers:
+              - Authorization
+
+      routes:
+        - id: chatService
+          uri: http://chat-service:1005
+          predicates:
+            - Path=/chat/**
+            -
+        - id: blogService
+          uri: http://blog-service:1004
+          predicates:
+            - Path=/blog/images/**
+          filters:
+            - StripPrefix=1
+
+
+        - id: blogService
+          uri: http://blog-service:1004
+          predicates:
+            - Path=/blog/**
+
+        - id: userService
+          uri: http://user-service:1003
+          predicates:
+            - Path=/user/**
+
+        - id: userService
+          uri: http://user-service:1003
+          predicates:
+            - Path=/friends/**
+
+        - id: userService
+          uri: http://user-service:1003
+          predicates:
+            - Path=/uploads/**
+
+        - id: communityService
+          uri: http://community-service:1006
+          predicates:
+            - Path=/community/**
+
+server:
+  port: 1000
+
+jwt:
+  secret: ${jwt_secret}
+  expired : 4320000
+  refresh: 432000000
+
+logging:
+  level:
+    org.springframework.security: DEBUG
