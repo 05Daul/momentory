@@ -2,6 +2,11 @@ spring:
   application:
     name:
       'userService'
+  cloud:
+    gcp:
+      sql:
+        database-name: miniblog
+        instance-connection-name: ${INSTANCE_CONNECTION_NAME}
 
   servlet:
     multipart:
