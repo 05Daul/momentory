@@ -10,7 +10,7 @@ spring:
       max-file-size: 20MB
       max-request-size: 50MB
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/miniblog
+    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -22,6 +22,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  cloud:
+    gcp:
       storage:
         bucket: miniblog-storage
 
