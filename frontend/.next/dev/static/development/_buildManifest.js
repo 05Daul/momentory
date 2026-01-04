@@ -5,23 +5,8 @@ self.__BUILD_MANIFEST = {
   "/_error": [
     "static/chunks/pages/_error.js"
   ],
-  "/my-posts/[userSignId]": [
-    "static/chunks/pages/my-posts/[userSignId].js"
-  ],
-  "/page": [
-    "static/chunks/pages/page.js"
-  ],
-  "/post/[postId]": [
-    "static/chunks/pages/post/[postId].js"
-  ],
-  "/setting": [
-    "static/chunks/pages/setting.js"
-  ],
   "/signup": [
     "static/chunks/pages/signup.js"
-  ],
-  "/write": [
-    "static/chunks/pages/write.js"
   ],
   "__rewrites": {
     "afterFiles": [],

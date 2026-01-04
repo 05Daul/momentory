@@ -509,14 +509,14 @@ __turbopack_context__.s([
     ()=>USERSERVICE_API
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [client] (ecmascript)");
-const FEEDSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/feed");
-const NOTIFICATIONSERVEICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/notifi");
-const USERSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/user");
-const BLOGSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/blog");
-const CHATSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/chat");
-const GATEWAY_API_URL = ("TURBOPACK compile-time value", "http://127.0.0.1:1000");
-const COMMUNITYSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/community");
-const FRIENDSSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/friends");
+const FEEDSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/feed");
+const NOTIFICATIONSERVEICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/notifi");
+const USERSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/user");
+const BLOGSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/blog");
+const CHATSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/chat");
+const GATEWAY_API_URL = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev");
+const COMMUNITYSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/community");
+const FRIENDSSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/friends");
 if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
 ;
 if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
@@ -540,7 +540,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/src/api/userService/user.ts [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// src/api/userService/user.ts (최종 완성본)
 __turbopack_context__.s([
     "acceptFriend",
     ()=>acceptFriend,
@@ -567,6 +566,7 @@ __turbopack_context__.s([
     "uploadProfileImage",
     ()=>uploadProfileImage
 ]);
+// src/api/userService/user.ts (최종 완성본)
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [client] (ecmascript)");
 ;
 async function uploadProfileImage(userSignId, imageFile) {
@@ -693,7 +693,11 @@ async function login(loginDto) {
     };
 }
 async function checkUserSignId(userSignId) {
-    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existId?userId=${encodeURIComponent(userSignId)}`);
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existId?userId=${encodeURIComponent(userSignId)}`, {
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
+    });
     const text = await response.text();
     const available = text.trim() === "not exists";
     return {
@@ -701,7 +705,11 @@ async function checkUserSignId(userSignId) {
     };
 }
 async function checkEmail(email) {
-    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existEmail?email=${encodeURIComponent(email)}`);
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existEmail?email=${encodeURIComponent(email)}`, {
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
+    });
     const text = await response.text();
     const available = text.trim() === "not exists";
     return {
@@ -709,7 +717,11 @@ async function checkEmail(email) {
     };
 }
 async function checkNickName(nickname) {
-    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existNickname?nickname=${encodeURIComponent(nickname)}`);
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existNickname?nickname=${encodeURIComponent(nickname)}`, {
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
+    });
     const text = await response.text();
     const available = text.trim() === "not exists";
     return {
@@ -721,7 +733,8 @@ async function requestFriend(requesterSignId, reqDto) {
         method: "POST",
         headers: {
             userSignId: requesterSignId,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify(reqDto)
     });
@@ -736,7 +749,8 @@ async function acceptFriend(receiverSignId, requesterSignId) {
         method: "PUT",
         headers: {
             userSignId: receiverSignId,
-            "Content-Length": "0"
+            "Content-Length": "0",
+            'ngrok-skip-browser-warning': 'true'
         }
     });
     if (response.ok) {
@@ -750,7 +764,8 @@ async function updateNickname(userSignId, newNickName) {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'userSignId': userSignId
+            'userSignId': userSignId,
+            'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify({
             newNickName
@@ -769,12 +784,12 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/src/component/userService/RegisterUser.tsx [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// src/components/userService/RegisterUser.tsx
 __turbopack_context__.s([
     "default",
     ()=>RegisterUser
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
+// src/components/userService/RegisterUser.tsx
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/index.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$userService$2f$Signup$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/src/styles/userService/Signup.module.css [client] (css module)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hook$2d$form$2f$dist$2f$index$2e$esm$2e$mjs__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hook-form/dist/index.esm.mjs [client] (ecmascript)");
@@ -1719,7 +1734,6 @@ __turbopack_context__.v({
 "[project]/src/api/userService/friends.ts [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// src/api/userService/friends.ts
 __turbopack_context__.s([
     "acceptFriendRequest",
     ()=>acceptFriendRequest,
@@ -1740,6 +1754,7 @@ __turbopack_context__.s([
     "unblockUser",
     ()=>unblockUser
 ]);
+// src/api/userService/friends.ts
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [client] (ecmascript)");
 ;
 // 1. 인증 토큰을 가져오는 헬퍼 함수
