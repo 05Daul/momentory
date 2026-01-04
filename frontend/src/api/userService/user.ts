@@ -39,6 +39,7 @@ export async function uploadProfileImage(userSignId: string, imageFile: File): P
       // 파일 업로드는 Content-Type을 'multipart/form-data'로 명시하지 않아야
       // 브라우저가 boundary를 자동으로 설정합니다.
       userSignId: userSignId, // 사용자 식별을 위한 Header
+      'ngrok-skip-browser-warning': 'true',
       // Authorization 헤더가 필요하다면 여기에 추가해야 합니다.
     },
     body: formData,
@@ -73,6 +74,7 @@ export async function changePassword(userSignId: string, currentPassword: string
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
       userSignId: userSignId, // 사용자 식별을 위한 Header
     },
     body: JSON.stringify({
@@ -98,6 +100,7 @@ export async function getUserProfile(userSignId: string): Promise<UserProfile | 
     const response = await fetch(`${USERSERVICE_API}/profile/${userSignId}`, {
       method: 'GET',
       headers: {
+        'ngrok-skip-browser-warning': 'true',
         'Content-Type': 'application/json',
       },
     });
@@ -144,6 +147,9 @@ export async function signup(formData: FormData): Promise<ApiResponse> {
     method: "POST",
     // FormData 사용 시 Content-Type 헤더를 설정하지 않음 (브라우저가 자동으로 설정)
     body: formData,
+    headers: {
+      'ngrok-skip-browser-warning': 'true'
+    }
   });
 
   const text = await response.text();
@@ -165,7 +171,10 @@ export async function login(loginDto: LoginDTO): Promise<{
 }> {
   const response = await fetch(`${USERSERVICE_API}/login`, {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json",
+      'ngrok-skip-browser-warning': 'true'
+    },
     body: JSON.stringify(loginDto),
   });
 
@@ -260,6 +269,7 @@ export async function acceptFriend(receiverSignId: string, requesterSignId: stri
     method: "PUT",
     headers: {
       userSignId: receiverSignId,
+
       "Content-Length": "0", 'ngrok-skip-browser-warning': 'true'
       ,
     },
