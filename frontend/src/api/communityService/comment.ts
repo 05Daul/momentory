@@ -20,6 +20,7 @@ export async function createComment(
     headers: {
       "Content-Type": "application/json",
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true', // 추가
     },
     body: JSON.stringify(request),
   });
@@ -40,6 +41,9 @@ export async function getComments(
 
   const response = await fetch(url, {
     method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true', // 추가
+    },
   });
 
   if (response.ok) {
@@ -55,6 +59,9 @@ export async function getReplies(commentId: number): Promise<CommentResponse[]> 
 
   const response = await fetch(url, {
     method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true', // 추가
+    },
   });
 
   if (response.ok) {
@@ -73,6 +80,9 @@ export async function getCommentCount(
 
   const response = await fetch(url, {
     method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true', // 추가
+    },
   });
 
   if (response.ok) {
@@ -90,7 +100,6 @@ export async function updateComment(
     request: UpdateCommentRequest,
     userSignId: string
 ): Promise<void> {
-  // 백엔드 CommentController의 PUT 경로: /community/{type}/{communityId}/comments/{commentId}
   const url = `${COMMUNITYSERVICE_API}/${type.toUpperCase()}/${communityId}/comments/${commentId}`;
 
   const response = await fetch(url, {
@@ -98,6 +107,7 @@ export async function updateComment(
     headers: {
       "Content-Type": "application/json",
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true', // 추가
     },
     body: JSON.stringify(request),
   });
@@ -120,6 +130,7 @@ export async function deleteComment(
     method: "DELETE",
     headers: {
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true', // 추가
     },
   });
 

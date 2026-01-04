@@ -595,7 +595,8 @@ async function uploadProfileImage(userSignId, imageFile) {
         headers: {
             // 파일 업로드는 Content-Type을 'multipart/form-data'로 명시하지 않아야
             // 브라우저가 boundary를 자동으로 설정합니다.
-            userSignId: userSignId
+            userSignId: userSignId,
+            'ngrok-skip-browser-warning': 'true'
         },
         body: formData
     });
@@ -619,6 +620,7 @@ async function changePassword(userSignId, currentPassword, newPassword) {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
             userSignId: userSignId
         },
         body: JSON.stringify({
@@ -641,6 +643,7 @@ async function getUserProfile(userSignId) {
         const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/profile/${userSignId}`, {
             method: 'GET',
             headers: {
+                'ngrok-skip-browser-warning': 'true',
                 'Content-Type': 'application/json'
             }
         });
@@ -674,7 +677,10 @@ async function signup(formData) {
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/signup`, {
         method: "POST",
         // FormData 사용 시 Content-Type 헤더를 설정하지 않음 (브라우저가 자동으로 설정)
-        body: formData
+        body: formData,
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
     });
     const text = await response.text();
     if (response.status === 201) {
@@ -692,7 +698,8 @@ async function login(loginDto) {
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/login`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify(loginDto)
     });
@@ -1073,7 +1080,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__
 ;
 // 1. 인증 토큰을 가져오는 헬퍼 함수
 const getAuthToken = ()=>{
-    // TODO: 실제 프로젝트의 로직에 맞게 로컬 스토리지, 쿠키 등에서 JWT 토큰을 가져오도록 구현하세요.
     const token = localStorage.getItem('accessToken');
     if (!token) {
         console.error("Authentication token not found.");
@@ -1081,18 +1087,20 @@ const getAuthToken = ()=>{
     }
     return token;
 };
-// 2. 공통 요청 헤더 생성 함수 (Authorization 헤더 포함)
-const getAuthHeaders = ()=>{
+// 2. 공통 요청 헤더 생성 함수 (Authorization 및 ngrok 우회 헤더 포함)
+const getCommonHeaders = ()=>{
     const token = getAuthToken();
     if (!token) {
         throw new Error("인증 토큰이 필요합니다. 로그인 상태를 확인해주세요.");
     }
     return {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        // ✨ ngrok 브라우저 경고 페이지를 건너뛰기 위한 필수 헤더
+        'ngrok-skip-browser-warning': '69420'
     };
 };
 async function getFriendshipStatus(currentUserSignId, targetUserSignId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/status?targetUserId=${encodeURIComponent(targetUserSignId)}`, {
         method: "GET",
         headers: headers
@@ -1108,7 +1116,7 @@ async function getFriendshipStatus(currentUserSignId, targetUserSignId) {
     throw new Error(msg || "상태 조회 실패");
 }
 async function sendFriendRequest(currentUserSignId, receiverSignId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/request`, {
         method: "POST",
         headers: {
@@ -1127,49 +1135,42 @@ async function sendFriendRequest(currentUserSignId, receiverSignId) {
     throw new Error(msg || "친구 요청 실패");
 }
 async function getReceivedFriendRequests() {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/requests/received`, {
         method: "GET",
         headers: headers
     });
-    // ✨ 204 No Content 처리
     if (response.status === 204) {
         return [];
     }
     if (response.ok) {
         return await response.json();
     }
-    // ✨ 에러 로깅 추가
     const msg = await response.text();
     console.error(`Received Requests Failed: HTTP ${response.status} - ${msg}`);
     throw new Error(msg || `친구 요청 목록 조회 실패 (Status: ${response.status})`);
 }
 async function getFriendList() {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}`, {
         method: "GET",
         headers: headers
     });
-    // ✨ 204 No Content 처리
     if (response.status === 204) {
         return [];
     }
     if (response.ok) {
         return await response.json();
     }
-    // ✨ 에러 로깅 추가
     const msg = await response.text();
     console.error(`Friend List Failed: HTTP ${response.status} - ${msg}`);
     throw new Error(msg || `친구 목록 조회 실패 (Status: ${response.status})`);
 }
 async function acceptFriendRequest(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}/accept`, {
         method: "PUT",
-        headers: {
-            ...headers,
-            "Content-Length": "0"
-        }
+        headers: headers
     });
     if (response.ok) {
         return await response.json();
@@ -1179,7 +1180,7 @@ async function acceptFriendRequest(currentUserSignId, friendId) {
     throw new Error(msg || "수락 실패");
 }
 async function rejectFriendRequest(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}/reject`, {
         method: "DELETE",
         headers: headers
@@ -1191,7 +1192,7 @@ async function rejectFriendRequest(currentUserSignId, friendId) {
     }
 }
 async function deleteFriend(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}`, {
         method: "DELETE",
         headers: headers
@@ -1203,7 +1204,7 @@ async function deleteFriend(currentUserSignId, friendId) {
     }
 }
 async function blockUser(currentUserSignId, receiverSignId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/block`, {
         method: "POST",
         headers: {
@@ -1222,7 +1223,7 @@ async function blockUser(currentUserSignId, receiverSignId) {
     throw new Error(msg || "차단 실패");
 }
 async function unblockUser(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}/unblock`, {
         method: "DELETE",
         headers: headers

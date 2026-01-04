@@ -36,11 +36,8 @@ export async function uploadProfileImage(userSignId: string, imageFile: File): P
   const response = await fetch(`${USERSERVICE_API}/profile/image`, {
     method: 'POST',
     headers: {
-      // 파일 업로드는 Content-Type을 'multipart/form-data'로 명시하지 않아야
-      // 브라우저가 boundary를 자동으로 설정합니다.
       userSignId: userSignId, // 사용자 식별을 위한 Header
       'ngrok-skip-browser-warning': 'true',
-      // Authorization 헤더가 필요하다면 여기에 추가해야 합니다.
     },
     body: formData,
   });
@@ -269,9 +266,7 @@ export async function acceptFriend(receiverSignId: string, requesterSignId: stri
     method: "PUT",
     headers: {
       userSignId: receiverSignId,
-
-      "Content-Length": "0", 'ngrok-skip-browser-warning': 'true'
-      ,
+      'ngrok-skip-browser-warning': 'true',
     },
   });
 
@@ -290,8 +285,8 @@ export async function updateNickname(userSignId: string, newNickName: string): P
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'userSignId': userSignId, 'ngrok-skip-browser-warning': 'true'
-      ,
+      'userSignId': userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
     body: JSON.stringify({
       newNickName,

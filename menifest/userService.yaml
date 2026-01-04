@@ -18,7 +18,7 @@ spec:
         workload: app
       containers:
         - name: user-app
-          image: daul0519/user-service:v2
+          image: daul0519/user-service:v2.8
           ports:
             - containerPort: 1003
           env:

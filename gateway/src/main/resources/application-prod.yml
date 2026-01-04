@@ -4,28 +4,35 @@ spring:
 
   cloud:
     gateway:
+      # 모든 라우트에 공통으로 적용되는 필터: 중복 CORS 헤더 제거
+      default-filters:
+        - DeduplicateResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
       server:
         webflux:
           globalcors:
             add-to-simple-url-handler-mapping: true
             cors-configurations:
               '[/**]':
-                allowedOrigins:
-                  - "https://momentory-4kyz6rafc-kimdauls-projects.vercel.app"
-                  - "https://momentory-omega.vercel.app"
-                  - "https://joy-untrellised-bullheadedly.ngrok-free.dev"
+                allowedOriginPatterns:
+                  - "https://momentory-*.vercel.app"
+                  - "https://*.ngrok-free.dev"
+                  - "http://localhost:3000" # 로컬 테스트용 (필요시 사용)
                 allow-credentials: true
-                allowedHeaders: "*"
+                allowedHeaders:
+                  - "*"
+                  - "ngrok-skip-browser-warning" # ngrok 경고 방지용 헤더 허용
                 allowedMethods:
                   - PUT
                   - GET
                   - POST
                   - DELETE
+                  - PATCH
                   - OPTIONS
                 exposed-headers:
                   - Authorization
+                  - "*"
 
-      # 라우팅 설정
       routes:
         - id: chatService
           uri: http://chat-service:1005
@@ -69,13 +76,11 @@ server:
 
 jwt:
   secret: ${jwt_secret}
-  expired : 4320000
+  expired: 4320000
   refresh: 432000000
 
 logging:
   level:
-    org.springframework.cloud.gateway: TRACE
-    org.springframework.web.reactive.handler.AbstractHandlerMapping: DEBUG
     org.springframework.security: DEBUG
 
 management:
