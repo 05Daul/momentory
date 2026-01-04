@@ -1,6 +1,6 @@
 // src/api/userService/user.ts (최종 완성본)
 
-import { USERSERVICE_API } from "@/config/env";
+import {USERSERVICE_API} from "@/config/env";
 import {
   UserDTO,
   LoginDTO,
@@ -27,7 +27,9 @@ export interface UserProfile {
   profileImg: string | null;
 }
 
-export async function uploadProfileImage(userSignId: string, imageFile: File): Promise<{ profileImg: string }> {
+export async function uploadProfileImage(userSignId: string, imageFile: File): Promise<{
+  profileImg: string
+}> {
   const formData = new FormData();
   formData.append('file', imageFile);
 
@@ -85,7 +87,7 @@ export async function changePassword(userSignId: string, currentPassword: string
   }
 
   // 성공 시 메시지를 반환한다고 가정
-  return { success: true, message: "비밀번호가 성공적으로 변경되었습니다." };
+  return {success: true, message: "비밀번호가 성공적으로 변경되었습니다."};
 }
 
 /**
@@ -147,11 +149,12 @@ export async function signup(formData: FormData): Promise<ApiResponse> {
   const text = await response.text();
 
   if (response.status === 201) {
-    return { success: true, message: text || "회원가입 성공" };
+    return {success: true, message: text || "회원가입 성공"};
   }
 
-  return { success: false, message: text || "회원가입 실패" };
+  return {success: false, message: text || "회원가입 실패"};
 }
+
 // 2. 로그인
 export async function login(loginDto: LoginDTO): Promise<{
   userSignId: string;
@@ -162,7 +165,7 @@ export async function login(loginDto: LoginDTO): Promise<{
 }> {
   const response = await fetch(`${USERSERVICE_API}/login`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify(loginDto),
   });
 
@@ -186,34 +189,49 @@ export async function login(loginDto: LoginDTO): Promise<{
 // 3. 아이디 중복 체크 → GET /existId?userId=xxx
 export async function checkUserSignId(userSignId: string): Promise<DuplicateCheckResponse> {
   const response = await fetch(
-      `${USERSERVICE_API}/existId?userId=${encodeURIComponent(userSignId)}`
+      `${USERSERVICE_API}/existId?userId=${encodeURIComponent(userSignId)}`,
+      {
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      }
   );
 
   const text = await response.text();
   const available = text.trim() === "not exists";
-  return { available };
+  return {available};
 }
 
 // 4. 이메일 중복 체크 → GET /existEmail?email=xxx
 export async function checkEmail(email: string): Promise<DuplicateCheckResponse> {
   const response = await fetch(
-      `${USERSERVICE_API}/existEmail?email=${encodeURIComponent(email)}`
+      `${USERSERVICE_API}/existEmail?email=${encodeURIComponent(email)}`,
+      {
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      }
   );
 
   const text = await response.text();
   const available = text.trim() === "not exists";
-  return { available };
+  return {available};
 }
 
 // 5. 닉네임 중복 체크 → GET /existNickname?nickname=xxx
 export async function checkNickName(nickname: string): Promise<DuplicateCheckResponse> {
   const response = await fetch(
-      `${USERSERVICE_API}/existNickname?nickname=${encodeURIComponent(nickname)}`
+      `${USERSERVICE_API}/existNickname?nickname=${encodeURIComponent(nickname)}`,
+      {
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      }
   );
 
   const text = await response.text();
   const available = text.trim() === "not exists";
-  return { available };
+  return {available};
 }
 
 // 6. 친구 요청
@@ -223,6 +241,7 @@ export async function requestFriend(requesterSignId: string, reqDto: FriendReqDT
     headers: {
       userSignId: requesterSignId,
       "Content-Type": "application/json",
+      'ngrok-skip-browser-warning': 'true',
     },
     body: JSON.stringify(reqDto),
   });
@@ -241,7 +260,8 @@ export async function acceptFriend(receiverSignId: string, requesterSignId: stri
     method: "PUT",
     headers: {
       userSignId: receiverSignId,
-      "Content-Length": "0",
+      "Content-Length": "0", 'ngrok-skip-browser-warning': 'true'
+      ,
     },
   });
 
@@ -253,12 +273,15 @@ export async function acceptFriend(receiverSignId: string, requesterSignId: stri
   throw new Error(msg || "친구 수락 실패");
 }
 
-export async function updateNickname(userSignId: string, newNickName: string): Promise<{ nickname: string }> {
+export async function updateNickname(userSignId: string, newNickName: string): Promise<{
+  nickname: string
+}> {
   const response = await fetch(`${USERSERVICE_API}/profile/nickname`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'userSignId': userSignId,
+      'userSignId': userSignId, 'ngrok-skip-browser-warning': 'true'
+      ,
     },
     body: JSON.stringify({
       newNickName,
