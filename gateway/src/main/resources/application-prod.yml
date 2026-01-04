@@ -8,7 +8,10 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOrigins: 'https://momentory-git-dev1-new-kimdauls-projects.vercel.app/'
+            allowedOrigins:
+              - "https://momentory-4kyz6rafc-kimdauls-projects.vercel.app"
+              - "https://momentory-omega.vercel.app"
+              - "https://joy-untrellised-bullheadedly.ngrok-free.dev"
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
