@@ -8,7 +8,7 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOrigins: 'https://momentory-omega.vercel.app'
+            allowedOrigins: 'https://momentory-git-dev1-new-kimdauls-projects.vercel.app/'
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
@@ -69,3 +69,12 @@ jwt:
 logging:
   level:
     org.springframework.security: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
