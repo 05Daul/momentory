@@ -1,3 +1,4 @@
+# Gateway Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,16 +12,32 @@ spec:
     metadata:
       labels:
         app: gateway-service
-
     spec:
-      # 앱이 worker 노드에만 뜨도록 설정
-      nodeSelector:
-        workload: app
       containers:
         - name: gateway-app
-          image: daul0519/daul0519/gateway-service:v1.1
+          image: daul0519/gateway-service:v2.1
           ports:
             - containerPort: 1000
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: prod
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: secret
+
+---
+
+# Gateway Service (외부 노출)
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: gateway-service
+  ports:
+    - port: 80
+      targetPort: 1000

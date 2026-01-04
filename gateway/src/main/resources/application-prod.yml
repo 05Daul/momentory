@@ -25,14 +25,13 @@ spring:
           uri: http://chat-service:1005
           predicates:
             - Path=/chat/**
-            -
+
         - id: blogService
           uri: http://blog-service:1004
           predicates:
             - Path=/blog/images/**
           filters:
             - StripPrefix=1
-
 
         - id: blogService
           uri: http://blog-service:1004
