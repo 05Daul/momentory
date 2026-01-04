@@ -112,7 +112,7 @@ export default function ChatRoom({
 
   // ⭐ roomId를 꼭 전달해야 구독이 됩니다!
   const { isConnected, sendMessage } = useWebSocket({
-    url: 'ws://localhost:1005/ws-chat',
+    url: 'wss://localhost:1005/ws-chat',
     roomId: roomId,
     onMessage: handleNewMessage,
   });

@@ -30,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    //implementation 'com.google.cloud:google-cloud-storage:2.59.0'
+    implementation 'com.google.cloud:google-cloud-storage:2.59.0'
     //implementation 'com.google.cloud:spring-cloud-gcp-starter'
     implementation 'com.google.cloud:spring-cloud-gcp-starter-storage'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
