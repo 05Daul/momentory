@@ -14,6 +14,7 @@ export async function getPostTags(postId: number): Promise<string[]> {
 
   const response = await fetch(url, {
     method: "GET",
+    headers: { "ngrok-skip-browser-warning": "true" }
   });
 
   if (response.ok) {
@@ -37,6 +38,7 @@ export const searchPosts = async (
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
           },
         }
     );
@@ -60,11 +62,11 @@ export async function uploadImage(file: File): Promise<{ url: string }> {
 
   const response = await fetch(url, {
     method: "POST",
+    headers: { "ngrok-skip-browser-warning": "true" }, // FormData 사용 시 Content-Type은 자동설정되므로 ngrok만 추가
     body: formData,
   });
 
   if (response.ok) {
-    // 백엔드에서 { "url": "..." } 형태의 JSON을 반환
     return await response.json();
   } else {
     const errorText = await response.text();
@@ -80,12 +82,13 @@ export async function toggleLike(postId: number, userSignId: string): Promise<Li
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "userSignId": userSignId, // 헤더에 userSignId 포함
+        "userSignId": userSignId,
+        "ngrok-skip-browser-warning": "true",
       },
     });
 
     if (response.ok) {
-      return await response.json(); // { isLiked: true, likeCount: 10 } 반환
+      return await response.json();
     } else {
       const errorText = await response.text();
       throw new Error(errorText || `좋아요 처리 실패: HTTP ${response.status}`);
@@ -97,7 +100,6 @@ export async function toggleLike(postId: number, userSignId: string): Promise<Li
 }
 
 
-// ✅ [수정] DTO를 직접 받아 JSON 본문으로 전송하도록 변경
 export async function writeFeed(postData: PostCreationRequestDTO, userSignId: string): Promise<PostEntity> {
   console.log("글쓰기 메서드 실행 (JSON DTO 방식)");
   const url = `${BLOGSERVICE_API}/write`;
@@ -107,12 +109,13 @@ export async function writeFeed(postData: PostCreationRequestDTO, userSignId: st
     headers: {
       "Content-Type": "application/json",
       "userSignId": userSignId,
+      "ngrok-skip-browser-warning": "true",
     },
-    body: JSON.stringify(postData), // DTO를 JSON 본문으로 전송
+    body: JSON.stringify(postData),
   });
 
   if (response.ok) {
-    return await response.json(); // PostEntity 반환
+    return await response.json();
   } else {
     const errorText = await response.text();
     throw new Error(errorText || `게시글 등록 실패: HTTP ${response.status}`);
@@ -127,6 +130,7 @@ export async function readPost(postId: number): Promise<PostDetailDTO> {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
     },
   });
 
@@ -138,7 +142,6 @@ export async function readPost(postId: number): Promise<PostDetailDTO> {
   }
 }
 
-// ✅ [수정] updatePost의 userSignId 인자 위치를 클라이언트 코드와 일치
 export async function updatePost(postId: number, postData: PostCreationRequestDTO, userSignId: string): Promise<PostEntity> {
   const url = `${BLOGSERVICE_API}/write/${postId}`;
 
@@ -146,7 +149,8 @@ export async function updatePost(postId: number, postData: PostCreationRequestDT
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "userSignId": userSignId, // 헤더에 userSignId 포함
+      "userSignId": userSignId,
+      "ngrok-skip-browser-warning": "true",
     },
     body: JSON.stringify(postData),
   });
@@ -165,7 +169,8 @@ export async function deleteFeed(postId: number, userSignId: string): Promise<vo
   const response = await fetch(url, {
     method: "DELETE",
     headers: {
-      "userSignId": userSignId, // 헤더에 userSignId 포함
+      "userSignId": userSignId,
+      "ngrok-skip-browser-warning": "true",
     },
   });
 
@@ -180,12 +185,13 @@ export async function incrementViewCount(postId: number): Promise<string> {
 
   const response = await fetch(url, {
     method: "POST",
+    headers: { "ngrok-skip-browser-warning": "true" }
   });
 
   if (response.ok) {
-    return await response.text(); // "조회수가 증가되었습니다."
+    return await response.text();
   } else {
-    const errorText = await response.text(); // 오류 메시지 반환
+    const errorText = await response.text();
     throw new Error(errorText || `조회수 증가 실패: HTTP ${response.status}`);
   }
 }
@@ -197,11 +203,11 @@ export async function getTrendingPosts(page: number = 0, size: number = 10): Pro
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
     }
   });
 
   if (response.ok) {
-    // 백엔드에서 Page<PostEntity> 형태로 반환된 JSON을 파싱
     return await response.json();
   } else {
     const errorText = await response.text();
@@ -216,11 +222,11 @@ export async function getMyPosts(userSignId: string, page: number = 0, size: num
     headers: {
       "authorId": userSignId,
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
     }
   });
 
   if (response.ok) {
-    // 백엔드에서 Page<PostEntity> 형태로 반환된 JSON을 파싱
     return await response.json();
   } else {
     const errorText = await response.text();
@@ -235,6 +241,7 @@ export async function getRecentPosts(page: number = 0, size: number = 10): Promi
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
     }
   });
 
@@ -250,11 +257,6 @@ export async function getFriendsPosts(userSignId: string, page: number = 0, size
   const url = `${BLOGSERVICE_API}/feed?page=${page}&size=${size}`;
   const token = localStorage.getItem('accessToken');
 
-  console.log("--- Friends Posts API Call Debug ---");
-  console.log(`User Sign ID: ${userSignId}`);
-  console.log(`Token Key Check: 'accessToken'`);
-  console.log("------------------------------------");
-
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -263,13 +265,13 @@ export async function getFriendsPosts(userSignId: string, page: number = 0, size
         "userSignId": userSignId,
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "true",
       }
     });
 
     if (response.ok) {
       return await response.json();
     } else if (response.status === 403 || response.status === 404) {
-      // 친구가 없거나 권한이 없는 경우 빈 결과 반환
       console.log("No friends or no permission - returning empty result");
       return {
         content: [],
@@ -292,7 +294,6 @@ export async function getFriendsPosts(userSignId: string, page: number = 0, size
         empty: true
       };
     } else {
-      // 다른 에러의 경우에도 빈 결과 반환 (에러를 throw하지 않음)
       const errorText = await response.text().catch(() => '');
       console.error(`Error ${response.status}:`, errorText);
       return {
@@ -318,7 +319,6 @@ export async function getFriendsPosts(userSignId: string, page: number = 0, size
     }
   } catch (error) {
     console.error("Error fetching friends posts:", error);
-    // 네트워크 에러 등의 경우에도 빈 결과 반환
     return {
       content: [],
       pageable: {

@@ -1,58 +1,65 @@
-// src/api/communityService/like.ts
+// src/api/communityService/community.ts
 import { COMMUNITYSERVICE_API } from "@/config/env";
-import { CommunityPostType } from "@/types/communityService/communityType";
+import {
+  CommunityPostType,
+  CreateConcernRequest,
+  CreateProjectRequest,
+  CreateStudyRequest,
+  PostDetailResponse,
+  PostSummaryResponse
+} from "@/types/communityService/communityType";
 
-export async function toggleLike(
-    type: CommunityPostType,
-    communityId: number,
-    userSignId: string
-): Promise<boolean> {
-  const url = `${COMMUNITYSERVICE_API}/likes/${type.toUpperCase()}/${communityId}`;
+export async function createConcern(userSignId: string, request: CreateConcernRequest): Promise<number> {
+  const url = `${COMMUNITYSERVICE_API}/concerns`;
 
   const response = await fetch(url, {
     method: "POST",
     headers: {
+      "Content-Type": "application/json",
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
+    body: JSON.stringify(request),
   });
 
-  if (response.ok) {
+  if (response.status === 201) {
     return await response.json();
   } else {
     const errorText = await response.text();
-    throw new Error(errorText || `좋아요 토글 실패: HTTP ${response.status}`);
+    throw new Error(errorText || `고민 게시글 작성 실패: HTTP ${response.status}`);
   }
 }
 
-export async function getLikeCount(
-    type: CommunityPostType,
-    communityId: number
-): Promise<number> {
-  const url = `${COMMUNITYSERVICE_API}/likes/${type.toUpperCase()}/${communityId}/count`;
+export async function getConcernDetail(communityId: number, userSignId?: string): Promise<PostDetailResponse> {
+  const url = `${COMMUNITYSERVICE_API}/concerns/${communityId}`;
+
+  const headers: HeadersInit = {
+    'ngrok-skip-browser-warning': 'true',
+  };
+  if (userSignId) {
+    headers["userSignId"] = userSignId;
+  }
 
   const response = await fetch(url, {
     method: "GET",
+    headers,
   });
 
   if (response.ok) {
     return await response.json();
   } else {
     const errorText = await response.text();
-    throw new Error(errorText || `좋아요 수 조회 실패: HTTP ${response.status}`);
+    throw new Error(errorText || `고민 게시글 상세 조회 실패: HTTP ${response.status}`);
   }
 }
 
-export async function checkLike(
-    type: CommunityPostType,
-    communityId: number,
-    userSignId: string
-): Promise<boolean> {
-  const url = `${COMMUNITYSERVICE_API}/likes/${type.toUpperCase()}/${communityId}/check`;
+export async function getConcernList(page: number = 0, size: number = 20): Promise<Page<PostSummaryResponse>> {
+  const url = `${COMMUNITYSERVICE_API}/concerns?page=${page}&size=${size}&sort=createdAt,DESC`;
 
   const response = await fetch(url, {
     method: "GET",
     headers: {
-      "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
   });
 
@@ -60,6 +67,204 @@ export async function checkLike(
     return await response.json();
   } else {
     const errorText = await response.text();
-    throw new Error(errorText || `좋아요 여부 확인 실패: HTTP ${response.status}`);
+    throw new Error(errorText || `고민 게시글 목록 조회 실패: HTTP ${response.status}`);
   }
+}
+
+export async function deleteConcern(communityId: number, userSignId: string): Promise<void> {
+  const url = `${COMMUNITYSERVICE_API}/concerns/${communityId}`;
+
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
+    },
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || `고민 게시글 삭제 실패: HTTP ${response.status}`);
+  }
+}
+
+// 프로젝트 관련 함수
+export async function createProject(userSignId: string, request: CreateProjectRequest): Promise<number> {
+  const url = `${COMMUNITYSERVICE_API}/projects`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
+    },
+    body: JSON.stringify(request),
+  });
+
+  if (response.status === 201) {
+    return await response.json();
+  } else {
+    const errorText = await response.text();
+    throw new Error(errorText || `프로젝트 게시글 작성 실패: HTTP ${response.status}`);
+  }
+}
+
+export async function getProjectDetail(communityId: number, userSignId?: string): Promise<PostDetailResponse> {
+  const url = `${COMMUNITYSERVICE_API}/projects/${communityId}`;
+
+  const headers: HeadersInit = {
+    'ngrok-skip-browser-warning': 'true',
+  };
+  if (userSignId) {
+    headers["userSignId"] = userSignId;
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers,
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const errorText = await response.text();
+    throw new Error(errorText || `프로젝트 게시글 상세 조회 실패: HTTP ${response.status}`);
+  }
+}
+
+export async function getProjectList(page: number = 0, size: number = 20): Promise<Page<PostSummaryResponse>> {
+  const url = `${COMMUNITYSERVICE_API}/projects?page=${page}&size=${size}&sort=createdAt,DESC`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true',
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const errorText = await response.text();
+    throw new Error(errorText || `프로젝트 게시글 목록 조회 실패: HTTP ${response.status}`);
+  }
+}
+
+export async function deleteProject(communityId: number, userSignId: string): Promise<void> {
+  const url = `${COMMUNITYSERVICE_API}/projects/${communityId}`;
+
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
+    },
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || `프로젝트 게시글 삭제 실패: HTTP ${response.status}`);
+  }
+}
+
+// 스터디 관련 함수
+export async function createStudy(userSignId: string, request: CreateStudyRequest): Promise<number> {
+  const url = `${COMMUNITYSERVICE_API}/studies`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
+    },
+    body: JSON.stringify(request),
+  });
+
+  if (response.status === 201) {
+    return await response.json();
+  } else {
+    const errorText = await response.text();
+    throw new Error(errorText || `스터디 게시글 작성 실패: HTTP ${response.status}`);
+  }
+}
+
+export async function getStudyDetail(communityId: number, userSignId?: string): Promise<PostDetailResponse> {
+  const url = `${COMMUNITYSERVICE_API}/studies/${communityId}`;
+
+  const headers: HeadersInit = {
+    'ngrok-skip-browser-warning': 'true',
+  };
+  if (userSignId) {
+    headers["userSignId"] = userSignId;
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers,
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const errorText = await response.text();
+    throw new Error(errorText || `스터디 게시글 상세 조회 실패: HTTP ${response.status}`);
+  }
+}
+
+export async function getStudyList(page: number = 0, size: number = 20): Promise<Page<PostSummaryResponse>> {
+  const url = `${COMMUNITYSERVICE_API}/studies?page=${page}&size=${size}&sort=createdAt,DESC`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true',
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const errorText = await response.text();
+    throw new Error(errorText || `스터디 게시글 목록 조회 실패: HTTP ${response.status}`);
+  }
+}
+
+export async function deleteStudy(communityId: number, userSignId: string): Promise<void> {
+  const url = `${COMMUNITYSERVICE_API}/studies/${communityId}`;
+
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
+    },
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || `스터디 게시글 삭제 실패: HTTP ${response.status}`);
+  }
+}
+
+export interface Page<T> {
+  content: T[];
+  pageable: {
+    sort: { sorted: boolean; unsorted: boolean; empty: boolean };
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: { sorted: boolean; unsorted: boolean; empty: boolean };
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
 }

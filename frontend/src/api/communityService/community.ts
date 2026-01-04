@@ -1,5 +1,5 @@
 // src/api/communityService/community.ts
-import { COMMUNITYSERVICE_API } from "@/config/env"; // 환경변수 설정 필요
+import { COMMUNITYSERVICE_API } from "@/config/env";
 import {
   CommunityPostType,
   CreateConcernRequest,
@@ -17,6 +17,7 @@ export async function createConcern(userSignId: string, request: CreateConcernRe
     headers: {
       "Content-Type": "application/json",
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
     body: JSON.stringify(request),
   });
@@ -32,7 +33,9 @@ export async function createConcern(userSignId: string, request: CreateConcernRe
 export async function getConcernDetail(communityId: number, userSignId?: string): Promise<PostDetailResponse> {
   const url = `${COMMUNITYSERVICE_API}/concerns/${communityId}`;
 
-  const headers: HeadersInit = {};
+  const headers: HeadersInit = {
+    'ngrok-skip-browser-warning': 'true',
+  };
   if (userSignId) {
     headers["userSignId"] = userSignId;
   }
@@ -55,6 +58,9 @@ export async function getConcernList(page: number = 0, size: number = 20): Promi
 
   const response = await fetch(url, {
     method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true',
+    },
   });
 
   if (response.ok) {
@@ -72,6 +78,7 @@ export async function deleteConcern(communityId: number, userSignId: string): Pr
     method: "DELETE",
     headers: {
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
   });
 
@@ -81,7 +88,7 @@ export async function deleteConcern(communityId: number, userSignId: string): Pr
   }
 }
 
-// 프로젝트 관련 함수 (고민과 유사)
+// 프로젝트 관련 함수
 export async function createProject(userSignId: string, request: CreateProjectRequest): Promise<number> {
   const url = `${COMMUNITYSERVICE_API}/projects`;
 
@@ -90,6 +97,7 @@ export async function createProject(userSignId: string, request: CreateProjectRe
     headers: {
       "Content-Type": "application/json",
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
     body: JSON.stringify(request),
   });
@@ -105,7 +113,9 @@ export async function createProject(userSignId: string, request: CreateProjectRe
 export async function getProjectDetail(communityId: number, userSignId?: string): Promise<PostDetailResponse> {
   const url = `${COMMUNITYSERVICE_API}/projects/${communityId}`;
 
-  const headers: HeadersInit = {};
+  const headers: HeadersInit = {
+    'ngrok-skip-browser-warning': 'true',
+  };
   if (userSignId) {
     headers["userSignId"] = userSignId;
   }
@@ -128,6 +138,9 @@ export async function getProjectList(page: number = 0, size: number = 20): Promi
 
   const response = await fetch(url, {
     method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true',
+    },
   });
 
   if (response.ok) {
@@ -145,6 +158,7 @@ export async function deleteProject(communityId: number, userSignId: string): Pr
     method: "DELETE",
     headers: {
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
   });
 
@@ -154,7 +168,7 @@ export async function deleteProject(communityId: number, userSignId: string): Pr
   }
 }
 
-// 스터디 관련 함수 (유사)
+// 스터디 관련 함수
 export async function createStudy(userSignId: string, request: CreateStudyRequest): Promise<number> {
   const url = `${COMMUNITYSERVICE_API}/studies`;
 
@@ -163,6 +177,7 @@ export async function createStudy(userSignId: string, request: CreateStudyReques
     headers: {
       "Content-Type": "application/json",
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
     body: JSON.stringify(request),
   });
@@ -178,7 +193,9 @@ export async function createStudy(userSignId: string, request: CreateStudyReques
 export async function getStudyDetail(communityId: number, userSignId?: string): Promise<PostDetailResponse> {
   const url = `${COMMUNITYSERVICE_API}/studies/${communityId}`;
 
-  const headers: HeadersInit = {};
+  const headers: HeadersInit = {
+    'ngrok-skip-browser-warning': 'true',
+  };
   if (userSignId) {
     headers["userSignId"] = userSignId;
   }
@@ -201,6 +218,9 @@ export async function getStudyList(page: number = 0, size: number = 20): Promise
 
   const response = await fetch(url, {
     method: "GET",
+    headers: {
+      'ngrok-skip-browser-warning': 'true',
+    },
   });
 
   if (response.ok) {
@@ -218,6 +238,7 @@ export async function deleteStudy(communityId: number, userSignId: string): Prom
     method: "DELETE",
     headers: {
       "userSignId": userSignId,
+      'ngrok-skip-browser-warning': 'true',
     },
   });
 
@@ -227,7 +248,6 @@ export async function deleteStudy(communityId: number, userSignId: string): Prom
   }
 }
 
-// 공통 타입 (Page)
 export interface Page<T> {
   content: T[];
   pageable: {

@@ -21,7 +21,7 @@ const getCommonHeaders = () => {
   return {
     'Authorization': `Bearer ${token}`,
     // ✨ ngrok 브라우저 경고 페이지를 건너뛰기 위한 필수 헤더
-    'ngrok-skip-browser-warning': '69420',
+    'ngrok-skip-browser-warning': 'true',
   };
 };
 

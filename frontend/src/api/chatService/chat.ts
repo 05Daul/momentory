@@ -8,6 +8,7 @@ const getHeaders = (userSignId?: string) => {
   const token = localStorage.getItem("accessToken");
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true", // ngrok 경고 건너뛰기 추가
   };
 
   if (token) {
@@ -72,7 +73,10 @@ export async function getChatHistory(
     size = 50
 ): Promise<ChatMessage[]> {
   const token = localStorage.getItem("accessToken");
-  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true" // 추가
+  };
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
   const response = await fetch(

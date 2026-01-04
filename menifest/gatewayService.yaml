@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway-app
-          image: daul0519/gateway-service:v2.1
+          image: daul0519/gateway-service:v2.8
           ports:
             - containerPort: 1000
           env:
