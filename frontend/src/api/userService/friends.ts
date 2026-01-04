@@ -4,7 +4,6 @@ import type { FriendsResDTO, FriendReqDTO } from "@/types/userService/friends";
 
 // 1. 인증 토큰을 가져오는 헬퍼 함수
 const getAuthToken = (): string | null => {
-  // TODO: 실제 프로젝트의 로직에 맞게 로컬 스토리지, 쿠키 등에서 JWT 토큰을 가져오도록 구현하세요.
   const token = localStorage.getItem('accessToken');
   if (!token) {
     console.error("Authentication token not found.");
@@ -13,30 +12,25 @@ const getAuthToken = (): string | null => {
   return token;
 };
 
-// 2. 공통 요청 헤더 생성 함수 (Authorization 헤더 포함)
-const getAuthHeaders = () => {
+// 2. 공통 요청 헤더 생성 함수 (Authorization 및 ngrok 우회 헤더 포함)
+const getCommonHeaders = () => {
   const token = getAuthToken();
   if (!token) {
     throw new Error("인증 토큰이 필요합니다. 로그인 상태를 확인해주세요.");
   }
   return {
     'Authorization': `Bearer ${token}`,
+    // ✨ ngrok 브라우저 경고 페이지를 건너뛰기 위한 필수 헤더
+    'ngrok-skip-browser-warning': '69420',
   };
 };
-
-
-// 공통 응답 타입
-interface ApiResponse {
-  success: boolean;
-  message?: string;
-}
 
 // 1. 친구 관계 상태 조회
 export async function getFriendshipStatus(
     currentUserSignId: string,
     targetUserSignId: string
 ): Promise<FriendsResDTO | null> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(
       `${FRIENDSSERVICE_API}/status?targetUserId=${encodeURIComponent(targetUserSignId)}`,
@@ -62,7 +56,7 @@ export async function sendFriendRequest(
     currentUserSignId: string,
     receiverSignId: string
 ): Promise<FriendsResDTO> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}/request`, {
     method: "POST",
@@ -81,16 +75,15 @@ export async function sendFriendRequest(
   throw new Error(msg || "친구 요청 실패");
 }
 
-// 3. 받은 친구 요청 목록 조회 (수정: 204 처리 및 로깅 추가)
+// 3. 받은 친구 요청 목록 조회
 export async function getReceivedFriendRequests(): Promise<FriendsResDTO[]> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}/requests/received`, {
     method: "GET",
     headers: headers,
   });
 
-  // ✨ 204 No Content 처리
   if (response.status === 204) {
     return [];
   }
@@ -99,22 +92,20 @@ export async function getReceivedFriendRequests(): Promise<FriendsResDTO[]> {
     return await response.json();
   }
 
-  // ✨ 에러 로깅 추가
   const msg = await response.text();
   console.error(`Received Requests Failed: HTTP ${response.status} - ${msg}`);
   throw new Error(msg || `친구 요청 목록 조회 실패 (Status: ${response.status})`);
 }
 
-// 4. 친구 목록 조회 (수정: 204 처리 및 로깅 추가)
+// 4. 친구 목록 조회
 export async function getFriendList(): Promise<FriendsResDTO[]> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}`, {
     method: "GET",
     headers: headers,
   });
 
-  // ✨ 204 No Content 처리
   if (response.status === 204) {
     return [];
   }
@@ -123,7 +114,6 @@ export async function getFriendList(): Promise<FriendsResDTO[]> {
     return await response.json();
   }
 
-  // ✨ 에러 로깅 추가
   const msg = await response.text();
   console.error(`Friend List Failed: HTTP ${response.status} - ${msg}`);
   throw new Error(msg || `친구 목록 조회 실패 (Status: ${response.status})`);
@@ -134,14 +124,11 @@ export async function acceptFriendRequest(
     currentUserSignId: string,
     friendId: number
 ): Promise<FriendsResDTO> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}/${friendId}/accept`, {
     method: "PUT",
-    headers: {
-      ...headers,
-      "Content-Length": "0",
-    },
+    headers: headers, // PUT 요청 시 body가 없으면 Content-Type 생략 가능
   });
 
   if (response.ok) {
@@ -157,7 +144,7 @@ export async function rejectFriendRequest(
     currentUserSignId: string,
     friendId: number
 ): Promise<void> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}/${friendId}/reject`, {
     method: "DELETE",
@@ -176,7 +163,7 @@ export async function deleteFriend(
     currentUserSignId: string,
     friendId: number
 ): Promise<void> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}/${friendId}`, {
     method: "DELETE",
@@ -195,7 +182,7 @@ export async function blockUser(
     currentUserSignId: string,
     receiverSignId: string
 ): Promise<FriendsResDTO> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}/block`, {
     method: "POST",
@@ -219,7 +206,7 @@ export async function unblockUser(
     currentUserSignId: string,
     friendId: number
 ): Promise<void> {
-  const headers = getAuthHeaders();
+  const headers = getCommonHeaders();
 
   const response = await fetch(`${FRIENDSSERVICE_API}/${friendId}/unblock`, {
     method: "DELETE",
