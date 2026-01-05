@@ -110,9 +110,9 @@ export default function ChatRoom({
       [currentUserId, roomId, scrollToBottom]
   );
 
-  // ⭐ roomId를 꼭 전달해야 구독이 됩니다!
   const { isConnected, sendMessage } = useWebSocket({
-    url: 'ws://111111/ws-chat',
+    url: process.env.NEXT_PUBLIC_CHAT_WS_URL ||
+        'wss://joy-untrellised-bullheadedly.ngrok-free.dev/ws-chat',
     roomId: roomId,
     onMessage: handleNewMessage,
   });
