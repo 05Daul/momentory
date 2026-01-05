@@ -8,7 +8,7 @@ const nextConfig = {
         destination: "https://joy-untrellised-bullheadedly.ngrok-free.dev/ws-chat/:path*",
       },
       {
-        source: "/api/chat-proxy/:path*",
+        source: "/api/chat/:path*",
         destination: "https://joy-untrellised-bullheadedly.ngrok-free.dev/:path*",
       },
     ];
