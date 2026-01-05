@@ -111,8 +111,7 @@ export default function ChatRoom({
   );
 
   const { isConnected, sendMessage } = useWebSocket({
-    url: process.env.NEXT_PUBLIC_CHAT_WS_URL ||
-        'wss://joy-untrellised-bullheadedly.ngrok-free.dev/ws-chat',
+    url: process.env.NEXT_PUBLIC_CHAT_WS_URL || '/ws-chat',
     roomId: roomId,
     onMessage: handleNewMessage,
   });
