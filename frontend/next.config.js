@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-
+  async rewrites() {
+    return [
+      {
+        // 프론트엔드에서 /ws-chat으로 요청을 보내면
+        source: "/ws-chat/:path*",
+        // 백엔드 주소로 대리(Proxy) 요청을 보냄
+        destination: "https://joy-untrellised-bullheadedly.ngrok-free.dev/ws-chat/:path*",
+      },
+    ];
+  },
   images: {
     // ⚠ 기존 domains 설정 (Next.js에서 권장하지 않음)
     // domains: ["storage.googleapis.com", "localhost"],
