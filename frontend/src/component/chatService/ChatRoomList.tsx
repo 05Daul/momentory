@@ -38,7 +38,6 @@ export default function ChatRoomList({ currentUserId, onSelectRoom, onCreateRoom
       const data = await getChatRooms(currentUserId);
       setRooms(data);
     } catch (err: any) {
-      console.error('채팅방 목록 로드 실패:', err);
       setError('채팅방 목록을 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);

@@ -36,10 +36,6 @@ export default function ChatRoom({
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log('=== ChatRoom 마운트 ===');
-    console.log('roomId:', roomId);
-    console.log('currentUserId:', currentUserId);
-    console.log('currentUserName:', currentUserName);
   }, [roomId, currentUserId, currentUserName]);
 
   const scrollToBottom = useCallback(() => {
@@ -62,7 +58,6 @@ export default function ChatRoom({
 
   const handleNewMessage = useCallback(
       (newMessage: ChatMessage) => {
-        console.log('📨 새 메시지 수신:', newMessage);
 
         // ⭐ 중복 방지: 같은 메시지가 이미 있는지 확인
         setMessages((prev) => {
@@ -78,7 +73,6 @@ export default function ChatRoom({
           });
 
           if (isDuplicate) {
-            console.log('⚠️ 중복 메시지 무시:', newMessage.content);
             return prev;
           }
 
@@ -91,7 +85,6 @@ export default function ChatRoom({
           // ⭐ 읽음 처리 후 로컬 상태 갱신 로직
           markMessagesAsRead(roomId, currentUserId)
           .then(() => {
-            console.log('✅ 새 메시지 수신 후 읽음 처리 완료');
             setMessages(prevMessages =>
                 prevMessages.map(msg => {
                   if (msg.userSignId !== currentUserId && !msg.readBy?.includes(currentUserId)) {
@@ -104,7 +97,6 @@ export default function ChatRoom({
                 })
             );
           })
-          .catch(console.error);
         }
       },
       [currentUserId, roomId, scrollToBottom]
@@ -116,7 +108,6 @@ export default function ChatRoom({
   });
 
   useEffect(() => {
-    console.log('🔌 WebSocket 연결:', isConnected);
   }, [isConnected]);
 
   const loadChatHistory = useCallback(async (pageNum: number = 0) => {
@@ -124,9 +115,7 @@ export default function ChatRoom({
 
     setIsLoading(true);
     try {
-      console.log('📚 히스토리 로드:', roomId, 'page:', pageNum);
       const history = await getChatHistory(roomId, pageNum, 30);
-      console.log('✅ 메시지', history.length, '개');
 
       if (history.length === 0) {
         setHasMore(false);
@@ -145,7 +134,6 @@ export default function ChatRoom({
         setHasMore(false);
       }
     } catch (err) {
-      console.error('❌ 로드 실패:', err);
       if (pageNum === 0) {
         setMessages([]);
       }
@@ -164,7 +152,6 @@ export default function ChatRoom({
     const markAsRead = async () => {
       try {
         await markMessagesAsRead(roomId, currentUserId);
-        console.log('✅ 채팅방 진입 시 읽음 처리 완료');
 
         // ⭐ 읽음 처리 후 로컬 상태 갱신
         setMessages(prevMessages =>
@@ -180,7 +167,6 @@ export default function ChatRoom({
         );
 
       } catch (error) {
-        console.error('❌ 읽음 처리 실패:', error);
       }
     };
 
@@ -237,14 +223,12 @@ export default function ChatRoom({
       type: 'TALK',
     };
 
-    console.log('📤 전송:', messageDto.content);
 
     try {
       sendMessage(messageDto);
       setInputMessage('');
       inputRef.current?.focus();
     } catch (error) {
-      console.error('❌ 전송 실패:', error);
       alert('메시지 전송에 실패했습니다.');
     }
   }, [inputMessage, isConnected, currentUserId, currentUserName, roomId, sendMessage]);
@@ -261,11 +245,9 @@ export default function ChatRoom({
     if (window.confirm('채팅방을 나가시겠습니까? 나가면 메시지 목록이 삭제되고 다시 참여할 수 없습니다.')) {
       try {
         await leaveChatRoom(roomId, currentUserId);
-        console.log(`✅ Room ${roomId}에서 사용자 ${currentUserId} 나가기 성공`);
         onBack(); // 채팅방 목록으로 돌아가기
       } catch (error) {
         alert('채팅방 나가기에 실패했습니다.');
-        console.error('채팅방 나가기 실패:', error);
       }
     }
     setIsMenuOpen(false); // 메뉴 닫기
