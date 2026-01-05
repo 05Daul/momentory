@@ -67,7 +67,6 @@ export default function StartNewChatModal({
 
         setFriends(safeFriends);
       } catch (err: any) {
-        console.error("친구 목록 로드 실패:", err);
         setError("친구 목록을 불러오지 못했습니다.");
         setFriends([]);
       } finally {
