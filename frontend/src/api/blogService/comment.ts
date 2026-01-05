@@ -12,7 +12,8 @@ export async function createComment(userSignId: string, dto: CommentCreationRequ
     },
     body: JSON.stringify({ postId: dto.postId, content: dto.content, parentId: dto.parentCommentId }),
   });
-  if (!res.ok) throw new Error("댓글 작성 실패");
+
+  if (!res.ok||userSignId==null) throw new Error("댓글 작성 실패");
   return mapToReplies(await res.json());
 }
 
