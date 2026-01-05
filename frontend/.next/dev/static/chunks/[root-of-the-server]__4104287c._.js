@@ -465,11 +465,11 @@ function triggerUpdate(msg) {
 "[project]/src/hooks/useWebSocket.ts [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// src/hooks/useWebSocket.ts
 __turbopack_context__.s([
     "useWebSocket",
     ()=>useWebSocket
 ]);
+// src/hooks/useWebSocket.ts
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/index.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$stomp$2f$stompjs$2f$esm6$2f$client$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@stomp/stompjs/esm6/client.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sockjs$2d$client$2f$lib$2f$entry$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/sockjs-client/lib/entry.js [client] (ecmascript)");
@@ -662,7 +662,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/src/api/chatService/chat.ts [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// src/api/chatService/chat.ts
 __turbopack_context__.s([
     "createChatRoom",
     ()=>createChatRoom,
@@ -675,13 +674,15 @@ __turbopack_context__.s([
     "markMessagesAsRead",
     ()=>markMessagesAsRead
 ]);
+// src/api/chatService/chat.ts
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [client] (ecmascript)");
 ;
 // 공통 인증 헤더 + userSignId 헤더 포함
 const getHeaders = (userSignId)=>{
     const token = localStorage.getItem("accessToken");
     const headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true"
     };
     if (token) {
         headers["Authorization"] = `Bearer ${token}`;
@@ -720,7 +721,8 @@ async function getChatRooms(userSignId) {
 async function getChatHistory(roomId, page = 0, size = 50) {
     const token = localStorage.getItem("accessToken");
     const headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true" // 추가
     };
     if (token) headers["Authorization"] = `Bearer ${token}`;
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["CHATSERVICE_API"]}/rooms/${roomId}/messages?page=${page}&size=${size}`, {
@@ -927,7 +929,7 @@ function ChatRoom({ roomId, currentUserId, currentUserName, roomName, onBack }) 
     ]);
     // ⭐ roomId를 꼭 전달해야 구독이 됩니다!
     const { isConnected, sendMessage } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useWebSocket$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["useWebSocket"])({
-        url: 'ws://localhost:1005/ws-chat',
+        url: 'ws://111111/ws-chat',
         roomId: roomId,
         onMessage: handleNewMessage
     });
@@ -1484,12 +1486,12 @@ __turbopack_context__.v({
 "[project]/src/component/chatService/ChatRoomList.tsx [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// ChatRoomList.tsx
 __turbopack_context__.s([
     "default",
     ()=>ChatRoomList
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
+// ChatRoomList.tsx
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/index.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$chatService$2f$chat$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/api/chatService/chat.ts [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [client] (ecmascript) <export default as Search>");
@@ -1761,7 +1763,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/src/api/userService/friends.ts [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// src/api/userService/friends.ts
 __turbopack_context__.s([
     "acceptFriendRequest",
     ()=>acceptFriendRequest,
@@ -1782,11 +1783,11 @@ __turbopack_context__.s([
     "unblockUser",
     ()=>unblockUser
 ]);
+// src/api/userService/friends.ts
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [client] (ecmascript)");
 ;
 // 1. 인증 토큰을 가져오는 헬퍼 함수
 const getAuthToken = ()=>{
-    // TODO: 실제 프로젝트의 로직에 맞게 로컬 스토리지, 쿠키 등에서 JWT 토큰을 가져오도록 구현하세요.
     const token = localStorage.getItem('accessToken');
     if (!token) {
         console.error("Authentication token not found.");
@@ -1794,18 +1795,20 @@ const getAuthToken = ()=>{
     }
     return token;
 };
-// 2. 공통 요청 헤더 생성 함수 (Authorization 헤더 포함)
-const getAuthHeaders = ()=>{
+// 2. 공통 요청 헤더 생성 함수 (Authorization 및 ngrok 우회 헤더 포함)
+const getCommonHeaders = ()=>{
     const token = getAuthToken();
     if (!token) {
         throw new Error("인증 토큰이 필요합니다. 로그인 상태를 확인해주세요.");
     }
     return {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        // ✨ ngrok 브라우저 경고 페이지를 건너뛰기 위한 필수 헤더
+        'ngrok-skip-browser-warning': 'true'
     };
 };
 async function getFriendshipStatus(currentUserSignId, targetUserSignId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/status?targetUserId=${encodeURIComponent(targetUserSignId)}`, {
         method: "GET",
         headers: headers
@@ -1821,7 +1824,7 @@ async function getFriendshipStatus(currentUserSignId, targetUserSignId) {
     throw new Error(msg || "상태 조회 실패");
 }
 async function sendFriendRequest(currentUserSignId, receiverSignId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/request`, {
         method: "POST",
         headers: {
@@ -1840,49 +1843,42 @@ async function sendFriendRequest(currentUserSignId, receiverSignId) {
     throw new Error(msg || "친구 요청 실패");
 }
 async function getReceivedFriendRequests() {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/requests/received`, {
         method: "GET",
         headers: headers
     });
-    // ✨ 204 No Content 처리
     if (response.status === 204) {
         return [];
     }
     if (response.ok) {
         return await response.json();
     }
-    // ✨ 에러 로깅 추가
     const msg = await response.text();
     console.error(`Received Requests Failed: HTTP ${response.status} - ${msg}`);
     throw new Error(msg || `친구 요청 목록 조회 실패 (Status: ${response.status})`);
 }
 async function getFriendList() {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}`, {
         method: "GET",
         headers: headers
     });
-    // ✨ 204 No Content 처리
     if (response.status === 204) {
         return [];
     }
     if (response.ok) {
         return await response.json();
     }
-    // ✨ 에러 로깅 추가
     const msg = await response.text();
     console.error(`Friend List Failed: HTTP ${response.status} - ${msg}`);
     throw new Error(msg || `친구 목록 조회 실패 (Status: ${response.status})`);
 }
 async function acceptFriendRequest(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}/accept`, {
         method: "PUT",
-        headers: {
-            ...headers,
-            "Content-Length": "0"
-        }
+        headers: headers
     });
     if (response.ok) {
         return await response.json();
@@ -1892,7 +1888,7 @@ async function acceptFriendRequest(currentUserSignId, friendId) {
     throw new Error(msg || "수락 실패");
 }
 async function rejectFriendRequest(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}/reject`, {
         method: "DELETE",
         headers: headers
@@ -1904,7 +1900,7 @@ async function rejectFriendRequest(currentUserSignId, friendId) {
     }
 }
 async function deleteFriend(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}`, {
         method: "DELETE",
         headers: headers
@@ -1916,7 +1912,7 @@ async function deleteFriend(currentUserSignId, friendId) {
     }
 }
 async function blockUser(currentUserSignId, receiverSignId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/block`, {
         method: "POST",
         headers: {
@@ -1935,7 +1931,7 @@ async function blockUser(currentUserSignId, receiverSignId) {
     throw new Error(msg || "차단 실패");
 }
 async function unblockUser(currentUserSignId, friendId) {
-    const headers = getAuthHeaders();
+    const headers = getCommonHeaders();
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["FRIENDSSERVICE_API"]}/${friendId}/unblock`, {
         method: "DELETE",
         headers: headers
@@ -1977,7 +1973,6 @@ __turbopack_context__.v({
 "[project]/src/component/chatService/StartNewChatModal.tsx [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// StartNewChatModal.tsx (최종 완성판 - FriendActionModal 참고 수정)
 __turbopack_context__.s([
     "default",
     ()=>StartNewChatModal
@@ -1992,6 +1987,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$api$2f$userService$2f
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$chatService$2f$StartNewChatModal$2e$module$2e$css__$5b$client$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/src/styles/chatService/StartNewChatModal.module.css [client] (css module)");
 ;
 var _s = __turbopack_context__.k.signature();
+// StartNewChatModal.tsx (최종 완성판 - FriendActionModal 참고 수정)
 "use client";
 ;
 ;
@@ -2401,7 +2397,6 @@ __turbopack_context__.v({
 "[project]/src/api/userService/user.ts [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// src/api/userService/user.ts (최종 완성본)
 __turbopack_context__.s([
     "acceptFriend",
     ()=>acceptFriend,
@@ -2428,6 +2423,7 @@ __turbopack_context__.s([
     "uploadProfileImage",
     ()=>uploadProfileImage
 ]);
+// src/api/userService/user.ts (최종 완성본)
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/env.ts [client] (ecmascript)");
 ;
 async function uploadProfileImage(userSignId, imageFile) {
@@ -2436,9 +2432,8 @@ async function uploadProfileImage(userSignId, imageFile) {
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/profile/image`, {
         method: 'POST',
         headers: {
-            // 파일 업로드는 Content-Type을 'multipart/form-data'로 명시하지 않아야
-            // 브라우저가 boundary를 자동으로 설정합니다.
-            userSignId: userSignId
+            userSignId: userSignId,
+            'ngrok-skip-browser-warning': 'true'
         },
         body: formData
     });
@@ -2462,6 +2457,7 @@ async function changePassword(userSignId, currentPassword, newPassword) {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
             userSignId: userSignId
         },
         body: JSON.stringify({
@@ -2484,6 +2480,7 @@ async function getUserProfile(userSignId) {
         const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/profile/${userSignId}`, {
             method: 'GET',
             headers: {
+                'ngrok-skip-browser-warning': 'true',
                 'Content-Type': 'application/json'
             }
         });
@@ -2517,7 +2514,10 @@ async function signup(formData) {
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/signup`, {
         method: "POST",
         // FormData 사용 시 Content-Type 헤더를 설정하지 않음 (브라우저가 자동으로 설정)
-        body: formData
+        body: formData,
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
     });
     const text = await response.text();
     if (response.status === 201) {
@@ -2535,7 +2535,8 @@ async function login(loginDto) {
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/login`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify(loginDto)
     });
@@ -2554,7 +2555,11 @@ async function login(loginDto) {
     };
 }
 async function checkUserSignId(userSignId) {
-    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existId?userId=${encodeURIComponent(userSignId)}`);
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existId?userId=${encodeURIComponent(userSignId)}`, {
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
+    });
     const text = await response.text();
     const available = text.trim() === "not exists";
     return {
@@ -2562,7 +2567,11 @@ async function checkUserSignId(userSignId) {
     };
 }
 async function checkEmail(email) {
-    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existEmail?email=${encodeURIComponent(email)}`);
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existEmail?email=${encodeURIComponent(email)}`, {
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
+    });
     const text = await response.text();
     const available = text.trim() === "not exists";
     return {
@@ -2570,7 +2579,11 @@ async function checkEmail(email) {
     };
 }
 async function checkNickName(nickname) {
-    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existNickname?nickname=${encodeURIComponent(nickname)}`);
+    const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/existNickname?nickname=${encodeURIComponent(nickname)}`, {
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
+    });
     const text = await response.text();
     const available = text.trim() === "not exists";
     return {
@@ -2582,7 +2595,8 @@ async function requestFriend(requesterSignId, reqDto) {
         method: "POST",
         headers: {
             userSignId: requesterSignId,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify(reqDto)
     });
@@ -2597,7 +2611,7 @@ async function acceptFriend(receiverSignId, requesterSignId) {
         method: "PUT",
         headers: {
             userSignId: receiverSignId,
-            "Content-Length": "0"
+            'ngrok-skip-browser-warning': 'true'
         }
     });
     if (response.ok) {
@@ -2611,7 +2625,8 @@ async function updateNickname(userSignId, newNickName) {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'userSignId': userSignId
+            'userSignId': userSignId,
+            'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify({
             newNickName
@@ -3878,7 +3893,6 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/src/pages/page.tsx [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// component/chatService/ChatPage.tsx
 __turbopack_context__.s([
     "default",
     ()=>ChatPage
@@ -3892,6 +3906,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$styles$2f$chatService
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$component$2f$layout$2f$MainLayout$2e$tsx__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/component/layout/MainLayout.tsx [client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+// component/chatService/ChatPage.tsx
 "use client";
 ;
 ;

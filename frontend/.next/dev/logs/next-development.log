@@ -1,1 +1,101 @@
-[00:00:00.810] Server  LOG     ✓ Ready in 492ms
+[00:00:00.603] Server  LOG     ✓ Ready in 403ms
+[00:00:04.394] Server  WARN    ⚠ Cross origin request detected from 192.168.68.50 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:00:04.742] Browser ERROR   User ID not found in localStorage. Cannot load friend posts.
+[00:00:04.742] Browser LOG     [Observer Status] isIntersecting: true, loading: false, hasMore: true
+[00:00:04.742] Browser LOG     ✅ Intersection Observer: New page requested.
+[00:00:04.742] Browser LOG     [Observer Status] isIntersecting: true, loading: true, hasMore: true
+[00:00:04.742] Browser ERROR   Failed to fetch trending posts: {}
+[00:00:04.742] Browser LOG     [Observer Status] isIntersecting: false, loading: false, hasMore: false
+[00:00:12.398] Browser ERROR   {}
+[00:00:41.911] Browser ERROR   {}
+[00:00:42.571] Browser ERROR   {}
+[00:00:47.897] Browser ERROR   {}
+[00:04:07.093] Server  WARN    ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:04:07.226] Browser LOG     [Observer Status] isIntersecting: true, loading: true, hasMore: true
+[00:04:07.226] Browser LOG     [Observer Status] isIntersecting: true, loading: true, hasMore: true
+[00:04:13.583] Browser LOG     🔥 [LoginModal] 로그인 응답: {"accessToken":"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInByb2ZpbGVJbWciOiIvcHJvZmlsZXMvMGYyZDA3MDctNmZmYS00MjY4LTg4ZjgtNjIzMThjODQwYWVlLmpwZyIsInN1YiI6ImVscmU1MTkiLCJpYXQiOjE3Njc2MDM5MjYsImV4cCI6MTc2NzY0NzEyNn0.PRCl-NldoQzwNbU1UJj1a32ZaIweFHM0RHGWgqUP0U8","profileImg":"/profiles/0f2d0707-6ffa-4268-88f8-62318c840aee.jpg","refreshToken":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbHJlNTE5IiwiaWF0IjoxNzY3NjAzOTI2LCJleHAiOjE3Njc2NDcxMjZ9.2snaD-vjz-vyXGJGZ-2_l4Z3Wgh-t_6IGQmQDCoRc5A","role":"USER","userSignId":"elre519"}
+[00:04:13.583] Browser LOG     🔥 [LoginModal] response.profileImg: /profiles/0f2d0707-6ffa-4268-88f8-62318c840aee.jpg
+[00:04:13.583] Browser LOG     🔥 [LoginModal] response.profile_img: undefined
+[00:04:13.583] Browser LOG     🔥 [LoginModal] 최종 profileImage: /profiles/0f2d0707-6ffa-4268-88f8-62318c840aee.jpg
+[00:04:13.583] Browser LOG     ✅ [LoginModal] localStorage에 저장됨: /profiles/0f2d0707-6ffa-4268-88f8-62318c840aee.jpg
+[00:04:19.009] Browser ERROR   Friend List Failed: HTTP 403 - 
+[00:04:19.009] Browser ERROR   친구 목록 로드 실패: {}
+[00:04:47.314] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:05:07.218] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:05:17.334] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:05:47.371] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:06:17.426] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:06:47.478] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:07:17.525] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:07:47.565] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:08:17.627] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:08:47.666] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:09:17.729] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:09:47.750] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:10:02.845] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:10:02.845] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:10:04.497] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:10:04.498] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:10:34.553] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:11:34.684] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:12:04.727] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:12:34.770] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:13:04.815] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:13:34.840] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:14:04.866] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:14:34.878] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:14:49.688] Server  LOG     ✓ Compiled in 78ms
+[00:14:49.793] Browser ERROR   ./src/component/chatService/ChatRoom.tsx:117:5
+Parsing ecmascript source code failed
+  115 |     url: 'ws://111111/ws-chat',
+  116 |     roomId: roomId,
+> 117 |     :
+      |     ^
+  118 |     onMessage: handleNewMessage,
+  119 |   });
+  120 |
+
+Unexpected token `:`. Expected identifier, string literal, numeric literal or [ for the computed key
+
+Import traces:
+  Browser:
+    ./src/component/chatService/ChatRoom.tsx
+    ./src/pages/page.tsx
+
+  SSR:
+    ./src/component/chatService/ChatRoom.tsx
+    ./src/pages/page.tsx
+[00:14:49.793] Browser ERROR   ./src/component/chatService/ChatRoom.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/src/component/chatService/ChatRoom.tsx [ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/src/component/chatService/ChatRoom.tsx [ssr] (ecmascript)
+- Execution of <ModuleChunkItem as EcmascriptChunkItem>::content_with_async_module_info failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import traces:
+  Browser:
+    ./src/component/chatService/ChatRoom.tsx
+    ./src/pages/page.tsx
+
+  SSR:
+    ./src/component/chatService/ChatRoom.tsx
+    ./src/pages/page.tsx
+[00:14:49.989] Server  LOG     ✓ Compiled in 12ms
+[00:15:04.900] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:15:34.925] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:16:04.952] Browser ERROR   채팅방 목록 로드 실패: {}
+[00:21:25.732] Browser LOG     [Observer Status] isIntersecting: true, loading: true, hasMore: true
+[00:21:25.732] Browser LOG     [Observer Status] isIntersecting: true, loading: true, hasMore: true
+[00:21:25.969] Browser ERROR   Failed to fetch trending posts: {}
+[00:25:11.372] Server  LOG       Reload env: .env
+[00:22:19.802] Server  LOG       Reload env: .env
+[00:25:11.856] Server  LOG     ✓ Compiled in 447ms
+[00:26:36.014] Server  LOG     ✓ Compiled in 44ms
