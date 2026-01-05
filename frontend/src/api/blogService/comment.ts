@@ -3,6 +3,9 @@ import { BLOGSERVICE_API } from "../../config/env";
 import { CommentCreationRequestDTO, CommentDTO, CommentUpdateRequestDTO } from "../../types/blogService/blogType";
 
 export async function createComment(userSignId: string, dto: CommentCreationRequestDTO): Promise<CommentDTO> {
+  if (!userSignId) {
+    throw new Error("로그인이 필요한 서비스입니다.");
+  }
   const res = await fetch(`${BLOGSERVICE_API}/comments`, {
     method: "POST",
     headers: {
