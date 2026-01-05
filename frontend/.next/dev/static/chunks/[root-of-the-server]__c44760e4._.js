@@ -527,14 +527,14 @@ __turbopack_context__.s([
     ()=>USERSERVICE_API
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [client] (ecmascript)");
-const FEEDSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/feed");
-const NOTIFICATIONSERVEICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/notifi");
-const USERSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/user");
-const BLOGSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/blog");
-const CHATSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/chat");
-const GATEWAY_API_URL = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev");
-const COMMUNITYSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/community");
-const FRIENDSSERVICE_API = ("TURBOPACK compile-time value", "https://joy-untrellised-bullheadedly.ngrok-free.dev/friends");
+const FEEDSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/feed");
+const NOTIFICATIONSERVEICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/notifi");
+const USERSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/user");
+const BLOGSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/blog");
+const CHATSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/chat");
+const GATEWAY_API_URL = ("TURBOPACK compile-time value", "http://127.0.0.1:1000");
+const COMMUNITYSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/community");
+const FRIENDSSERVICE_API = ("TURBOPACK compile-time value", "http://127.0.0.1:1000/friends");
 if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
 ;
 if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
@@ -593,8 +593,6 @@ async function uploadProfileImage(userSignId, imageFile) {
     const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["USERSERVICE_API"]}/profile/image`, {
         method: 'POST',
         headers: {
-            // 파일 업로드는 Content-Type을 'multipart/form-data'로 명시하지 않아야
-            // 브라우저가 boundary를 자동으로 설정합니다.
             userSignId: userSignId,
             'ngrok-skip-browser-warning': 'true'
         },
@@ -774,7 +772,6 @@ async function acceptFriend(receiverSignId, requesterSignId) {
         method: "PUT",
         headers: {
             userSignId: receiverSignId,
-            "Content-Length": "0",
             'ngrok-skip-browser-warning': 'true'
         }
     });
@@ -1096,7 +1093,7 @@ const getCommonHeaders = ()=>{
     return {
         'Authorization': `Bearer ${token}`,
         // ✨ ngrok 브라우저 경고 페이지를 건너뛰기 위한 필수 헤더
-        'ngrok-skip-browser-warning': '69420'
+        'ngrok-skip-browser-warning': 'true'
     };
 };
 async function getFriendshipStatus(currentUserSignId, targetUserSignId) {
@@ -2533,7 +2530,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__
 async function getPostTags(postId) {
     const url = `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["BLOGSERVICE_API"]}/tags?postId=${postId}`;
     const response = await fetch(url, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            "ngrok-skip-browser-warning": "true"
+        }
     });
     if (response.ok) {
         return await response.json();
@@ -2548,7 +2548,8 @@ const searchPosts = async (keyword, page = 0, size = 10)=>{
         const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["BLOGSERVICE_API"]}/search?keyword=${encodeURIComponent(keyword)}&page=${page}&size=${size}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true'
             }
         });
         if (!response.ok) {
@@ -2566,10 +2567,12 @@ async function uploadImage(file) {
     formData.append("file", file);
     const response = await fetch(url, {
         method: "POST",
+        headers: {
+            "ngrok-skip-browser-warning": "true"
+        },
         body: formData
     });
     if (response.ok) {
-        // 백엔드에서 { "url": "..." } 형태의 JSON을 반환
         return await response.json();
     } else {
         const errorText = await response.text();
@@ -2583,11 +2586,12 @@ async function toggleLike(postId, userSignId) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "userSignId": userSignId
+                "userSignId": userSignId,
+                "ngrok-skip-browser-warning": "true"
             }
         });
         if (response.ok) {
-            return await response.json(); // { isLiked: true, likeCount: 10 } 반환
+            return await response.json();
         } else {
             const errorText = await response.text();
             throw new Error(errorText || `좋아요 처리 실패: HTTP ${response.status}`);
@@ -2604,12 +2608,13 @@ async function writeFeed(postData, userSignId) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "userSignId": userSignId
+            "userSignId": userSignId,
+            "ngrok-skip-browser-warning": "true"
         },
         body: JSON.stringify(postData)
     });
     if (response.ok) {
-        return await response.json(); // PostEntity 반환
+        return await response.json();
     } else {
         const errorText = await response.text();
         throw new Error(errorText || `게시글 등록 실패: HTTP ${response.status}`);
@@ -2620,7 +2625,8 @@ async function readPost(postId) {
     const response = await fetch(url, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true"
         }
     });
     if (response.ok) {
@@ -2636,7 +2642,8 @@ async function updatePost(postId, postData, userSignId) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "userSignId": userSignId
+            "userSignId": userSignId,
+            "ngrok-skip-browser-warning": "true"
         },
         body: JSON.stringify(postData)
     });
@@ -2652,7 +2659,8 @@ async function deleteFeed(postId, userSignId) {
     const response = await fetch(url, {
         method: "DELETE",
         headers: {
-            "userSignId": userSignId
+            "userSignId": userSignId,
+            "ngrok-skip-browser-warning": "true"
         }
     });
     if (!response.ok) {
@@ -2663,12 +2671,15 @@ async function deleteFeed(postId, userSignId) {
 async function incrementViewCount(postId) {
     const url = `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["BLOGSERVICE_API"]}/view?postId=${postId}`;
     const response = await fetch(url, {
-        method: "POST"
+        method: "POST",
+        headers: {
+            "ngrok-skip-browser-warning": "true"
+        }
     });
     if (response.ok) {
-        return await response.text(); // "조회수가 증가되었습니다."
+        return await response.text();
     } else {
-        const errorText = await response.text(); // 오류 메시지 반환
+        const errorText = await response.text();
         throw new Error(errorText || `조회수 증가 실패: HTTP ${response.status}`);
     }
 }
@@ -2677,11 +2688,11 @@ async function getTrendingPosts(page = 0, size = 10) {
     const response = await fetch(url, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true"
         }
     });
     if (response.ok) {
-        // 백엔드에서 Page<PostEntity> 형태로 반환된 JSON을 파싱
         return await response.json();
     } else {
         const errorText = await response.text();
@@ -2694,11 +2705,11 @@ async function getMyPosts(userSignId, page = 0, size = 10) {
         method: "GET",
         headers: {
             "authorId": userSignId,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true"
         }
     });
     if (response.ok) {
-        // 백엔드에서 Page<PostEntity> 형태로 반환된 JSON을 파싱
         return await response.json();
     } else {
         const errorText = await response.text();
@@ -2710,7 +2721,8 @@ async function getRecentPosts(page = 0, size = 10) {
     const response = await fetch(url, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true"
         }
     });
     if (response.ok) {
@@ -2723,10 +2735,6 @@ async function getRecentPosts(page = 0, size = 10) {
 async function getFriendsPosts(userSignId, page = 0, size = 10) {
     const url = `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$env$2e$ts__$5b$client$5d$__$28$ecmascript$29$__["BLOGSERVICE_API"]}/feed?page=${page}&size=${size}`;
     const token = localStorage.getItem('accessToken');
-    console.log("--- Friends Posts API Call Debug ---");
-    console.log(`User Sign ID: ${userSignId}`);
-    console.log(`Token Key Check: 'accessToken'`);
-    console.log("------------------------------------");
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -2734,13 +2742,13 @@ async function getFriendsPosts(userSignId, page = 0, size = 10) {
             headers: {
                 "userSignId": userSignId,
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "ngrok-skip-browser-warning": "true"
             }
         });
         if (response.ok) {
             return await response.json();
         } else if (response.status === 403 || response.status === 404) {
-            // 친구가 없거나 권한이 없는 경우 빈 결과 반환
             console.log("No friends or no permission - returning empty result");
             return {
                 content: [],
@@ -2771,7 +2779,6 @@ async function getFriendsPosts(userSignId, page = 0, size = 10) {
                 empty: true
             };
         } else {
-            // 다른 에러의 경우에도 빈 결과 반환 (에러를 throw하지 않음)
             const errorText = await response.text().catch(()=>'');
             console.error(`Error ${response.status}:`, errorText);
             return {
@@ -2805,7 +2812,6 @@ async function getFriendsPosts(userSignId, page = 0, size = 10) {
         }
     } catch (error) {
         console.error("Error fetching friends posts:", error);
-        // 네트워크 에러 등의 경우에도 빈 결과 반환
         return {
             content: [],
             pageable: {

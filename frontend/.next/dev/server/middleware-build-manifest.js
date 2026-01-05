@@ -1,6 +1,45 @@
 globalThis.__BUILD_MANIFEST = {
   "pages": {
-    "/_app": []
+    "/": [
+      "static/chunks/[root-of-the-server]__c44760e4._.js",
+      "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",
+      "static/chunks/node_modules_next_dist_shared_lib_20b91ad8._.js",
+      "static/chunks/node_modules_next_dist_client_271ad2fb._.js",
+      "static/chunks/node_modules_next_dist_d989ed6c._.js",
+      "static/chunks/node_modules_next_43f4b640._.js",
+      "static/chunks/node_modules_react-dom_4411d9bd._.js",
+      "static/chunks/node_modules_f1be3ba2._.js",
+      "static/chunks/src_styles_f77d9cac._.css",
+      "static/chunks/src_pages_index_2da965e7._.js",
+      "static/chunks/turbopack-src_pages_index_e0927533._.js"
+    ],
+    "/_app": [
+      "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",
+      "static/chunks/node_modules_next_dist_shared_lib_8bac8163._.js",
+      "static/chunks/node_modules_next_dist_client_5a8a528e._.js",
+      "static/chunks/node_modules_next_dist_b3fb3b5f._.js",
+      "static/chunks/node_modules_next_app_72f3d36f.js",
+      "static/chunks/[next]_entry_page-loader_ts_742e4b53._.js",
+      "static/chunks/node_modules_react-dom_4411d9bd._.js",
+      "static/chunks/node_modules_7f09fef0._.js",
+      "static/chunks/[root-of-the-server]__be103ac6._.js",
+      "static/chunks/src_pages__app_2da965e7._.js",
+      "static/chunks/turbopack-src_pages__app_3d18becf._.js"
+    ],
+    "/page": [
+      "static/chunks/[root-of-the-server]__4104287c._.js",
+      "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",
+      "static/chunks/node_modules_next_dist_shared_lib_15080aa3._.js",
+      "static/chunks/node_modules_next_dist_client_881bc7f7._.js",
+      "static/chunks/node_modules_next_dist_75b597d7._.js",
+      "static/chunks/node_modules_next_87234b82._.js",
+      "static/chunks/node_modules_react-dom_4411d9bd._.js",
+      "static/chunks/node_modules_sockjs-client_lib_6e208447._.js",
+      "static/chunks/node_modules_58024cae._.js",
+      "static/chunks/src_styles_260b79eb._.css",
+      "static/chunks/src_pages_page_2da965e7._.js",
+      "static/chunks/turbopack-src_pages_page_d06a9f63._.js"
+    ]
   },
   "devFiles": [],
   "polyfillFiles": [],
